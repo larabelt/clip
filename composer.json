@@ -1,0 +1,24 @@
+{
+  "name": "ohiocms/storage",
+  "description": "Storage package for OhioCMS.",
+  "authors": [
+    {
+      "name": "Matt Crowe",
+      "email": "github.mpc@zym.me"
+    },
+    {
+      "name": "Rob LaSota",
+      "email": "rob.lasota@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "ohiocms/core": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ohio\\Storage\\Base\\": "src/base/",
+      "Ohio\\Storage\\File\\": "src/file/"
+    }
+  }
+}
