@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
-    use Core\Base\Behaviors\SluggableTrait;
-    use Storage\Base\Behaviors\StorageTrait;
+//    use Core\Base\Behaviors\SluggableTrait;
+//    use Storage\Base\Behaviors\StorageTrait;
 
     protected $morphClass = 'storage/file';
 
@@ -25,7 +25,7 @@ class File extends Model
      * @param $fileable_id
      * @return mixed
      */
-    public function scopeFileged($query, $fileable_type, $fileable_id)
+    public function scopeFiled($query, $fileable_type, $fileable_id)
     {
         $query->select(['files.*']);
         $query->join('fileables', 'fileables.file_id', '=', 'files.id');
@@ -43,7 +43,7 @@ class File extends Model
      * @param $fileable_id
      * @return mixed
      */
-    public function scopeNotFileged($query, $fileable_type, $fileable_id)
+    public function scopeNotFiled($query, $fileable_type, $fileable_id)
     {
         $query->select(['files.*']);
         $query->leftJoin('fileables', function ($subQB) use ($fileable_type, $fileable_id) {

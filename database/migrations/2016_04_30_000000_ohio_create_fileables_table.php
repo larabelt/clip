@@ -16,6 +16,7 @@ class OhioCreateFileablesTable extends Migration
             $table->increments('id');
             $table->integer('file_id')->index();
             $table->morphs('fileable');
+            $table->float('delta')->default(1)->index();
             $table->timestamps();
         });
     }

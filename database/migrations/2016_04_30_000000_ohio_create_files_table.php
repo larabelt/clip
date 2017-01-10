@@ -14,9 +14,25 @@ class OhioCreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('is_public')->default(1);
+            $table->string('disk');
             $table->string('name');
-            $table->string('slug')->index();
-            $table->text('body')->nullable();
+            $table->string('original_name')->nullable();
+            $table->text('path');
+            $table->text('http')->nullable();
+            $table->text('https')->nullable();
+            $table->string('mimetype', 50)->nullable();
+            $table->integer('size')->nullable();
+            // image specific
+            $table->integer('width')->nullable();
+            $table->string('height')->nullable();
+            // meta data
+            $table->string('title')->nullable();
+            $table->text('note')->nullable();
+            $table->text('credits')->nullable();
+            $table->text('alt')->nullable();
+            $table->text('url')->nullable();
+            $table->float('delta')->default(1)->index();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -37,7 +37,7 @@ class FileablesController extends ApiController
         $qb = $this->files->query();
 
         if ($fileable) {
-            $qb->fileged($fileable->getMorphClass(), $fileable->id);
+            $qb->filed($fileable->getMorphClass(), $fileable->id);
         }
 
         $file = $qb->where('files.id', $id)->first();

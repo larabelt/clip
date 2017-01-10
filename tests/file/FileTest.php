@@ -15,8 +15,8 @@ class FileTest extends OhioTestCase
     /**
      * @covers \Ohio\Storage\File\File::__toString
      * @covers \Ohio\Storage\File\File::setBodyAttribute
-     * @covers \Ohio\Storage\File\File::scopeFileged
-     * @covers \Ohio\Storage\File\File::scopeNotFileged
+     * @covers \Ohio\Storage\File\File::scopeFiled
+     * @covers \Ohio\Storage\File\File::scopeNotFiled
      */
     public function test()
     {
@@ -30,15 +30,15 @@ class FileTest extends OhioTestCase
         $file->body = ' Test ';
         $this->assertEquals('Test', $file->body);
 
-        # scopeFileged
+        # scopeFiled
         $qbMock = m::mock(Builder::class);
         $qbMock->shouldReceive('select')->once()->with(['files.*']);
         $qbMock->shouldReceive('join')->once()->with('fileables', 'fileables.file_id', '=', 'files.id');
         $qbMock->shouldReceive('where')->once()->with('fileables.fileable_type', 'pages');
         $qbMock->shouldReceive('where')->once()->with('fileables.fileable_id', 1);
-        $file->scopeFileged($qbMock, 'pages', 1);
+        $file->scopeFiled($qbMock, 'pages', 1);
 
-        # scopeNotFileged
+        # scopeNotFiled
         $qbMock = m::mock(Builder::class);
         $qbMock->shouldReceive('select')->once()->with(['files.*']);
         $qbMock->shouldReceive('leftJoin')->once()->with('fileables',
@@ -52,7 +52,7 @@ class FileTest extends OhioTestCase
             })
         );
         $qbMock->shouldReceive('whereNull')->once()->with('fileables.id');
-        $file->scopeNotFileged($qbMock, 'pages', 1);
+        $file->scopeNotFiled($qbMock, 'pages', 1);
 
     }
 

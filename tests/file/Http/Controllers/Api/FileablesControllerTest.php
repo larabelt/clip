@@ -58,7 +58,7 @@ class FileablesControllerTest extends Testing\OhioTestCase
         $filesQB->shouldReceive('where')->with('files.id', 999)->andReturn($nullQB);
         $filesQB->shouldReceive('where')->with('files.id', 1)->andReturn($file1QB);
         $filesQB->shouldReceive('where')->with('files.id', 2)->andReturn($file2QB);
-        $filesQB->shouldReceive('fileged')->with('pages', 1)->andReturn($filesQB);
+        $filesQB->shouldReceive('filed')->with('pages', 1)->andReturn($filesQB);
 
         $fileRepo = m::mock(File::class);
         $fileRepo->shouldReceive('query')->andReturn($filesQB);

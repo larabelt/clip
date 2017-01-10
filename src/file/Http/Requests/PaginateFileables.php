@@ -24,12 +24,12 @@ class PaginateFileables extends PaginateFiles
     {
         # show files associated with fileable
         if (!$this->get('not')) {
-            $query->fileged($this->get('fileable_type'), $this->get('fileable_id'));
+            $query->filed($this->get('fileable_type'), $this->get('fileable_id'));
         }
 
         # show files not associated with fileable
         if ($this->get('not')) {
-            $query->notFileged($this->get('fileable_type'), $this->get('fileable_id'));
+            $query->notFiled($this->get('fileable_type'), $this->get('fileable_id'));
         }
 
         return $query;

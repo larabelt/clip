@@ -34,8 +34,8 @@ class PaginateFileablesTest extends Testing\OhioTestCase
         $file1->name = 'file 1';
 
         $qbMock = m::mock(Builder::class);
-        $qbMock->shouldReceive('fileged')->once()->with('pages', 1);
-        $qbMock->shouldReceive('notFileged')->once()->with('pages', 1);
+        $qbMock->shouldReceive('filed')->once()->with('pages', 1);
+        $qbMock->shouldReceive('notFiled')->once()->with('pages', 1);
         $qbMock->shouldReceive('get')->once()->andReturn(new Collection([$file1]));
 
         # modifyQuery
