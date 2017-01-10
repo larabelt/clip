@@ -13,6 +13,6 @@ class OhioStorageFileSeeds extends Seeder
      */
     public function run()
     {
-        factory(File::class, 1)->create();
+        factory(File::class, 25)->create();
     }
 }

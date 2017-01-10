@@ -32,7 +32,6 @@ class OhioCreateFilesTable extends Migration
             $table->text('credits')->nullable();
             $table->text('alt')->nullable();
             $table->text('url')->nullable();
-            $table->float('delta')->default(1)->index();
             $table->softDeletes();
             $table->timestamps();
         });
