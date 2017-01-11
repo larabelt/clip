@@ -33,7 +33,7 @@ class FakerCommand extends Command
      */
     public function disk()
     {
-        return $this->disk = $this->disk ?: Storage::disk('local');
+        return $this->disk = $this->disk ?: Storage::disk('public');
     }
 
     /**

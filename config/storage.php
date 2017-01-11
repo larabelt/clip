@@ -1,5 +1,10 @@
 <?php
 
 return [
-    'foo' => 'bar',
+    'disks' => [
+        'public' => [
+            'adapter' => \Ohio\Storage\File\Adapters\LocalAdapter::class,
+            'web_prefix' => 'storage'
+        ]
+    ],
 ];

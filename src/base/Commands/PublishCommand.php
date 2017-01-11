@@ -27,7 +27,7 @@ class PublishCommand extends Command
         'vendor/ohiocms/storage/database/factories' => 'database/factories',
         'vendor/ohiocms/storage/database/migrations' => 'database/migrations',
         'vendor/ohiocms/storage/database/seeds' => 'database/seeds',
-        'vendor/ohiocms/storage/database/images' => 'storage/app/ohio/database/images',
+        'vendor/ohiocms/storage/database/images' => 'storage/app/public/ohio/database/images',
     ];
 
 }

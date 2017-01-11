@@ -3,19 +3,40 @@ namespace Ohio\Storage\File;
 
 use Ohio\Core;
 use Ohio\Storage;
+use Ohio\Storage\File\Adapters\BaseAdapter;
+use Ohio\Storage\File\Adapters\AdapterFactory;
 
 use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
-//    use Core\Base\Behaviors\SluggableTrait;
-//    use Storage\Base\Behaviors\StorageTrait;
-
     protected $morphClass = 'storage/file';
 
     protected $table = 'files';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['disk', 'name'];
+
+    protected $appends = ['src', 'secure'];
+
+    /**
+     * @var BaseAdapter
+     */
+    protected $adapter;
+
+    public function adapter()
+    {
+        return $this->adapter ?: AdapterFactory::up($this->disk);
+    }
+
+    public function getSrcAttribute()
+    {
+        return $this->adapter()->src($this);
+    }
+
+    public function getSecureAttribute()
+    {
+        return $this->adapter()->secure($this);
+    }
 
     /**
      * Return files associated with fileable

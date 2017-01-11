@@ -3,6 +3,7 @@
 namespace Ohio\Storage\File\Http\Controllers\Api;
 
 use Ohio\Core\Base\Http\Controllers\ApiController;
+use Ohio\Storage\File\Adapters\AdapterFactory;
 use Ohio\Storage\File\File;
 use Ohio\Storage\File\Http\Requests;
 
@@ -51,15 +52,24 @@ class FilesController extends ApiController
     public function store(Requests\StoreFile $request)
     {
 
-        $input = $request->all();
+        $disk = $request->get('disk') ?: 'public';
+        $path = $request->get('path') ?: '';
 
-        $file = $this->files->create([
-            'name' => $input['name'],
-        ]);
+        $adapter = AdapterFactory::up($disk);
+
+        $data = $adapter->upload($path, $request->file('file'));
+
+        $input = array_merge($request->all(), $data);
+
+        $file = $adapter->create($input);
 
         $this->set($file, $input, [
-            'slug',
-            'body',
+            'is_public',
+            'title',
+            'note',
+            'credits',
+            'alt',
+            'url',
         ]);
 
         $file->save();
@@ -96,9 +106,12 @@ class FilesController extends ApiController
         $input = $request->all();
 
         $this->set($file, $input, [
-            'name',
-            'slug',
-            'body',
+            'is_public',
+            'title',
+            'note',
+            'credits',
+            'alt',
+            'url',
         ]);
 
         $file->save();

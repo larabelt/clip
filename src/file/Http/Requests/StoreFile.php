@@ -8,8 +8,12 @@ class StoreFile extends FormRequest
 
     public function rules()
     {
+
+        $disks = array_keys(config('ohio.storage.disks'));
+
         return [
-            'name' => 'required',
+            'file' => 'required|file',
+            'disk' => 'in:' . implode(',', $disks),
         ];
     }
 
