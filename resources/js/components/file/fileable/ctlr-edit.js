@@ -4,6 +4,7 @@ import fileableIndexTemplate from './templates/index';
 export default {
     data() {
         return {
+            image: null,
             fileable_type: this.$parent.morphable_type,
             fileable_id: this.$parent.morphable_id,
         }

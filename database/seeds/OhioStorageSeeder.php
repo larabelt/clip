@@ -12,5 +12,6 @@ class OhioStorageSeeder extends Seeder
     public function run()
     {
         $this->call(OhioStorageFileSeeds::class);
+        $this->call(OhioStorageFileableSeeds::class);
     }
 }

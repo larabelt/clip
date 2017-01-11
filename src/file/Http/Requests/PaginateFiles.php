@@ -16,6 +16,11 @@ class PaginateFiles extends PaginateRequest
 
     public $searchable = [
         'files.name',
+        'files.original_name',
+        'files.title',
+        'files.note',
+        'files.credits',
+        'files.alt',
     ];
 
 }

@@ -8,6 +8,7 @@ export default {
 
     data() {
         return {
+            image: null,
             url: '/api/v1/fileables',
             fileable_type: '',
             fileable_id: null,
@@ -40,6 +41,7 @@ export default {
             this.query = _.merge(this.query, {not: 1});
 
             if (this.query.q.length == 0) {
+                //this.paginate();
                 return this.detached = [];
             }
 
@@ -68,6 +70,28 @@ export default {
                     this.paginate();
                 }
             });
+        },
+
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+            this.createImage(files[0]);
+        },
+        createImage(file) {
+            var image = new Image();
+            var reader = new FileReader();
+            var vm = this;
+
+            reader.onload = (e) => {
+                vm.image = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+        removeImage: function (e) {
+            this.image = '';
         }
+
+
     }
 };
