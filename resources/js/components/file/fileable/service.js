@@ -15,13 +15,13 @@ export default {
         }
     },
     computed: {
-      fullUrl() {
-          let url = this.url +
-              '/' + this.fileable_type +
-              '/' + this.fileable_id +
-              '/';
-          return url;
-      }
+        fullUrl() {
+            let url = this.url +
+                '/' + this.fileable_type +
+                '/' + this.fileable_id +
+                '/';
+            return url;
+        }
     },
     methods: {
         paginate(query) {
@@ -40,7 +40,7 @@ export default {
             this.query = _.merge(this.query, query);
             this.query = _.merge(this.query, {not: 1});
 
-            if (this.query.q.length == 0) {
+            if (this.query.q == undefined || this.query.q.length == 0) {
                 //this.paginate();
                 return this.detached = [];
             }
@@ -71,27 +71,5 @@ export default {
                 }
             });
         },
-
-        onFileChange(e) {
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length)
-                return;
-            this.createImage(files[0]);
-        },
-        createImage(file) {
-            var image = new Image();
-            var reader = new FileReader();
-            var vm = this;
-
-            reader.onload = (e) => {
-                vm.image = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        },
-        removeImage: function (e) {
-            this.image = '';
-        }
-
-
     }
 };

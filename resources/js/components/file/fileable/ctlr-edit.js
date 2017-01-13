@@ -1,10 +1,10 @@
 import fileableService from './service';
 import fileableIndexTemplate from './templates/index';
+import fileUploader from './file-uploader';
 
 export default {
     data() {
         return {
-            image: null,
             fileable_type: this.$parent.morphable_type,
             fileable_id: this.$parent.morphable_id,
         }
@@ -13,6 +13,7 @@ export default {
         'fileable-index': {
             mixins: [fileableService],
             template: fileableIndexTemplate,
+            components: { fileUploader: fileUploader },
             data() {
                 return {
                     fileable_type: this.$parent.fileable_type,

@@ -1,6 +1,7 @@
 import fileIndex from './components/file/ctlr-index';
 import fileCreate from './components/file/ctlr-create';
 import fileEdit  from './components/file/ctlr-edit';
+import store from 'ohio/core/js/store/index';
 
 export default class OhioStorage {
 
@@ -18,7 +19,7 @@ export default class OhioStorage {
                 ]
             });
 
-            const app = new Vue({router}).$mount('#ohio-storage');
+            const app = new Vue({router, store}).$mount('#ohio-storage');
         }
     }
 
