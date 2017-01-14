@@ -2,22 +2,18 @@ global._ = require('lodash');
 import fileUploaderStore from './store';
 
 export default {
-    props: [
-        'id',
-        'class',
-        'name',
-        'accept',
-        'multiple',
-        'buttonText',
-    ],
+    props: {
+        multiple: {default: true},
+        disk: {default: ''},
+        path: {default: ''},
+    },
     data() {
         return {
-            disk: '',
-            path: 'foo',
             fileable_id: '',
             fileable_type: '',
-            file: '',
-            files: [],
+            pending: [],
+            uploaded: [],
+            progress: [],
         }
     },
     mounted() {
@@ -25,7 +21,8 @@ export default {
         this.fileable_id = this.$parent.fileable_id;
         this.fileable_type = this.$parent.fileable_type;
     },
-    computed: {},
+    computed: {
+    },
     methods: {
         attach(file_id) {
             if (typeof this.$parent.attach === 'function') {
@@ -34,146 +31,91 @@ export default {
         },
         onFileClick: function () {
             // click actually triggers after the file dialog opens
-            //this.$dispatch('onFileClick', this.myFiles);
         },
         onFileChange(e) {
-            // get the group of files assigned to this field
-            //this.$dispatch('onFileChange', this.myFiles);
 
-            this.files = e.target.files || e.dataTransfer.files;
+            this.pending = [];
 
-            if (!this.files.length) {
+            let files = e.target.files || e.dataTransfer.files;
+
+            if (!files.length) {
                 return;
             }
 
-            console.log('onFileChange');
-            console.log(this.$parent.fileable_id);
-            console.log(this.$parent.fileable_type);
-
-            for (let i = 0; i < this.files.length; i++) {
-                this.uploadFile(this.files.item(i));
+            for (let i = 0; i < files.length; i++) {
+                let file = files.item(i);
+                file.progress = 0;
+                this.pending[i] = file;
             }
 
         },
-        uploadFile(file) {
+        uploadFiles() {
+            for (let i = 0; i < this.pending.length; i++) {
+                this.uploadFile(i);
+            }
+            console.log(this.progress);
+        },
+        uploadFile(i) {
 
-            // properties: multiple, allow, path, disk
+            let self = this;
+            let file = this.pending[i];
+            let formData = new FormData();
+
+            this.progress[i] = 0;
+
             // progress data...
             // clear progress list
             // update meta data
-
-            let formData = new FormData();
 
             formData.append('file', file);
             formData.append('disk', this.disk);
             formData.append('path', this.path);
 
-            // //this.errors = {};
-            this.$http.post("/api/v1/files", formData, {
+            //this.errors = {};
+
+            this.$http.post('/api/v1/files', formData, {
                 progress(e) {
-                    console.log('no progress');
                     if (e.lengthComputable) {
-                        console.log('progress');
-                        console.log(e.loaded / e.total * 100);
-                        console.log('progress done');
+                        self.progress[i] = Math.ceil(e.loaded / e.total * 100);
+                        file.progress = Math.ceil(e.loaded / e.total * 100);
                     }
                 }
             }).then((response) => {
                 this.attach(response.data.id);
+                self.pending[i] = '';
+                delete self.pending[i];
+
             }, (response) => {
                 if (response.status == 422) {
                     //this.errors = response.data.message;
                 }
             });
-            // //this.saving = false;
+            //this.saving = false;
         },
-        _onProgress: function (e) {
-            // this is an internal call in XHR to update the progress
-            e.percent = (e.loaded / e.total) * 100;
-            this.$dispatch('onFileProgress', e);
-        },
-        _handleUpload: function (file) {
-            this.$dispatch('beforeFileUpload', file);
-            var form = new FormData();
-            var xhr = new XMLHttpRequest();
-            try {
-                form.append('Content-Type', file.type || 'application/octet-stream');
-                // our request will have the file in the ['file'] key
-                form.append('file', file);
-            } catch (err) {
-                this.$dispatch('onFileError', file, err);
-                return;
-            }
-
-            return new Promise(function (resolve, reject) {
-
-                xhr.upload.addEventListener('progress', this._onProgress, false);
-
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState < 4) {
-                        return;
-                    }
-                    if (xhr.status < 400) {
-                        var res = JSON.parse(xhr.responseText);
-                        this.$dispatch('onFileUpload', file, res);
-                        resolve(file);
-                    } else {
-                        var err = JSON.parse(xhr.responseText);
-                        err.status = xhr.status;
-                        err.statusText = xhr.statusText;
-                        this.$dispatch('onFileError', file, err);
-                        reject(err);
-                    }
-                }.bind(this);
-
-                xhr.onerror = function () {
-                    var err = JSON.parse(xhr.responseText);
-                    err.status = xhr.status;
-                    err.statusText = xhr.statusText;
-                    this.$dispatch('onFileError', file, err);
-                    reject(err);
-                }.bind(this);
-
-                xhr.open(this.method || "POST", this.action, true);
-                if (this.headers) {
-                    for (var header in this.headers) {
-                        xhr.setRequestHeader(header, this.headers[header]);
-                    }
-                }
-                xhr.send(form);
-                this.$dispatch('afterFileUpload', file);
-            }.bind(this));
-        },
-        fileUpload: function () {
-            if (this.myFiles.length > 0) {
-                // a hack to push all the Promises into a new array
-                var arrayOfPromises = Array.prototype.slice.call(this.myFiles, 0).map(function (file) {
-                    return this._handleUpload(file);
-                }.bind(this));
-                // wait for everything to finish
-                Promise.all(arrayOfPromises).then(function (allFiles) {
-                    this.$dispatch('onAllFilesUploaded', allFiles);
-                }.bind(this)).catch(function (err) {
-                    this.$dispatch('onFileError', this.myFiles, err);
-                }.bind(this));
-            } else {
-                // someone tried to upload without adding files
-                var err = new Error("No files to upload for this field");
-                this.$dispatch('onFileError', this.myFiles, err);
-            }
-        }
     },
     template: `
         <div>
             <div class="file-group">
                 <label for="file">
-                    <input type="file" name="file" id="file-uploader" accept="image/*" @click="onFileClick" @change="onFileChange" multiple="multiple">
+                    <input type="file" name="file" id="file-uploader" accept="image/*" @click="onFileClick" @change="onFileChange" v-bind:multiple="multiple">
                     <slot></slot>
                 </label>
-                <button class="btn btn-default" type="button" v-on:click="fileUpload">upload</button>
+                <button class="btn btn-default" type="button" v-on:click="uploadFiles">upload</button>
             </div>
-            <div v-if="files" v-for="file in files">
-                <p>{{ file.name }}</p>
+            <div v-if="pending">
+                <table class="table table-bordered table-hover">
+                    <tr v-for="file, i in pending">
+                        <td>{{ file.name }}</td>
+                        <td>{{ file.progress }}</td>
+                        <td>
+                            <div class="progress">
+                              <div class="progress-bar" role="progressbar" :aria-valuenow=progress[i] aria-valuemin="0" aria-valuemax="100" :style="'width: ' + progress[i] + '%;'">
+                                {{ progress[i] }}%
+                              </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     `

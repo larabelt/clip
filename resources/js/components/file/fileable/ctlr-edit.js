@@ -1,8 +1,14 @@
+import fileService from '../service';
 import fileableService from './service';
 import fileableIndexTemplate from './templates/index';
 import fileUploader from './file-uploader';
 
 export default {
+    props: {
+        uploader_disk: {default: ''},
+        uploader_path: {default: ''},
+        uploader_multiple: {default: true},
+    },
     data() {
         return {
             fileable_type: this.$parent.morphable_type,
@@ -11,9 +17,16 @@ export default {
     },
     components: {
         'fileable-index': {
-            mixins: [fileableService],
+            props: {
+                uploader_disk: {default: ''},
+                uploader_path: {default: ''},
+                uploader_multiple: {default: true},
+            },
+            mixins: [fileService, fileableService],
             template: fileableIndexTemplate,
-            components: { fileUploader: fileUploader },
+            components: {
+                fileUploader: fileUploader,
+            },
             data() {
                 return {
                     fileable_type: this.$parent.fileable_type,
@@ -25,6 +38,9 @@ export default {
             },
         },
     },
+    methods: {
+
+    },
     template: `
         <div>
             <div class="box">
@@ -33,7 +49,11 @@ export default {
                 </div>
                 <div class="box box-primary">
                     <div class="box-body">
-                        <fileable-index></fileable-index>
+                        <fileable-index 
+                            :uploader_disk=uploader_disk
+                            :uploader_path=uploader_path
+                            :uploader_multiple=uploader_multiple
+                        ></fileable-index>
                     </div>
                 </div>
             </div>

@@ -6,10 +6,12 @@ use Ohio\Storage;
 use Ohio\Storage\File\Adapters\BaseAdapter;
 use Ohio\Storage\File\Adapters\AdapterFactory;
 
+
 use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
+
     protected $morphClass = 'storage/file';
 
     protected $table = 'files';
@@ -52,6 +54,7 @@ class File extends Model
         $query->join('fileables', 'fileables.file_id', '=', 'files.id');
         $query->where('fileables.fileable_type', $fileable_type);
         $query->where('fileables.fileable_id', $fileable_id);
+        $query->orderby('fileables.delta');
 
         return $query;
     }

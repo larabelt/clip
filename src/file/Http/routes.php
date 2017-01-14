@@ -18,6 +18,7 @@ Route::group([
 
         Route::group(['prefix' => 'fileables/{fileable_type}/{fileable_id}'], function () {
             Route::get('{id}', File\Http\Controllers\Api\FileablesController::class . '@show');
+            Route::put('{id}', File\Http\Controllers\Api\FileablesController::class . '@update');
             Route::delete('{id}', File\Http\Controllers\Api\FileablesController::class . '@destroy');
             Route::get('', File\Http\Controllers\Api\FileablesController::class . '@index');
             Route::post('', File\Http\Controllers\Api\FileablesController::class . '@store');

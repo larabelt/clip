@@ -71,5 +71,11 @@ export default {
                 }
             });
         },
+        incDelta(inc) {
+            this.$http.put(this.fullUrl + id, {inc: inc}).then((response) => {
+                this.item = response.data;
+                this.saved = true;
+            });
+        }
     }
 };
