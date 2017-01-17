@@ -5,8 +5,6 @@ use Ohio\Core;
 use Ohio\Storage;
 use Ohio\Storage\File\Adapters\BaseAdapter;
 use Ohio\Storage\File\Adapters\AdapterFactory;
-
-
 use Illuminate\Database\Eloquent\Model;
 
 class File extends Model

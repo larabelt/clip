@@ -48,6 +48,7 @@ export default {
                 this.pending[i] = file;
             }
 
+            this.uploadFiles();
         },
         uploadFiles() {
             for (let i = 0; i < this.pending.length; i++) {
@@ -78,8 +79,7 @@ export default {
                 }
             }).then((response) => {
                 this.attach(response.data.id);
-                self.pending[i] = '';
-                delete self.pending[i];
+                self.pending.splice(i, 1);
 
             }, (response) => {
                 if (response.status == 422) {
@@ -96,10 +96,10 @@ export default {
                     <input type="file" name="file" id="file-uploader" accept="image/*" @click="onFileClick" @change="onFileChange" v-bind:multiple="multiple">
                     <slot></slot>
                 </label>
-                <button class="btn btn-default" type="button" v-on:click="uploadFiles">upload</button>
+                <button class="btn btn-default hide" type="button" v-on:click="uploadFiles">upload</button>
             </div>
             <div v-if="pending">
-                <table class="table table-bordered table-hover">
+                <table class="table">
                     <tr v-for="file, i in pending">
                         <td>{{ file.name }}</td>
                         <td>{{ file.progress }}</td>
