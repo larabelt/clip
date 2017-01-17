@@ -1,5 +1,5 @@
 global._ = require('lodash');
-import fileUploaderStore from './store';
+//import fileUploaderStore from './store';
 
 export default {
     props: {
@@ -17,7 +17,7 @@ export default {
         }
     },
     mounted() {
-        this.$store.registerModule('fileUploader', fileUploaderStore);
+        //this.$store.registerModule('fileUploader', fileUploaderStore);
         this.fileable_id = this.$parent.fileable_id;
         this.fileable_type = this.$parent.fileable_type;
     },
@@ -62,10 +62,6 @@ export default {
             let formData = new FormData();
 
             this.progress[i] = 0;
-
-            // progress data...
-            // clear progress list
-            // update meta data
 
             formData.append('file', file);
             formData.append('disk', this.disk);

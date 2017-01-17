@@ -16,7 +16,8 @@ class OhioCreateFileablesTable extends Migration
             $table->increments('id');
             $table->integer('file_id')->index();
             $table->morphs('fileable');
-            $table->float('delta')->default(1)->index();
+            //$table->float('delta')->default(1)->index();
+            $table->integer('position')->nullable()->default(1); // Your model must have position field:
             $table->timestamps();
         });
     }

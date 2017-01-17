@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 class PaginateFileables extends PaginateFiles
 {
     public $perPage = 5;
+
+    public $orderBy = 'fileables.position';
+
     /**
      * @var File
      */

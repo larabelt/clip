@@ -2,13 +2,16 @@
 namespace Ohio\Storage\Base\Behaviors;
 
 use Ohio\Storage\File\File;
+use Rutorika\Sortable\MorphToSortedManyTrait;
 
 trait FileableTrait
 {
 
+    use MorphToSortedManyTrait;
+
     public function files()
     {
-        return $this->morphToMany(File::class, 'fileable');
+        return $this->morphToSortedMany(File::class, 'fileable');
     }
 
 }

@@ -54,7 +54,7 @@ class File extends Model
         $query->join('fileables', 'fileables.file_id', '=', 'files.id');
         $query->where('fileables.fileable_type', $fileable_type);
         $query->where('fileables.fileable_id', $fileable_id);
-        $query->orderby('fileables.delta');
+        $query->orderby('fileables.position');
 
         return $query;
     }
