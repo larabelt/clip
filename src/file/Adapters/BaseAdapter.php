@@ -11,16 +11,21 @@ class BaseAdapter
 
     public $key;
 
-    /**
-     * @var Filesystem
-     */
-    public $disk;
-
     public $config = [];
 
     public $http;
 
     public $https;
+
+    /**
+     * @var Filesystem
+     */
+    public $disk;
+
+    /**
+     * @var File
+     */
+    public $files;
 
     public function __construct($disk)
     {
@@ -36,7 +41,10 @@ class BaseAdapter
         $appUrl = env('APP_URL', url());
 
         $this->http = array_get($this->config, 'http', $appUrl);
+
         $this->https = array_get($this->config, 'https', $appUrl);
+
+        $this->files = new File();
     }
 
     public function src(File $file)
@@ -92,11 +100,7 @@ class BaseAdapter
 
         $rel_path = $this->normalizePath($rel_path);
 
-        if ($rel_path) {
-            return sprintf('%s/%s', $rel_path, $filename);
-        }
-
-        return $filename;
+        return $rel_path ? "$rel_path/$filename" : $filename;
     }
 
     public function relativeWebPath($rel_path, $filename)
@@ -105,11 +109,7 @@ class BaseAdapter
 
         $rel_path = $this->normalizePath("$prefix/$rel_path");
 
-        if ($rel_path) {
-            return sprintf('%s/%s', $rel_path, $filename);
-        }
-
-        return $filename;
+        return $rel_path ? "$rel_path/$filename" : $filename;
     }
 
 
@@ -118,7 +118,7 @@ class BaseAdapter
 
         File::unguard();
 
-        $file = File::create([
+        $file = $this->files->create([
             'disk' => $this->key,
             'name' => $input['name'],
             'original_name' => $input['original_name'],

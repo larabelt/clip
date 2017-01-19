@@ -10,15 +10,15 @@ class PaginateFileables extends PaginateFiles
 
     public $orderBy = 'fileables.position';
 
-    /**
-     * @var File
-     */
-    public $files;
-
-    public function files()
-    {
-        return $this->files ?: $this->files = new File();
-    }
+//    /**
+//     * @var File
+//     */
+//    public $files;
+//
+//    public function files()
+//    {
+//        return $this->files ?: $this->files = new File();
+//    }
 
     /**
      * @inheritdoc

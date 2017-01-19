@@ -1,8 +1,9 @@
 <?php
-use Mockery as m;
 
+use Mockery as m;
 use Ohio\Core\Base\Testing\OhioTestCase;
 use Ohio\Storage\File\File;
+use Ohio\Storage\File\Adapters\BaseAdapter;
 use Illuminate\Database\Eloquent\Builder;
 
 class FileTest extends OhioTestCase
@@ -13,8 +14,9 @@ class FileTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\File\File::__toString
-     * @covers \Ohio\Storage\File\File::setBodyAttribute
+     * @covers \Ohio\Storage\File\File::adapter
+     * @covers \Ohio\Storage\File\File::getSrcAttribute
+     * @covers \Ohio\Storage\File\File::getSecureAttribute
      * @covers \Ohio\Storage\File\File::scopeFiled
      * @covers \Ohio\Storage\File\File::scopeNotFiled
      */
@@ -22,13 +24,14 @@ class FileTest extends OhioTestCase
     {
         $file = factory(File::class)->make();
 
-        # __toString
-        $file->name = ' Test ';
-        $this->assertEquals($file->name, $file->__toString());
+        # adapter
+        $this->assertInstanceOf(BaseAdapter::class, $file->adapter());
 
-        # setBodyAttribute
-        $file->body = ' Test ';
-        $this->assertEquals('Test', $file->body);
+        # getSrcAttribute
+        $this->assertEquals($file->src, $file->getSrcAttribute());
+
+        # getSecureAttribute
+        $this->assertEquals($file->secure, $file->getSecureAttribute());
 
         # scopeFiled
         $qbMock = m::mock(Builder::class);
@@ -36,6 +39,7 @@ class FileTest extends OhioTestCase
         $qbMock->shouldReceive('join')->once()->with('fileables', 'fileables.file_id', '=', 'files.id');
         $qbMock->shouldReceive('where')->once()->with('fileables.fileable_type', 'pages');
         $qbMock->shouldReceive('where')->once()->with('fileables.fileable_id', 1);
+        $qbMock->shouldReceive('orderBy')->once()->with('fileables.position');
         $file->scopeFiled($qbMock, 'pages', 1);
 
         # scopeNotFiled

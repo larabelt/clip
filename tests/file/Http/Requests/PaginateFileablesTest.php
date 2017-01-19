@@ -2,7 +2,6 @@
 use Mockery as m;
 use Ohio\Core\Base\Testing;
 
-use Ohio\Storage\Page\Page;
 use Ohio\Storage\File\File;
 use Ohio\Storage\File\Http\Requests\PaginateFileables;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,15 +19,10 @@ class PaginateFileablesTest extends Testing\OhioTestCase
 
     /**
      * @covers \Ohio\Storage\File\Http\Requests\PaginateFileables::modifyQuery
-     * @covers \Ohio\Storage\File\Http\Requests\PaginateFileables::files
      * @covers \Ohio\Storage\File\Http\Requests\PaginateFileables::items
      */
     public function test()
     {
-        $page = new Page();
-        $page->id = 1;
-        $page->name = 'page';
-
         $file1 = new File();
         $file1->id = 1;
         $file1->name = 'file 1';
@@ -44,10 +38,11 @@ class PaginateFileablesTest extends Testing\OhioTestCase
         $paginateRequest->merge(['not' => true]);
         $paginateRequest->modifyQuery($qbMock);
 
-        # files
-        $this->assertNull($paginateRequest->files);
-        $paginateRequest->files();
-        $this->assertInstanceOf(File::class, $paginateRequest->files);
+//        # files
+//        s($paginateRequest->files);
+//        $this->assertNull($paginateRequest->files);
+//        $paginateRequest->files();
+//        $this->assertInstanceOf(File::class, $paginateRequest->files);
 
         # items
         $paginateRequest->items($qbMock);

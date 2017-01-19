@@ -1,11 +1,6 @@
 <?php
 namespace Ohio\Storage\File\Adapters;
 
-use Storage;
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Http\UploadedFile;
-use Ohio\Storage\File\File;
-
 class AdapterFactory
 {
 
@@ -25,6 +20,7 @@ class AdapterFactory
         }
 
         $adapterClass = config("ohio.storage.disks.$disk.adapter");
+
         if (!$adapterClass || !class_exists($adapterClass)) {
             throw new \Exception('adapter for file disk type not specified or available');
         }
