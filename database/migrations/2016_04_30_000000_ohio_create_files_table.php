@@ -15,7 +15,7 @@ class OhioCreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('is_public')->default(1);
-            $table->string('disk');
+            $table->string('disk', 50);
             $table->string('name');
             $table->string('original_name')->nullable();
             $table->text('file_path'); // relative file path

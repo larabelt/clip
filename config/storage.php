@@ -7,4 +7,9 @@ return [
             'web_prefix' => 'storage'
         ]
     ],
+    'resizes' => [
+        'presets' => [
+            'thumb' => [100, 100]
+        ],
+    ],
 ];

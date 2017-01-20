@@ -57,6 +57,7 @@ class OhioStorageServiceProvider extends ServiceProvider
         // commands
         $this->commands(Storage\Base\Commands\FakerCommand::class);
         $this->commands(Storage\Base\Commands\PublishCommand::class);
+        $this->commands(Storage\Base\Commands\ResizeCommand::class);
     }
 
     /**

@@ -1,14 +1,11 @@
 <?php
 namespace Ohio\Storage\File;
 
-use Ohio\Core;
-use Ohio\Storage;
-use Ohio\Storage\File\Adapters\BaseAdapter;
-use Ohio\Storage\File\Adapters\AdapterFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
+    use FileTrait;
 
     protected $morphClass = 'file';
 
@@ -18,24 +15,9 @@ class File extends Model
 
     protected $appends = ['src', 'secure'];
 
-    /**
-     * @var BaseAdapter
-     */
-    protected $adapter;
-
-    public function adapter()
+    public function resizes()
     {
-        return $this->adapter ?: AdapterFactory::up($this->disk);
-    }
-
-    public function getSrcAttribute()
-    {
-        return $this->adapter()->src($this);
-    }
-
-    public function getSecureAttribute()
-    {
-        return $this->adapter()->secure($this);
+        return $this->hasMany(Resize::class);
     }
 
     /**
