@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
 
-    protected $morphClass = 'storage/file';
+    protected $morphClass = 'file';
 
     protected $table = 'files';
 

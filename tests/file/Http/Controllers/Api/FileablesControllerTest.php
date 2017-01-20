@@ -3,12 +3,12 @@
 use Mockery as m;
 use Ohio\Core\Base\Testing;
 use Ohio\Core\Base\Http\Exceptions\ApiException;
-use Ohio\Storage\Page\Page;
-use Ohio\Storage\File\File;
-use Ohio\Storage\File\Http\Requests\AttachFile;
-use Ohio\Storage\File\Http\Requests\PaginateFileables;
-use Ohio\Storage\File\Http\Controllers\Api\FileablesController;
 use Ohio\Core\Base\Helper\MorphHelper;
+use Ohio\Storage\File\File;
+use Ohio\Storage\File\Http\Requests;
+use Ohio\Storage\File\Http\Controllers\Api\FileablesController;
+use Ohio\Storage\Base\Behaviors\FileableTrait;
+use Illuminate\Database\Eloquent\Model;
 
 class FileablesControllerTest extends Testing\OhioTestCase
 {
@@ -27,15 +27,14 @@ class FileablesControllerTest extends Testing\OhioTestCase
      * @covers \Ohio\Storage\File\Http\Controllers\Api\FileablesController::show
      * @covers \Ohio\Storage\File\Http\Controllers\Api\FileablesController::destroy
      * @covers \Ohio\Storage\File\Http\Controllers\Api\FileablesController::store
+     * @covers \Ohio\Storage\File\Http\Controllers\Api\FileablesController::update
      * @covers \Ohio\Storage\File\Http\Controllers\Api\FileablesController::index
      */
     public function test()
     {
         // mock page
-        Page::unguard();
-        $page1 = new Page();
+        $page1 = new FileablesControllerTestStub();
         $page1->id = 1;
-        $page1->name = 'page';
 
         // mock files
         File::unguard();
@@ -99,11 +98,11 @@ class FileablesControllerTest extends Testing\OhioTestCase
         $this->assertEquals(200, $response->getStatusCode());
 
         # attach file
-        $response = $controller->store(new AttachFile(['id' => 2]), 'pages', 1);
+        $response = $controller->store(new Requests\AttachFile(['id' => 2]), 'pages', 1);
         $this->assertEquals(201, $response->getStatusCode());
         try {
             // file already attached
-            $controller->store(new AttachFile(['id' => 1]), 'pages', 1);
+            $controller->store(new Requests\AttachFile(['id' => 1]), 'pages', 1);
             $this->exceptionNotThrown();
         } catch (ApiException $e) {
             $this->assertEquals(422, $e->getStatusCode());
@@ -120,13 +119,29 @@ class FileablesControllerTest extends Testing\OhioTestCase
             $this->assertEquals(422, $e->getStatusCode());
         }
 
+        # update
+        $response = $controller->update(new Requests\UpdateFileable(), 'pages', 1, 1);
+        $this->assertEquals(200, $response->getStatusCode());
+
         # index
         $paginatorMock = $this->getPaginatorMock();
         $paginatorMock->shouldReceive('toArray')->andReturn([]);
         $controller = m::mock(FileablesController::class . '[paginator]', [$fileRepo, $morphHelper]);
         $controller->shouldReceive('paginator')->andReturn($paginatorMock);
-        $response = $controller->index(new PaginateFileables(), 'pages', 1);
+        $response = $controller->index(new Requests\PaginateFileables(), 'pages', 1);
         $this->assertEquals(200, $response->getStatusCode());
     }
 
+}
+
+class FileablesControllerTestStub extends Model
+{
+    protected $guarded = [];
+
+    use FileableTrait;
+
+    public function getMorphClass()
+    {
+        return 'pages';
+    }
 }

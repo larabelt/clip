@@ -6,6 +6,8 @@ use Ohio\Core\Base\Http\Controllers\ApiController;
 use Ohio\Storage\File\Adapters\AdapterFactory;
 use Ohio\Storage\File\File;
 use Ohio\Storage\File\Http\Requests;
+use Ohio\Storage\File\Adapters\Ad;
+use Ohio\Storage\File\Adapters\BaseAdapter;
 
 class FilesController extends ApiController
 {
@@ -14,6 +16,21 @@ class FilesController extends ApiController
      * @var File
      */
     public $files;
+
+    /**
+     * @var BaseAdapter[]
+     */
+    public $adapters;
+
+    public function adapter($disk)
+    {
+
+        if (isset($this->adapters[$disk])) {
+            return $this->adapters[$disk];
+        }
+
+        return $this->adapters[$disk] = AdapterFactory::up($disk);
+    }
 
     /**
      * ApiController constructor.
@@ -55,7 +72,7 @@ class FilesController extends ApiController
         $disk = $request->get('disk') ?: 'public';
         $path = $request->get('path') ?: '';
 
-        $adapter = AdapterFactory::up($disk);
+        $adapter = $this->adapter($disk);
 
         $data = $adapter->upload($path, $request->file('file'));
 
