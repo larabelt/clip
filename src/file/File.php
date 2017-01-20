@@ -3,11 +3,11 @@ namespace Ohio\Storage\File;
 
 use Illuminate\Database\Eloquent\Model;
 
-class File extends Model
+class File extends Model implements FileInterface
 {
     use FileTrait;
 
-    protected $morphClass = 'file';
+    protected $morphClass = 'files';
 
     protected $table = 'files';
 

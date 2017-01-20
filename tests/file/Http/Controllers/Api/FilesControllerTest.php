@@ -45,8 +45,8 @@ class FilesControllerTest extends Testing\OhioTestCase
         $fileRepository = m::mock(File::class);
         $fileRepository->shouldReceive('find')->with(1)->andReturn($file1);
         $fileRepository->shouldReceive('find')->with(999)->andReturn(null);
-        $fileRepository->shouldReceive('create')->andReturn($file1);
         $fileRepository->shouldReceive('query')->andReturn($qbMock);
+        $fileRepository->shouldReceive('createFromUpload')->andReturn($file1);
 
         # construct
         $controller = new FilesController($fileRepository);

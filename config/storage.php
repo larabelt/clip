@@ -4,10 +4,15 @@ return [
     'disks' => [
         'public' => [
             'adapter' => \Ohio\Storage\File\Adapters\LocalAdapter::class,
-            'web_prefix' => 'storage'
+            'http' => env('APP_URL', 'http://localhost'),
+            'https' => env('APP_URL', 'http://localhost'),
+            'file_prefix' => '',
+            'web_prefix' => 'storage',
         ]
     ],
-    'resizes' => [
+    'resize' => [
+        'disk' => 'public',
+        'driver' => 'imagick',
         'presets' => [
             'thumb' => [100, 100]
         ],

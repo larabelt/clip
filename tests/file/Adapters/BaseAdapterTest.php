@@ -17,14 +17,11 @@ class BaseAdapterTest extends OhioTestCase
 
     /**
      * @covers \Ohio\Storage\File\Adapters\BaseAdapter::__construct
-     * @covers \Ohio\Storage\File\Adapters\BaseAdapter::src
-     * @covers \Ohio\Storage\File\Adapters\BaseAdapter::secure
+     * @covers \Ohio\Storage\File\Adapters\BaseAdapter::config
      * @covers \Ohio\Storage\File\Adapters\BaseAdapter::randomFilename
-     * @covers \Ohio\Storage\File\Adapters\BaseAdapter::upload
      * @covers \Ohio\Storage\File\Adapters\BaseAdapter::normalizePath
      * @covers \Ohio\Storage\File\Adapters\BaseAdapter::relativeFilePath
      * @covers \Ohio\Storage\File\Adapters\BaseAdapter::relativeWebPath
-     * @covers \Ohio\Storage\File\Adapters\BaseAdapter::create
      * @covers \Ohio\Storage\File\Adapters\BaseAdapter::__create
      */
     public function test()
@@ -34,24 +31,19 @@ class BaseAdapterTest extends OhioTestCase
         $file->file_path = 'public/images/test.jpg';
         $file->web_path = 'images/test.jpg';
 
-        $fileInfo = new UploadedFile(__DIR__ . '/../../../test.jpg', 'test.jpg');
+        $fileInfo = new UploadedFile(__DIR__ . '/../../test.jpg', 'test.jpg');
 
         # construct
-        $adapter = new BaseAdapter('public');
+        $adapter = new BaseAdapterTestStub('public');
         $this->assertNotNull($adapter->key);
         $this->assertNotNull($adapter->disk);
-        $this->assertNotNull($adapter->http);
-        $this->assertNotNull($adapter->https);
         $this->assertNotEmpty($adapter->config);
 
-        $adapter->http = 'http://localhost';
-        $adapter->https = 'https://localhost';
-
-        # src
-        $this->assertEquals('http://localhost/images/test.jpg', $adapter->src($file));
-
-        # secure
-        $this->assertEquals('https://localhost/images/test.jpg', $adapter->secure($file));
+        # config
+        $adapter->config = array_merge($adapter->config, ['foo' => 'bar']);
+        $this->assertEquals('bar', $adapter->config('foo'));
+        $this->assertEquals('default', $adapter->config('missing', 'default'));
+        $this->assertEquals($adapter->config, $adapter->config());
 
         # randomFilename
         $randomFilename = $adapter->randomFilename($fileInfo);
@@ -77,14 +69,6 @@ class BaseAdapterTest extends OhioTestCase
         $adapter->config['web_prefix'] = 'prefix';
         $this->assertEquals('prefix/test/test.jpg', $adapter->relativeWebPath('/test/', $file->name));
 
-        # upload
-        $disk = m::mock(FilesystemAdapter::class);
-        $disk->shouldReceive('putFileAs')->once()->with('test', $fileInfo, 'test.jpg')->andReturn(true);
-        $disk->shouldReceive('putFileAs')->once()->with('test', $fileInfo, 'invalid.jpg')->andReturn(false);
-        $adapter->disk = $disk;
-        $this->assertNotEmpty($adapter->upload('test', $fileInfo, 'test.jpg'));
-        $this->assertNull($adapter->upload('test', $fileInfo, 'invalid.jpg'));
-
         # __create
         $sizes = getimagesize($fileInfo->getRealPath());
         $data = $adapter->__create('test', $fileInfo, $file->name);
@@ -97,12 +81,10 @@ class BaseAdapterTest extends OhioTestCase
         $this->assertEquals($fileInfo->getMimeType(), $data['mimetype']);
         $this->assertEquals($sizes[0], $data['width']);
         $this->assertEquals($sizes[1], $data['height']);
-
-        # create
-        $repo = m::mock(File::class);
-        $repo->shouldReceive('create')->once()->andReturn($file);
-        $adapter->files = $repo;
-        $this->assertEquals($file, $adapter->create($data));
     }
+
+}
+
+class BaseAdapterTestStub extends BaseAdapter {
 
 }

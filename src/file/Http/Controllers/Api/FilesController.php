@@ -78,7 +78,7 @@ class FilesController extends ApiController
 
         $input = array_merge($request->all(), $data);
 
-        $file = $adapter->create($input);
+        $file = $this->files->createFromUpload($input);
 
         $this->set($file, $input, [
             'is_public',

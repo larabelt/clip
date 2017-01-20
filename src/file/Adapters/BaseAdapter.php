@@ -2,31 +2,24 @@
 namespace Ohio\Storage\File\Adapters;
 
 use Storage;
-use Ohio\Storage\File\File;
+use Ohio\Storage\File;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 
-class BaseAdapter
+abstract class BaseAdapter
 {
 
     public $key;
 
+    /**
+     * @var array
+     */
     public $config = [];
 
-    public $http;
 
-    public $https;
-
-    /**
-     * @var Filesystem
-     */
     public $disk;
 
-    /**
-     * @var File
-     */
-    public $files;
-
+    //@todo
     public function __construct($disk)
     {
         $this->key = $disk;
@@ -37,43 +30,20 @@ class BaseAdapter
             config("filesystems.disks.$disk"),
             config("ohio.storage.disks.$disk")
         );
-
-        $appUrl = env('APP_URL', url());
-
-        $this->http = array_get($this->config, 'http', $appUrl);
-
-        $this->https = array_get($this->config, 'https', $appUrl);
-
-        $this->files = new File();
     }
 
-    public function src(File $file)
+    public function config($key = null, $default = false)
     {
-        return sprintf('%s/%s', $this->http, $file->web_path);
-    }
+        if ($key) {
+            return array_get($this->config, $key, $default);
+        }
 
-    public function secure(File $file)
-    {
-        return sprintf('%s/%s', $this->https, $file->web_path);
+        return $this->config;
     }
 
     public function randomFilename($fileInfo)
     {
         return sprintf('%s.%s', uniqid(), $fileInfo->guessExtension());
-    }
-
-    public function upload($rel_path, UploadedFile $fileInfo, $filename = null)
-    {
-
-        $rel_path = $this->normalizePath($rel_path);
-
-        $filename = $filename ?: $this->randomFilename($fileInfo);
-
-        if ($this->disk->putFileAs($rel_path, $fileInfo, $filename)) {
-            return $this->__create($rel_path, $fileInfo, $filename);
-        }
-
-        return null;
     }
 
     public function normalizePath($path)
@@ -97,44 +67,25 @@ class BaseAdapter
 
     public function relativeFilePath($rel_path, $filename)
     {
-
-        $rel_path = $this->normalizePath($rel_path);
-
-        return $rel_path ? "$rel_path/$filename" : $filename;
-    }
-
-    public function relativeWebPath($rel_path, $filename)
-    {
-        $prefix = array_get($this->config, 'web_prefix', '');
+        $prefix = $this->config('file_prefix');
 
         $rel_path = $this->normalizePath("$prefix/$rel_path");
 
         return $rel_path ? "$rel_path/$filename" : $filename;
     }
 
-
-    public function create($input)
+    public function relativeWebPath($rel_path, $filename)
     {
+        $prefix = $this->config('web_prefix');
 
-        File::unguard();
+        $rel_path = $this->normalizePath("$prefix/$rel_path");
 
-        $file = $this->files->create([
-            'disk' => $this->key,
-            'name' => $input['name'],
-            'original_name' => $input['original_name'],
-            'file_path' => $input['file_path'],
-            'web_path' => $input['web_path'],
-            'size' => $input['size'],
-            'mimetype' => $input['mimetype'],
-            'width' => $input['width'],
-            'height' => $input['height'],
-        ]);
-
-        return $file;
+        return $rel_path ? "$rel_path/$filename" : $filename;
     }
 
-    public function __create($rel_path, UploadedFile $uploadedFile, $filename)
+    public function __create($rel_path, UploadedFile $uploadedFile, $filename = null)
     {
+        $filename = $filename ?: $uploadedFile->getFilename();
 
         $sizes = [];
         if (strpos($uploadedFile->getMimeType(), 'image/') !== false) {
@@ -142,7 +93,7 @@ class BaseAdapter
         }
 
         return [
-            'disk' => 'public',
+            'disk' => $this->key,
             'name' => $filename,
             'original_name' => $uploadedFile->getFilename(),
             'file_path' => $this->relativeFilePath($rel_path, $filename),
