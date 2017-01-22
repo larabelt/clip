@@ -6,7 +6,7 @@ use Ohio\Storage\File\Adapters\AdapterFactory;
 
 $factory->define(Ohio\Storage\File\File::class, function (Faker\Generator $faker) {
 
-    $adapter = AdapterFactory::up('public');
+    $adapter = AdapterFactory::up('default');
 
     // build image array if empty
     FactoryHelper::$images = FactoryHelper::$images ?: $adapter->disk->allFiles('ohio/database/images');

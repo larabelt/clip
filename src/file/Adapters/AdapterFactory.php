@@ -7,25 +7,23 @@ class AdapterFactory
     public static $adapters = [];
 
     /**
-     * @param null $disk
+     * @param $driver
      * @return BaseAdapter
      * @throws \Exception
      */
-    public static function up($disk = null)
+    public static function up($driver = 'default')
     {
-        $disk = $disk ?: config('filesystems.default');
-
-        if (isset(static::$adapters[$disk])) {
-            return static::$adapters[$disk];
+        if (isset(static::$adapters[$driver])) {
+            return static::$adapters[$driver];
         }
 
-        $adapterClass = config("ohio.storage.disks.$disk.adapter");
+        $adapterClass = config("ohio.storage.drivers.$driver.adapter");
 
         if (!$adapterClass || !class_exists($adapterClass)) {
-            throw new \Exception('adapter for file disk type not specified or available');
+            throw new \Exception('adapter for file driver type not specified or available');
         }
 
-        return static::$adapters[$disk] = new $adapterClass($disk);
+        return static::$adapters[$driver] = new $adapterClass($driver);
     }
 
 }

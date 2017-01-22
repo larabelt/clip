@@ -3,7 +3,7 @@ export default `
         <div class="row">
             <div class="col-md-12">
                 <file-uploader 
-                :disk=uploader_disk
+                :driver=uploader_driver
                 :path=uploader_path
                 :multiple=uploader_multiple
                 ></file-uploader>

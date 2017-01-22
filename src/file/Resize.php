@@ -11,9 +11,9 @@ class Resize extends Model implements FileInterface
 
     protected $morphClass = 'file_resizes';
 
-    protected $fillable = ['disk', 'name'];
+    protected $fillable = ['driver', 'name'];
 
-    protected $appends = ['src', 'secure'];
+    protected $appends = ['src', 'secure', 'rel_path'];
 
     /**
      * Get owning model

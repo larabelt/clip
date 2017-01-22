@@ -9,7 +9,7 @@ use Illuminate\Http\UploadedFile;
 abstract class BaseAdapter
 {
 
-    public $key;
+    public $driver;
 
     /**
      * @var array
@@ -19,17 +19,16 @@ abstract class BaseAdapter
 
     public $disk;
 
-    //@todo
-    public function __construct($disk)
+    public function __construct($driver)
     {
-        $this->key = $disk;
 
-        $this->disk = Storage::disk($disk);
+        $this->driver = $driver;
 
-        $this->config = array_merge(
-            config("filesystems.disks.$disk"),
-            config("ohio.storage.disks.$disk")
-        );
+        $this->config = config("ohio.storage.drivers.$driver");
+
+        if (!$this->config('disk') || !$this->disk = Storage::disk($this->config('disk'))) {
+            throw new \Exception('disk for adapter not specified or available');
+        }
     }
 
     public function config($key = null, $default = false)
@@ -65,25 +64,16 @@ abstract class BaseAdapter
         return $path;
     }
 
-    public function relativeFilePath($rel_path, $filename)
+    public function prefixedPath($path, $filename = null)
     {
-        $prefix = $this->config('file_prefix');
+        $prefix = $this->config('prefix');
 
-        $rel_path = $this->normalizePath("$prefix/$rel_path");
+        $path = $this->normalizePath("$prefix/$path");
 
-        return $rel_path ? "$rel_path/$filename" : $filename;
+        return $filename ? "$path/$filename" : $path;
     }
 
-    public function relativeWebPath($rel_path, $filename)
-    {
-        $prefix = $this->config('web_prefix');
-
-        $rel_path = $this->normalizePath("$prefix/$rel_path");
-
-        return $rel_path ? "$rel_path/$filename" : $filename;
-    }
-
-    public function __create($rel_path, UploadedFile $uploadedFile, $filename = null)
+    public function __create($path, UploadedFile $uploadedFile, $filename = null)
     {
         $filename = $filename ?: $uploadedFile->getFilename();
 
@@ -93,11 +83,10 @@ abstract class BaseAdapter
         }
 
         return [
-            'disk' => $this->key,
+            'driver' => $this->driver,
             'name' => $filename,
             'original_name' => $uploadedFile->getFilename(),
-            'file_path' => $this->relativeFilePath($rel_path, $filename),
-            'web_path' => $this->relativeWebPath($rel_path, $filename),
+            'path' => "$path",
             'size' => $uploadedFile->getSize(),
             'mimetype' => $uploadedFile->getMimeType(),
             'width' => $sizes ? $sizes[0] : null,

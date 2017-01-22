@@ -15,10 +15,8 @@ interface AdapterInterface
 
     public function contents(File\FileInterface $file);
 
-    public function relativeFilePath($rel_path, $filename);
+    public function prefixedPath($path, $filename);
 
-    public function relativeWebPath($rel_path, $filename);
-
-    public function upload($rel_path, UploadedFile $fileInfo, $filename = null);
+    public function upload($path, UploadedFile $fileInfo, $filename = null);
 
 }

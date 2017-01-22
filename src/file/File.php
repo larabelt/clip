@@ -11,9 +11,9 @@ class File extends Model implements FileInterface
 
     protected $table = 'files';
 
-    protected $fillable = ['disk', 'name'];
+    protected $fillable = ['driver', 'name'];
 
-    protected $appends = ['src', 'secure'];
+    protected $appends = ['src', 'secure', 'rel_path'];
 
     public function resizes()
     {

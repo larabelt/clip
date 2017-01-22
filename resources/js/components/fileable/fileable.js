@@ -7,7 +7,7 @@ import mode from 'ohio/core/js/mixins/base/mode';
 export default {
     mixins: [mode],
     props: {
-        uploader_disk: {default: ''},
+        uploader_driver: {default: ''},
         uploader_path: {default: ''},
         uploader_multiple: {default: true},
     },
@@ -42,7 +42,7 @@ export default {
                     <div class="box-body">
                         <div v-if="isMode('default')" >
                             <fileable-index   
-                                :uploader_disk=uploader_disk
+                                :uploader_driver=uploader_driver
                                 :uploader_path=uploader_path
                                 :uploader_multiple=uploader_multiple
                             ></fileable-index>

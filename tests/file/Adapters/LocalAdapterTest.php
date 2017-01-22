@@ -25,56 +25,59 @@ class LocalAdapterTest extends OhioTestCase
      */
     public function test()
     {
-        $file = factory(File::class)->make();
-        $file->name = 'test.jpg';
-        $file->file_path = 'test.jpg';
-        $file->web_path = 'images/test.jpg';
-
-        $fileInfo = new UploadedFile(__DIR__ . '/../../test.jpg', 'test.jpg');
-
-        // config
-        $config = [
-            'adapter' => LocalAdapter::class,
+        app()['config']->set('filesystems.disks.LocalAdapterTest', [
             'driver' => 'local',
             'root' => __DIR__ . '/../../',
-            'http' => 'http://localhost',
-            'https' => 'https://localhost',
-            'web_prefix' => 'storage',
-        ];
-        app()['config']->set('ohio.storage.disks.LocalAdapterTest', $config);
-        app()['config']->set('filesystems.disks.LocalAdapterTest', $config);
+        ]);
+
+        app()['config']->set('ohio.storage.drivers.LocalAdapterTest', [
+            'disk' => 'LocalAdapterTest',
+            'adapter' => LocalAdapter::class,
+            'prefix' => 'testing',
+            'src' => [
+                'root' => 'http://localhost/images',
+            ],
+            'secure' => [
+                'root' => 'https://localhost/images',
+            ],
+        ]);
+
+        $file = factory(File::class)->make();
+        $file->name = 'test.jpg';
+        $file->path = 'testing';
+
+        $fileInfo = new UploadedFile(__DIR__ . '/../../testing/test.jpg', 'test.jpg');
 
         # construct
         $adapter = new LocalAdapter('LocalAdapterTest');
-        $this->assertNotNull($adapter->key);
+        $this->assertNotNull($adapter->driver);
         $this->assertNotNull($adapter->disk);
         $this->assertNotEmpty($adapter->config);
 
         # src
-        $this->assertEquals('http://localhost/images/test.jpg', $adapter->src($file));
+        $this->assertEquals('http://localhost/images/testing/test.jpg', $adapter->src($file));
 
         # secure
-        $this->assertEquals('https://localhost/images/test.jpg', $adapter->secure($file));
+        $this->assertEquals('https://localhost/images/testing/test.jpg', $adapter->secure($file));
 
         # secure
         $this->assertNotEmpty($adapter->contents($file));
 
         # upload
         $disk = m::mock(FilesystemAdapter::class);
-        $disk->shouldReceive('putFileAs')->once()->with('test', $fileInfo, 'test.jpg')->andReturn(true);
-        $disk->shouldReceive('putFileAs')->once()->with('test', $fileInfo, 'invalid.jpg')->andReturn(false);
+        $disk->shouldReceive('putFileAs')->once()->with('testing/test', $fileInfo, 'test.jpg')->andReturn(true);
+        $disk->shouldReceive('putFileAs')->once()->with('testing/test', $fileInfo, 'invalid.jpg')->andReturn(false);
         $adapter->disk = $disk;
         $this->assertNotEmpty($adapter->upload('test', $fileInfo, 'test.jpg'));
         $this->assertNull($adapter->upload('test', $fileInfo, 'invalid.jpg'));
 
         # __create
         $sizes = getimagesize($fileInfo->getRealPath());
-        $data = $adapter->__create('test', $fileInfo, $file->name);
-        $this->assertEquals('LocalAdapterTest', $data['disk']);
+        $data = $adapter->__create('testing/test', $fileInfo, $file->name);
+        $this->assertEquals('LocalAdapterTest', $data['driver']);
         $this->assertEquals($file->name, $data['name']);
         $this->assertEquals($fileInfo->getFilename(), $data['original_name']);
-        $this->assertEquals('test/test.jpg', $data['file_path']);
-        $this->assertEquals('storage/test/test.jpg', $data['web_path']);
+        $this->assertEquals('testing/test', $data['path']);
         $this->assertEquals($fileInfo->getSize(), $data['size']);
         $this->assertEquals($fileInfo->getMimeType(), $data['mimetype']);
         $this->assertEquals($sizes[0], $data['width']);

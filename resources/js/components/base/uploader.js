@@ -4,7 +4,7 @@ global._ = require('lodash');
 export default {
     props: {
         multiple: {default: true},
-        disk: {default: ''},
+        driver: {default: ''},
         path: {default: ''},
     },
     data() {
@@ -65,7 +65,7 @@ export default {
             this.progress[i] = 0;
 
             formData.append('file', file);
-            formData.append('disk', this.disk);
+            formData.append('driver', this.driver);
             formData.append('path', this.path);
 
             //this.errors = {};

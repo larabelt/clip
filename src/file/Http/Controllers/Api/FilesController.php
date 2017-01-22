@@ -17,19 +17,9 @@ class FilesController extends ApiController
      */
     public $files;
 
-    /**
-     * @var BaseAdapter[]
-     */
-    public $adapters;
-
-    public function adapter($disk)
+    public function adapter($driver)
     {
-
-        if (isset($this->adapters[$disk])) {
-            return $this->adapters[$disk];
-        }
-
-        return $this->adapters[$disk] = AdapterFactory::up($disk);
+        return AdapterFactory::up($driver);
     }
 
     /**
@@ -69,10 +59,10 @@ class FilesController extends ApiController
     public function store(Requests\StoreFile $request)
     {
 
-        $disk = $request->get('disk') ?: 'public';
+        $driver = $request->get('driver') ?: 'default';
         $path = $request->get('path') ?: '';
 
-        $adapter = $this->adapter($disk);
+        $adapter = $this->adapter($driver);
 
         $data = $adapter->upload($path, $request->file('file'));
 

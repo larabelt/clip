@@ -9,11 +9,11 @@ class StoreFile extends FormRequest
     public function rules()
     {
 
-        $disks = array_keys(config('ohio.storage.disks'));
+        $drivers = array_keys(config('ohio.storage.drivers'));
 
         return [
             'file' => 'required|file',
-            'disk' => 'in:' . implode(',', $disks),
+            'drivers' => 'in:' . implode(',', $drivers),
         ];
     }
 

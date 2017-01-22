@@ -1,13 +1,17 @@
 <?php
 
 return [
-    'disks' => [
-        'public' => [
+    'drivers' => [
+        'default' => [
+            'disk' => 'public',
             'adapter' => \Ohio\Storage\File\Adapters\LocalAdapter::class,
-            'http' => env('APP_URL', 'http://localhost'),
-            'https' => env('APP_URL', 'http://localhost'),
-            'file_prefix' => '',
-            'web_prefix' => 'storage',
+            'prefix' => env('APP_ENV'),
+            'src' => [
+                'root' => sprintf('%s/storage', env('APP_URL')),
+            ],
+            'secure' => [
+                'root' => sprintf('%s/storage', env('APP_URL'))
+            ],
         ]
     ],
     'resize' => [

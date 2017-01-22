@@ -14,17 +14,19 @@ class OhioCreateFileResizesTable extends Migration
     {
         Schema::create('file_resizes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('disk', 50);
             $table->integer('file_id')->index();
             $table->string('preset')->index();
+            $table->string('driver', 50);
+            $table->text('path')->nullable();
             $table->string('name');
-            $table->string('original_name')->nullable();
-            $table->text('file_path'); // relative file path
-            $table->text('web_path'); // relative web path
+            // data
             $table->string('mimetype', 50)->nullable();
             $table->integer('size')->nullable();
+            $table->string('original_name')->nullable();
+            // image only data
             $table->integer('width')->nullable();
             $table->string('height')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

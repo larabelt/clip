@@ -8,6 +8,7 @@ use Ohio\Storage\File\Http\Requests\StoreFile;
 use Ohio\Storage\File\Http\Requests\PaginateFiles;
 use Ohio\Storage\File\Http\Requests\UpdateFile;
 use Ohio\Storage\File\Http\Controllers\Api\FilesController;
+use Ohio\Storage\File\Adapters\AdapterFactory;
 use Ohio\Storage\File\Adapters\BaseAdapter;
 use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 use Illuminate\Filesystem\FilesystemAdapter;
@@ -83,13 +84,13 @@ class FilesControllerTest extends Testing\OhioTestCase
         $adapter->shouldReceive('upload')->andReturn(['name' => 'test.jpg']);
         $adapter->shouldReceive('create')->andReturn(factory(File::class)->make());
 
-        $controller->adapters['FilesControllerTest'] = $adapter;
+        AdapterFactory::$adapters['FilesControllerTest'] = $adapter;
         $response = $controller->store(new StoreFile(
             [],
             ['disk' => 'FilesControllerTest'],
             [],
             [],
-            ['file' => new UploadedFile(__DIR__ . '/../../../../test.jpg', 'test.jpg')]));
+            ['file' => new UploadedFile(__DIR__ . '/../../../../testing/test.jpg', 'test.jpg')]));
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index
@@ -99,8 +100,6 @@ class FilesControllerTest extends Testing\OhioTestCase
 
         # adapter
         $this->assertEquals($adapter, $controller->adapter('FilesControllerTest'));
-        $this->assertInstanceOf(BaseAdapter::class, $controller->adapter('public'));
-        $this->assertInstanceOf(BaseAdapter::class, $controller->adapters['public']);
 
     }
 

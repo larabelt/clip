@@ -18,11 +18,11 @@ class FileTraitTest extends OhioTestCase
      * @covers \Ohio\Storage\File\FileTrait::getSrcAttribute
      * @covers \Ohio\Storage\File\FileTrait::getSecureAttribute
      * @covers \Ohio\Storage\File\FileTrait::getContentsAttribute
-     * @covers \Ohio\Storage\File\FileTrait::setDiskAttribute
+     * @covers \Ohio\Storage\File\FileTrait::setDriverAttribute
      * @covers \Ohio\Storage\File\FileTrait::setNameAttribute
      * @covers \Ohio\Storage\File\FileTrait::setOriginalNameAttribute
-     * @covers \Ohio\Storage\File\FileTrait::setFilePathAttribute
-     * @covers \Ohio\Storage\File\FileTrait::setWebPathAttribute
+     * @covers \Ohio\Storage\File\FileTrait::setPathAttribute
+     * @covers \Ohio\Storage\File\FileTrait::getRelPathAttribute
      * @covers \Ohio\Storage\File\FileTrait::setMimetypeAttribute
      * @covers \Ohio\Storage\File\FileTrait::setWidthAttribute
      * @covers \Ohio\Storage\File\FileTrait::setSizeAttribute
@@ -49,9 +49,9 @@ class FileTraitTest extends OhioTestCase
         # contents
         $this->assertEquals('test', $file->contents);
 
-        # disk
-        $file->setDiskAttribute('test');
-        $this->assertEquals('test', $file->disk);
+        # driver
+        $file->setDriverAttribute('test');
+        $this->assertEquals('test', $file->driver);
 
         # name
         $file->setNameAttribute('test');
@@ -61,13 +61,12 @@ class FileTraitTest extends OhioTestCase
         $file->setOriginalNameAttribute('test');
         $this->assertEquals('test', $file->original_name);
 
-        # file path
-        $file->setFilePathAttribute('test');
-        $this->assertEquals('test', $file->file_path);
+        # path
+        $file->setPathAttribute('test');
+        $this->assertEquals('test', $file->path);
 
-        # web path
-        $file->setWebPathAttribute('test');
-        $this->assertEquals('test', $file->web_path);
+        # rel path
+        $this->assertEquals('test/test', $file->rel_path);
 
         # mimetype
         $file->setMimetypeAttribute('test');

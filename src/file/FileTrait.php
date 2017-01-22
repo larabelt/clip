@@ -6,6 +6,7 @@ use Ohio\Storage\File\Adapters\AdapterFactory;
 
 trait FileTrait
 {
+
     /**
      * @var BaseAdapter
      */
@@ -13,7 +14,7 @@ trait FileTrait
 
     public function adapter()
     {
-        return $this->adapter ?: AdapterFactory::up($this->disk);
+        return $this->adapter ?: AdapterFactory::up($this->driver);
     }
 
     public function getSrcAttribute()
@@ -31,9 +32,19 @@ trait FileTrait
         return $this->adapter()->contents($this);
     }
 
-    public function setDiskAttribute($value)
+    public function getRelPathAttribute()
     {
-        $this->attributes['disk'] = trim($value);
+        return sprintf('%s/%s', $this->path, $this->name);
+    }
+
+    public function setDriverAttribute($value)
+    {
+        $this->attributes['driver'] = trim($value);
+    }
+
+    public function setPathAttribute($value)
+    {
+        $this->attributes['path'] = trim($value);
     }
 
     public function setNameAttribute($value)
@@ -44,16 +55,6 @@ trait FileTrait
     public function setOriginalNameAttribute($value)
     {
         $this->attributes['original_name'] = trim($value);
-    }
-
-    public function setFilePathAttribute($value)
-    {
-        $this->attributes['file_path'] = trim($value);
-    }
-
-    public function setWebPathAttribute($value)
-    {
-        $this->attributes['web_path'] = trim($value);
     }
 
     public function setMimetypeAttribute($value)
@@ -81,11 +82,10 @@ trait FileTrait
         static::unguard();
 
         $attributes2 = [
-            'disk' => array_get($attributes, 'disk', null),
+            'driver' => array_get($attributes, 'driver', null),
             'name' => array_get($attributes, 'name', null),
             'original_name' => array_get($attributes, 'original_name', null),
-            'file_path' => array_get($attributes, 'file_path', null),
-            'web_path' => array_get($attributes, 'web_path', null),
+            'path' => array_get($attributes, 'path', null),
             'size' => array_get($attributes, 'size', null),
             'mimetype' => array_get($attributes, 'mimetype', null),
             'width' => array_get($attributes, 'width', null),

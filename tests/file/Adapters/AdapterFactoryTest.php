@@ -13,9 +13,17 @@ class AdapterFactoryTest extends OhioTestCase
      */
     public function test()
     {
-        app()['config']->set('ohio.storage.disks.AdapterFactoryTest.adapter', LocalAdapter::class);
-        app()['config']->set('filesystems.disks.AdapterFactoryTest.driver', 'local');
-        app()['config']->set('filesystems.disks.AdapterFactoryTest.root', __DIR__);
+        app()['config']->set('ohio.storage.drivers.AdapterFactoryTest', [
+            'disk' => 'public',
+            'adapter' => LocalAdapter::class,
+            'prefix' => 'testing',
+            'src' => [
+                'root' => 'http://localhost',
+            ],
+            'secure' => [
+                'root' => 'http://localhost',
+            ],
+        ]);
 
         $this->assertEmpty(array_get(AdapterFactory::$adapters, 'AdapterFactoryTest'));
         $this->assertInstanceOf(BaseAdapter::class, AdapterFactory::up('AdapterFactoryTest'));

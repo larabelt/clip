@@ -14,15 +14,13 @@ interface FileInterface
 
     public function getContentsAttribute();
 
-    public function setDiskAttribute($value);
+    public function getRelPathAttribute();
+
+    public function setDriverAttribute($value);
 
     public function setNameAttribute($value);
 
     public function setOriginalNameAttribute($value);
-
-    public function setFilePathAttribute($value);
-
-    public function setWebPathAttribute($value);
 
     public function setMimetypeAttribute($value);
 

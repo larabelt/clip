@@ -20,7 +20,7 @@ export default {
         },
     },
     props: {
-        uploader_disk: {default: ''},
+        uploader_driver: {default: ''},
         uploader_path: {default: ''},
         uploader_multiple: {default: true},
     },
