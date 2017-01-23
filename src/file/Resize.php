@@ -13,7 +13,7 @@ class Resize extends Model implements FileInterface
 
     protected $fillable = ['driver', 'name'];
 
-    protected $appends = ['src', 'secure', 'rel_path'];
+    protected $appends = ['src', 'secure', 'rel_path', 'preset'];
 
     /**
      * Get owning model
@@ -21,6 +21,11 @@ class Resize extends Model implements FileInterface
     public function file()
     {
         return $this->belongsTo(File::class);
+    }
+
+    public function getPresetAttribute()
+    {
+        return sprintf('%s:%s:%s', $this->width, $this->height, substr($this->mode, 0, 1));
     }
 
 }

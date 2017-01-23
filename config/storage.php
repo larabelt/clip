@@ -15,10 +15,12 @@ return [
         ]
     ],
     'resize' => [
-        'disk' => 'public',
-        'driver' => 'imagick',
+        'local_driver' => 'default',
+        'image_driver' => 'imagick',
         'presets' => [
-            'thumb' => [100, 100]
+            [100, 100, 'fit'],
+            [300, 200, 'fit'],
+            [200, 500, 'resize'],
         ],
     ],
 ];

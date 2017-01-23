@@ -3,8 +3,9 @@ namespace Ohio\Storage\File\Services;
 
 use Ohio\Storage\File\Adapters;
 use Ohio\Storage\File\File;
-use Intervention\Image\ImageManager;
 use Ohio\Storage\File\Resize;
+use Illuminate\Http\UploadedFile;
+use Intervention\Image\ImageManager;
 
 class ResizeService
 {
@@ -55,13 +56,13 @@ class ResizeService
 
     public function adapter()
     {
-        return $this->adapter ?: $this->adapter = Adapters\AdapterFactory::up($this->config('disk'));
+        return $this->adapter ?: $this->adapter = Adapters\AdapterFactory::up($this->config('local_driver'));
     }
 
     public function manager()
     {
         return $this->manager ?: $this->manager = new ImageManager([
-            'driver' => $this->config('driver'),
+            'driver' => $this->config('image_driver'),
         ]);
     }
 
@@ -70,56 +71,43 @@ class ResizeService
         return $this->resizeRepo ?: $this->resizeRepo = new Resize();
     }
 
-    public function resize(File $file)
+    public function resize(File $file, $presets = [])
     {
-        $disk = $file->adapter()->disk;
+        $adapter = $this->adapter ?: $file->adapter();
+
+        $presets = $presets ?: $this->presets();
 
         $original = $this->manager()->make($file->contents);
 
-        foreach ($this->presets() as $preset => $params) {
-
-            s($preset);
-            s($params);
-
-            $count = $this->resizeRepo()->where([
-                'file_id' => $file->id,
-                'preset' => $preset,
-            ])->count();
-
-            if ($count) {
-                continue;
-            }
-
-            s('none');
-
-            $manipulator = clone $original;
+        foreach ($presets as $preset => $params) {
 
             $w = $params[0];
             $h = $params[1];
+            $mode = array_get($params, 2, 'fit');
 
-            // do a smart resize that crops the image and avoids distortion
-            $manipulator->fit($w, $h);
+            if ($file->__sized($w, $h, $mode)) {
+                continue;
+            }
+
+            $manipulator = clone $original;
+
+            $manipulator->$mode($w, $h);
 
             $encoded = $manipulator->encode(null, 100);
 
-            $input = [
+            file_put_contents('/tmp/tmp', $encoded);
+
+            $fileInfo = new UploadedFile('/tmp/tmp', $file->original_name);
+
+            $data = $adapter->upload('resizes', $fileInfo);
+
+            Resize::unguard();
+            Resize::create(array_merge($data, [
+                'mode' => $mode,
                 'file_id' => $file->id,
-                'preset' => $preset,
-                'file' => $encoded,
-            ];
-
-            //need data set
-            //upload
-            //save resize...
-
-//            $input = File\Task\UploadFile::run($input);
-//
-//            if (array_get($input, 'src')) {
-//                $resizeRepository->store($input);
-//            }
-
+                'original_name' => $file->original_name,
+            ]));
         }
-
 
     }
 

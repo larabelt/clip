@@ -3,13 +3,14 @@ namespace Ohio\Storage\File\Adapters;
 
 use Storage;
 use Ohio\Storage\File;
-use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Http\File as LaravelFile;
 
 class LocalAdapter extends BaseAdapter implements AdapterInterface
 {
     /**
-     * @var Filesystem
+     * @var FilesystemAdapter
      */
     public $disk;
 
@@ -27,6 +28,19 @@ class LocalAdapter extends BaseAdapter implements AdapterInterface
     {
         return $this->disk->get($file->rel_path);
     }
+
+    /**
+     * @param $path
+     * @param UploadedFile $fileInfo
+     * @param null $filename
+     * @return array|nullif ($file instanceof UploadedFile) {
+    $file = file_get_contents($file->getRealPath());
+    }
+
+    $filename = array_get($params, 'filename', sprintf('%s-%s', strtotime('now'), uniqid()));
+
+    $result = $this->disk->put($filename, $file);
+     */
 
     public function upload($path, UploadedFile $fileInfo, $filename = null)
     {

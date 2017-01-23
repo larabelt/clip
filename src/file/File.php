@@ -20,6 +20,20 @@ class File extends Model implements FileInterface
         return $this->hasMany(Resize::class);
     }
 
+    public function sized($w, $h, $mode = 'fit')
+    {
+        return $this->__sized($w, $h, $mode) ?: $this;
+    }
+
+    public function __sized($w, $h, $mode = 'fit')
+    {
+        $preset = sprintf('%s:%s:%s', $w, $h, substr($mode, 0, 1));
+
+        $resized = $this->resizes->where('preset', $preset)->first();
+
+        return $resized;
+    }
+
     /**
      * Return files associated with fileable
      *

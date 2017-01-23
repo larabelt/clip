@@ -15,7 +15,7 @@ class OhioCreateFileResizesTable extends Migration
         Schema::create('file_resizes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('file_id')->index();
-            $table->string('preset')->index();
+            $table->string('mode')->index();
             $table->string('driver', 50);
             $table->text('path')->nullable();
             $table->string('name');

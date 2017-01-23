@@ -58,10 +58,6 @@ class ResizeCommand extends Command
      */
     public function handle()
     {
-        // load service
-        // find missing presets
-        // resize images...
-
         $limit = $this->option('limit');
 
         $service = $this->service();

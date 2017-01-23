@@ -33,7 +33,7 @@ class FilesController extends ApiController
 
     public function get($id)
     {
-        return $this->files->find($id) ?: $this->abort(404);
+        return $this->files->with('resizes')->find($id) ?: $this->abort(404);
     }
 
     /**
