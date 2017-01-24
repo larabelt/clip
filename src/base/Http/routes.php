@@ -14,7 +14,7 @@ Route::group(['middleware' => ['web']], function () {
  */
 Route::group([
     'prefix' => 'admin/ohio/storage',
-    'middleware' => ['web', 'auth.admin']
+    'middleware' => ['web', 'ohio.admin']
 ],
     function () {
         Route::get('{a?}/{b?}/{c?}', function () {
