@@ -17,8 +17,8 @@ Route::group([
     'middleware' => ['web', 'ohio.admin']
 ],
     function () {
-        Route::get('{a?}/{b?}/{c?}', function () {
+        Route::get('{any?}', function () {
             return view('ohio-storage::base.admin.dashboard');
-        });
+        })->where('any', '(.*)');
     }
 );
