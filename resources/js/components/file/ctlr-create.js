@@ -10,7 +10,7 @@ export default {
                     title: 'File Creator',
                     subtitle: '',
                     crumbs: [
-                        {route: 'fileIndex', text: 'Manager'}
+                        {route: 'fileIndex', text: 'Files'}
                     ],
                 }
             },

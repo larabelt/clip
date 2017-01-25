@@ -29,34 +29,29 @@ export default {
     },
     template: `
         <div>
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title pull-left">Files</h3>
-                    <div class="pull-right">
-                        <a class="btn btn-default" v-bind:class="{ 'btn-primary': isMode('sort') }"    @click="setMode('sort')"><i class="fa fa-random"></i></a>
-                        <a class="btn btn-default" v-bind:class="{ 'btn-primary': isMode('search') }"  @click="setMode('search')"><i class="fa fa-search"></i></a>
-                        <a class="btn btn-default" v-bind:class="{ 'btn-primary': isMode('default') }" @click="setMode('default')"><i class="fa fa-bars"></i></a>
-                    </div>
+            <div class="box-body">
+                <div class="pull-right">
+                    <a class="btn btn-default" v-bind:class="{ 'btn-primary': isMode('sort') }"    @click="setMode('sort')"    title="sort"><i class="fa fa-random"></i></a>
+                    <a class="btn btn-default" v-bind:class="{ 'btn-primary': isMode('search') }"  @click="setMode('search')"  title="search"><i class="fa fa-search"></i></a>
+                    <a class="btn btn-default" v-bind:class="{ 'btn-primary': isMode('default') }" @click="setMode('default')" title="upload/edit"><i class="fa fa-bars"></i></a>
                 </div>
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <div v-if="isMode('default')" >
-                            <fileable-index   
-                                :uploader_driver=uploader_driver
-                                :uploader_path=uploader_path
-                                :uploader_multiple=uploader_multiple
-                            ></fileable-index>
-                        </div>
-                        <div v-if="isMode('edit')" >
-                            <fileable-edit></fileable-edit>
-                        </div>
-                        <div v-if="isMode('search')" >
-                            <fileable-search></fileable-search>
-                        </div>
-                        <div v-if="isMode('sort')" >
-                            <fileable-sort></fileable-sort>
-                        </div>
-                    </div>
+            </div>
+            <div class="box-body">
+                <div v-if="isMode('default')" >
+                    <fileable-index   
+                        :uploader_driver=uploader_driver
+                        :uploader_path=uploader_path
+                        :uploader_multiple=uploader_multiple
+                    ></fileable-index>
+                </div>
+                <div v-if="isMode('edit')" >
+                    <fileable-edit></fileable-edit>
+                </div>
+                <div v-if="isMode('search')" >
+                    <fileable-search></fileable-search>
+                </div>
+                <div v-if="isMode('sort')" >
+                    <fileable-sort></fileable-sort>
                 </div>
             </div>
         </div>

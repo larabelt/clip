@@ -15,7 +15,6 @@ export default `
             </div>
         </div>
         <div class="col-md-12">
-           <h1>Attached Images</h1>
            <div v-for="file, index in attached">
                 <img class="img-thumbnail pull-left" :src="file.src" :data-index=index style="max-height: 100px" />
             </div>

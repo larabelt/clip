@@ -28,7 +28,7 @@ export default {
     template: `
         <div>
             <heading></heading>
-            <section class="storage">
+            <section class="content">
                 <file-index></file-index>
             </section>
         </div>

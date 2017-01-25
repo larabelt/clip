@@ -10,7 +10,7 @@ export default {
                     title: 'File Editor',
                     subtitle: '',
                     crumbs: [
-                        {route: 'fileIndex', text: 'Manager'}
+                        {route: 'fileIndex', text: 'Files'}
                     ],
                 }
             },
@@ -28,13 +28,13 @@ export default {
     template: `
         <div>
             <heading></heading>
-            <section class="storage">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Edit File</h3>
-                            </div>
+            <section class="content">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs pull-right">
+                        <li class="active"><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">Main</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1-1">
                             <file-form></file-form>
                         </div>
                     </div>
