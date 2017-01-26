@@ -5,7 +5,6 @@ use Ohio\Core\Base\Testing\OhioTestCase;
 use Ohio\Storage\File\File;
 use Ohio\Storage\File\Adapters\BaseAdapter;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Filesystem\FilesystemAdapter;
 
 class BaseAdapterTest extends OhioTestCase
 {

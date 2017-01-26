@@ -41,6 +41,8 @@ export default {
                 this.item = '';
             }
 
+            console.log(this.item);
+
             //this.$parent.item = item;
             //return this.$parent.mode = 'edit';
         },

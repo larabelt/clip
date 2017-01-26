@@ -26,6 +26,11 @@ class ResizeService
     public $adapter;
 
     /**
+     * @var File
+     */
+    public $files;
+
+    /**
      * @var ImageManager
      */
     public $manager;
@@ -38,6 +43,7 @@ class ResizeService
     public function __construct($config = [])
     {
         $this->config = array_merge(config('ohio.storage.resize'), $config);
+        $this->files = new File();
     }
 
     public function config($key = null, $default = false)
@@ -47,11 +53,6 @@ class ResizeService
         }
 
         return $this->config;
-    }
-
-    public function presets()
-    {
-        return $this->presets ?: $this->presets = $this->config('presets', []);
     }
 
     public function adapter()
@@ -71,26 +72,69 @@ class ResizeService
         return $this->resizeRepo ?: $this->resizeRepo = new Resize();
     }
 
+    public function batch()
+    {
+        $models = $this->config('models');
+
+        foreach ($models as $model) {
+
+            $presets = $model::getResizePresets();
+
+            $files = $this->query($model, $presets);
+
+            foreach ($files as $file) {
+                $file = $this->files->find($file->id);
+                $this->resize($file, $presets);
+            }
+
+        }
+    }
+
+    public function query($class, $presets)
+    {
+
+        $qb1 = $this->files->query();
+        $qb1->select(['files.id']);
+        $qb1->take(100);
+
+        $qb1->join('fileables', function ($qb2) use ($class) {
+            $qb2->on('fileables.file_id', '=', 'files.id');
+            $qb2->where('fileables.fileable_type', (new $class)->getMorphClass());
+        });
+
+        foreach ($presets as $n => $preset) {
+            $alias = "preset$n";
+            $qb1->leftJoin("file_resizes as $alias", function ($qb2) use ($alias, $preset) {
+                $qb2->on("$alias.file_id", '=', 'files.id');
+                $qb2->where("$alias.width", $preset[0]);
+                $qb2->where("$alias.height", $preset[1]);
+            });
+            $qb1->orWhereNull("$alias.id");
+        }
+
+        $files = $qb1->get();
+
+        return $files;
+    }
+
     public function resize(File $file, $presets = [])
     {
         $adapter = $this->adapter ?: $file->adapter();
 
-        $presets = $presets ?: $this->presets();
-
         $original = $this->manager()->make($file->contents);
 
-        foreach ($presets as $preset => $params) {
+        foreach ($presets as $preset) {
 
-            $w = $params[0];
-            $h = $params[1];
-            $mode = array_get($params, 2, 'fit');
+            $w = $preset[0];
+            $h = $preset[1];
 
-            if ($file->__sized($w, $h, $mode)) {
+            if ($file->__sized($w, $h)) {
                 continue;
             }
 
-            $manipulator = clone $original;
+            $mode = array_get($preset, 2, 'fit');
 
+            $manipulator = clone $original;
             $manipulator->$mode($w, $h);
 
             $encoded = $manipulator->encode(null, 100);
@@ -101,8 +145,8 @@ class ResizeService
 
             $data = $adapter->upload('resizes', $fileInfo);
 
-            Resize::unguard();
-            Resize::create(array_merge($data, [
+            $this->resizeRepo()->unguard();
+            $this->resizeRepo()->create(array_merge($data, [
                 'mode' => $mode,
                 'file_id' => $file->id,
                 'original_name' => $file->original_name,

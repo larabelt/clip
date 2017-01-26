@@ -77,6 +77,25 @@ trait FileTrait
         $this->attributes['height'] = trim($value);
     }
 
+    public function getReadableSizeAttribute()
+    {
+        $size = $this->size;
+
+        if ($size >= 1 << 30) {
+            return number_format($size / (1 << 30), 1) . " GB";
+        }
+
+        if ($size >= 1 << 20) {
+            return number_format($size / (1 << 20), 1) . " MB";
+        }
+
+        if ($size >= 1 << 10) {
+            return number_format($size / (1 << 10)) . " KB";
+        }
+
+        return number_format($size) . " bytes";
+    }
+
     public static function createFromUpload(array $attributes = [])
     {
         static::unguard();

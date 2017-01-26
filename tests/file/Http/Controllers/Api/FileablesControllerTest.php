@@ -60,7 +60,7 @@ class FileablesControllerTest extends Testing\OhioTestCase
         $filesQB->shouldReceive('filed')->with('pages', 1)->andReturn($filesQB);
 
         $fileRepo = m::mock(File::class);
-        $fileRepo->shouldReceive('query')->andReturn($filesQB);
+        $fileRepo->shouldReceive('with')->andReturn($filesQB);
 
         $morphHelper = m::mock(MorphHelper::class);
         $morphHelper->shouldReceive('morph')->with('pages', 1)->andReturn($page1);

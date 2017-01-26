@@ -25,7 +25,8 @@ class Resize extends Model implements FileInterface
 
     public function getPresetAttribute()
     {
-        return sprintf('%s:%s:%s', $this->width, $this->height, substr($this->mode, 0, 1));
+        return sprintf('%s:%s', $this->width, $this->height);
+        //return sprintf('%s:%s:%s', $this->width, $this->height, substr($this->mode, 0, 1));
     }
 
 }

@@ -19,16 +19,20 @@ class FileableTraitTest extends OhioTestCase
 
     /**
      * @covers \Ohio\Storage\Base\Behaviors\FileableTrait::files
+     * @covers \Ohio\Storage\Base\Behaviors\FileableTrait::getResizePresets
      */
     public function test()
     {
         # files
         $morphMany = m::mock(Relation::class);
-        $morphMany->shouldReceive('orderby')->withArgs(['delta']);
+        $morphMany->shouldReceive('orderBy')->withArgs(['position']);
         $pageMock = m::mock(FileableTraitTestStub::class . '[morphMany]');
         $pageMock->shouldReceive('morphMany')->withArgs([File::class, 'fileable'])->andReturn($morphMany);
         $pageMock->shouldReceive('files');
         $pageMock->files();
+
+        # getResizePresets
+        $this->assertNotEmpty(FileableTraitTestStub::getResizePresets());
     }
 
 }
@@ -36,4 +40,8 @@ class FileableTraitTest extends OhioTestCase
 class FileableTraitTestStub extends Model
 {
     use FileableTrait;
+
+    public static $presets = [
+        100, 100
+    ];
 }

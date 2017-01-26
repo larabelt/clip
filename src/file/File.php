@@ -13,21 +13,21 @@ class File extends Model implements FileInterface
 
     protected $fillable = ['driver', 'name'];
 
-    protected $appends = ['src', 'secure', 'rel_path'];
+    protected $appends = ['src', 'secure', 'rel_path', 'readable_size'];
 
     public function resizes()
     {
         return $this->hasMany(Resize::class);
     }
 
-    public function sized($w, $h, $mode = 'fit')
+    public function sized($w, $h)
     {
-        return $this->__sized($w, $h, $mode) ?: $this;
+        return $this->__sized($w, $h) ?: $this;
     }
 
-    public function __sized($w, $h, $mode = 'fit')
+    public function __sized($w, $h)
     {
-        $preset = sprintf('%s:%s:%s', $w, $h, substr($mode, 0, 1));
+        $preset = sprintf('%s:%s', $w, $h);
 
         $resized = $this->resizes->where('preset', $preset)->first();
 

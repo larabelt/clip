@@ -28,6 +28,7 @@ class FileTraitTest extends OhioTestCase
      * @covers \Ohio\Storage\File\FileTrait::setSizeAttribute
      * @covers \Ohio\Storage\File\FileTrait::setHeightAttribute
      * @covers \Ohio\Storage\File\FileTrait::createFromUpload
+     * @covers \Ohio\Storage\File\FileTrait::getReadableSizeAttribute
      */
     public function test()
     {
@@ -86,6 +87,16 @@ class FileTraitTest extends OhioTestCase
 
         # create from upload
         $this->assertNotEmpty(FileTraitTestStub::createFromUpload(['foo' => 'bar']));
+
+        # get readable size
+        $file->size = 1;
+        $this->assertEquals('1 bytes', $file->readable_size);
+        $file->size = 10000;
+        $this->assertEquals('10 KB', $file->readable_size);
+        $file->size = 2100000;
+        $this->assertEquals('2.0 MB', $file->readable_size);
+        $file->size = 3200000000;
+        $this->assertEquals('3.0 GB', $file->readable_size);
     }
 
 }

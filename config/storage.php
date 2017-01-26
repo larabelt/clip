@@ -17,10 +17,9 @@ return [
     'resize' => [
         'local_driver' => 'default',
         'image_driver' => 'imagick',
-        'presets' => [
-            [100, 100, 'fit'],
-            [300, 200, 'fit'],
-            [200, 500, 'resize'],
+        'models' => [
+            \Ohio\Content\Page\Page::class,
+            \Ohio\Spot\Place\Place::class,
         ],
     ],
 ];

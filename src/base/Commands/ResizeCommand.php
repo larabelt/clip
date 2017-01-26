@@ -2,8 +2,6 @@
 
 namespace Ohio\Storage\Base\Commands;
 
-use Ohio\Storage\File\File;
-use Storage;
 use Ohio\Storage\File\Services\ResizeService;
 use Illuminate\Console\Command;
 
@@ -15,7 +13,7 @@ class ResizeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'ohio-storage:resize {--limit=1}';
+    protected $signature = 'ohio-storage:resize';
 
     /**
      * The console command description.
@@ -24,19 +22,6 @@ class ResizeCommand extends Command
      */
     protected $description = 'resize images';
 
-
-    /**
-     * @var \Illuminate\Contracts\Filesystem\Filesystem
-     */
-    public $disk;
-
-    /**
-     * @return \Illuminate\Contracts\Filesystem\Filesystem
-     */
-    public function disk()
-    {
-        return $this->disk = $this->disk ?: Storage::disk('public');
-    }
 
     /**
      * @var ResizeService
@@ -58,17 +43,9 @@ class ResizeCommand extends Command
      */
     public function handle()
     {
-        $limit = $this->option('limit');
-
         $service = $this->service();
 
-        $files = File::take($limit)->get();
-
-        foreach ($files as $file) {
-            $this->info($file->name);
-            $service->resize($file);
-        }
-
+        $service->batch();
     }
 
 }

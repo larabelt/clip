@@ -3,6 +3,7 @@
 use Mockery as m;
 use Ohio\Core\Base\Testing\OhioTestCase;
 use Ohio\Storage\File\File;
+use Ohio\Storage\File\Resize;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -17,13 +18,21 @@ class FileTest extends OhioTestCase
      * @covers \Ohio\Storage\File\File::resizes
      * @covers \Ohio\Storage\File\File::scopeFiled
      * @covers \Ohio\Storage\File\File::scopeNotFiled
+     * @covers \Ohio\Storage\File\File::sized
+     * @covers \Ohio\Storage\File\File::__sized
      */
     public function test()
     {
         $file = factory(File::class)->make();
 
+        $file->resizes->push(factory(Resize::class)->make(['file' => $file, 'width' => 100, 'height' => 100]));
+        $file->resizes->push(factory(Resize::class)->make(['file' => $file, 'width' => 200, 'height' => 200]));
+        $file->resizes->push(factory(Resize::class)->make(['file' => $file, 'width' => 300, 'height' => 300]));
+
         # resizes
         $this->assertInstanceOf(HasMany::class, $file->resizes());
+        $this->assertEquals(100, $file->sized(100, 100)->width);
+        $this->assertEquals($file->width, $file->sized(123, 123)->width);
 
         # scopeFiled
         $qbMock = m::mock(Builder::class);

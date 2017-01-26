@@ -31,7 +31,7 @@ class FileablesController extends ApiController
 
     public function file($id, $fileable = null)
     {
-        $qb = $this->files->query();
+        $qb = $this->files->with('resizes');
 
         if ($fileable) {
             $qb->filed($fileable->getMorphClass(), $fileable->id);
@@ -67,7 +67,7 @@ class FileablesController extends ApiController
             'fileable_type' => $fileable->getMorphClass()
         ]);
 
-        $paginator = $this->paginator($this->files->query(), $request);
+        $paginator = $this->paginator($this->files->with('resizes'), $request);
 
         return response()->json($paginator->toArray());
     }
