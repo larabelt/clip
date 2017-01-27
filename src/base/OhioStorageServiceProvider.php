@@ -28,8 +28,9 @@ class OhioStorageServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__ . '/Http/routes.php';
-        include __DIR__ . '/../file/Http/routes.php';
+        include __DIR__ . '/../../routes/admin.php';
+        include __DIR__ . '/../../routes/api.php';
+        include __DIR__ . '/../../routes/web.php';
     }
 
     /**

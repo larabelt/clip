@@ -20,6 +20,7 @@ class FileableTraitTest extends OhioTestCase
     /**
      * @covers \Ohio\Storage\Base\Behaviors\FileableTrait::files
      * @covers \Ohio\Storage\Base\Behaviors\FileableTrait::getResizePresets
+     * @covers \Ohio\Storage\Base\Behaviors\FileableTrait::getBelongsToManyCaller
      */
     public function test()
     {
@@ -33,6 +34,9 @@ class FileableTraitTest extends OhioTestCase
 
         # getResizePresets
         $this->assertNotEmpty(FileableTraitTestStub::getResizePresets());
+
+        # getBelongsToManyCaller
+        $this->assertNotEmpty((new FileableTraitTestStub)->files());
     }
 
 }
