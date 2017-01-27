@@ -18,8 +18,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Ohio\\Storage\\Base\\": "src/base/",
-      "Ohio\\Storage\\File\\": "src/file/"
+      "Ohio\\Storage\\": "src/"
     }
   }
 }
