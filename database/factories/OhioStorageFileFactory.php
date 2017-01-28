@@ -1,10 +1,10 @@
 <?php
 
-use Ohio\Core\Base\Helper\FactoryHelper;
+use Ohio\Core\Helpers\FactoryHelper;
 use Illuminate\Http\UploadedFile;
-use Ohio\Storage\File\Adapters\AdapterFactory;
+use Ohio\Storage\Adapters\AdapterFactory;
 
-$factory->define(Ohio\Storage\File\File::class, function (Faker\Generator $faker) {
+$factory->define(Ohio\Storage\File::class, function (Faker\Generator $faker) {
 
     $adapter = AdapterFactory::up('default');
 

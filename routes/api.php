@@ -20,19 +20,19 @@ Route::group([
     function () {
 
         # files
-        Route::get('files/{id}', Storage\File\Http\Controllers\Api\FilesController::class . '@show');
-        Route::put('files/{id}', Storage\File\Http\Controllers\Api\FilesController::class . '@update');
-        Route::delete('files/{id}', Storage\File\Http\Controllers\Api\FilesController::class . '@destroy');
-        Route::get('files', Storage\File\Http\Controllers\Api\FilesController::class . '@index');
-        Route::post('files', Storage\File\Http\Controllers\Api\FilesController::class . '@store');
+        Route::get('files/{id}', Storage\Http\Controllers\Api\FilesController::class . '@show');
+        Route::put('files/{id}', Storage\Http\Controllers\Api\FilesController::class . '@update');
+        Route::delete('files/{id}', Storage\Http\Controllers\Api\FilesController::class . '@destroy');
+        Route::get('files', Storage\Http\Controllers\Api\FilesController::class . '@index');
+        Route::post('files', Storage\Http\Controllers\Api\FilesController::class . '@store');
 
         # fileables
         Route::group(['prefix' => 'fileables/{fileable_type}/{fileable_id}'], function () {
-            Route::get('{id}', Storage\File\Http\Controllers\Api\FileablesController::class . '@show');
-            Route::put('{id}', Storage\File\Http\Controllers\Api\FileablesController::class . '@update');
-            Route::delete('{id}', Storage\File\Http\Controllers\Api\FileablesController::class . '@destroy');
-            Route::get('', Storage\File\Http\Controllers\Api\FileablesController::class . '@index');
-            Route::post('', Storage\File\Http\Controllers\Api\FileablesController::class . '@store');
+            Route::get('{id}', Storage\Http\Controllers\Api\FileablesController::class . '@show');
+            Route::put('{id}', Storage\Http\Controllers\Api\FileablesController::class . '@update');
+            Route::delete('{id}', Storage\Http\Controllers\Api\FileablesController::class . '@destroy');
+            Route::get('', Storage\Http\Controllers\Api\FileablesController::class . '@index');
+            Route::post('', Storage\Http\Controllers\Api\FileablesController::class . '@store');
         });
 
     }

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use Ohio\Storage\File\File;
+use Ohio\Storage\File;
 
 class OhioStorageFileSeeds extends Seeder
 {
