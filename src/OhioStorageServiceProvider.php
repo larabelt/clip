@@ -16,7 +16,9 @@ class OhioStorageServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $policies = [];
+    protected $policies = [
+        Ohio\Storage\File::class => Ohio\Storage\Policies\FilePolicy::class,
+    ];
 
     /**
      * Register the application services.
@@ -66,15 +68,9 @@ class OhioStorageServiceProvider extends ServiceProvider
      */
     public function registerPolicies(GateContract $gate)
     {
-//        $gate->before(function ($user, $ability) {
-//            if ($user->hasRole('SUPER')) {
-//                return true;
-//            }
-//        });
-//
-//        foreach ($this->policies as $key => $value) {
-//            $gate->policy($key, $value);
-//        }
+        foreach ($this->policies as $key => $value) {
+            $gate->policy($key, $value);
+        }
     }
 
 }

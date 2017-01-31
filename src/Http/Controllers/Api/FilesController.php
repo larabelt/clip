@@ -44,6 +44,8 @@ class FilesController extends ApiController
      */
     public function index(Requests\PaginateFiles $request)
     {
+        $this->authorize('index', File::class);
+
         $paginator = $this->paginator($this->files->query(), $request->reCapture());
 
         return response()->json($paginator->toArray());
@@ -58,6 +60,7 @@ class FilesController extends ApiController
      */
     public function store(Requests\StoreFile $request)
     {
+        $this->authorize('create', File::class);
 
         $driver = $request->get('driver') ?: 'default';
         $path = $request->get('path') ?: '';
@@ -95,6 +98,8 @@ class FilesController extends ApiController
     {
         $file = $this->get($id);
 
+        $this->authorize('view', $file);
+
         return response()->json($file);
     }
 
@@ -109,6 +114,8 @@ class FilesController extends ApiController
     public function update(Requests\UpdateFile $request, $id)
     {
         $file = $this->get($id);
+
+        $this->authorize('update', $file);
 
         $input = $request->all();
 
@@ -137,6 +144,8 @@ class FilesController extends ApiController
     public function destroy($id)
     {
         $file = $this->get($id);
+
+        $this->authorize('delete', $file);
 
         $file->delete();
 

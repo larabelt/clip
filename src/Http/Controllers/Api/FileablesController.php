@@ -60,11 +60,13 @@ class FileablesController extends ApiController
 
         $request->reCapture();
 
-        $fileable = $this->fileable($fileable_type, $fileable_id);
+        $owner = $this->fileable($fileable_type, $fileable_id);
+
+        $this->authorize('view', $owner);
 
         $request->merge([
-            'fileable_id' => $fileable->id,
-            'fileable_type' => $fileable->getMorphClass()
+            'fileable_id' => $owner->id,
+            'fileable_type' => $owner->getMorphClass()
         ]);
 
         $paginator = $this->paginator($this->files->with('resizes'), $request);
@@ -82,6 +84,8 @@ class FileablesController extends ApiController
     public function store(Requests\AttachFile $request, $fileable_type, $fileable_id)
     {
         $owner = $this->fileable($fileable_type, $fileable_id);
+
+        $this->authorize('update', $owner);
 
         $id = $request->get('id');
 
@@ -110,6 +114,8 @@ class FileablesController extends ApiController
     {
         $owner = $this->fileable($fileable_type, $fileable_id);
 
+        $this->authorize('update', $owner);
+
         $file = $this->file($id, $owner);
 
         $this->repositionEntity($request, $id, $owner->files, $owner->files());
@@ -126,9 +132,11 @@ class FileablesController extends ApiController
      */
     public function show($fileable_type, $fileable_id, $id)
     {
-        $fileable = $this->fileable($fileable_type, $fileable_id);
+        $owner = $this->fileable($fileable_type, $fileable_id);
 
-        $file = $this->file($id, $fileable);
+        $this->authorize('view', $owner);
+
+        $file = $this->file($id, $owner);
 
         return response()->json($file);
     }
@@ -142,13 +150,15 @@ class FileablesController extends ApiController
      */
     public function destroy($fileable_type, $fileable_id, $id)
     {
-        $fileable = $this->fileable($fileable_type, $fileable_id);
+        $owner = $this->fileable($fileable_type, $fileable_id);
 
-        if (!$fileable->files->contains($id)) {
+        $this->authorize('update', $owner);
+
+        if (!$owner->files->contains($id)) {
             $this->abort(422, ['id' => ['file not attached']]);
         }
 
-        $fileable->files()->detach($id);
+        $owner->files()->detach($id);
 
         return response()->json(null, 204);
     }
