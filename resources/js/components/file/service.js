@@ -1,5 +1,3 @@
-window.$ = window.jQuery = require('jquery');
-
 import form from 'ohio/core/js/mixins/base/forms';
 
 export default {

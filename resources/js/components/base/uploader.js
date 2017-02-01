@@ -1,4 +1,3 @@
-global._ = require('lodash');
 //import fileUploaderStore from './store';
 
 export default {
