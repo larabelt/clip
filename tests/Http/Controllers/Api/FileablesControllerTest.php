@@ -32,6 +32,8 @@ class FileablesControllerTest extends Testing\OhioTestCase
      */
     public function test()
     {
+        $this->actAsSuper();
+
         // mock page
         $page1 = new FileablesControllerTestStub();
         $page1->id = 1;

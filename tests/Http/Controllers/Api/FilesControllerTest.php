@@ -38,6 +38,7 @@ class FilesControllerTest extends Testing\OhioTestCase
      */
     public function test()
     {
+        $this->actAsSuper();
 
         $file1 = factory(File::class)->make();
 
