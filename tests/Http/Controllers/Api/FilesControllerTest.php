@@ -11,9 +11,7 @@ use Ohio\Storage\Http\Controllers\Api\FilesController;
 use Ohio\Storage\Adapters\AdapterFactory;
 use Ohio\Storage\Adapters\BaseAdapter;
 use Ohio\Core\Http\Exceptions\ApiNotFoundHttpException;
-use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 
 class FilesControllerTest extends Testing\OhioTestCase

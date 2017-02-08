@@ -84,7 +84,7 @@ class FilesController extends ApiController
 
         $file->save();
 
-        return response()->json($file);
+        return response()->json($file, 201);
     }
 
     /**
