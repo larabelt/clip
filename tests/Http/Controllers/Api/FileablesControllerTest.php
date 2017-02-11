@@ -7,7 +7,7 @@ use Ohio\Core\Helpers\MorphHelper;
 use Ohio\Storage\File;
 use Ohio\Storage\Http\Requests;
 use Ohio\Storage\Http\Controllers\Api\FileablesController;
-use Ohio\Storage\Behaviors\FileableTrait;
+use Ohio\Storage\Behaviors\Fileable;
 use Illuminate\Database\Eloquent\Model;
 
 class FileablesControllerTest extends Testing\OhioTestCase
@@ -140,7 +140,7 @@ class FileablesControllerTestStub extends Model
 {
     protected $guarded = [];
 
-    use FileableTrait;
+    use Fileable;
 
     public function getMorphClass()
     {

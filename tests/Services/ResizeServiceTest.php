@@ -2,7 +2,7 @@
 
 use Mockery as m;
 use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\Behaviors\FileableTrait;
+use Ohio\Storage\Behaviors\Fileable;
 use Ohio\Storage\File;
 use Ohio\Storage\Resize;
 use Ohio\Storage\Adapters\BaseAdapter;
@@ -173,7 +173,7 @@ class ResizeServiceTestStub1 extends Model
         [300, 300, 'resize'],
     ];
 
-    use FileableTrait;
+    use Fileable;
 
 }
 
@@ -185,5 +185,5 @@ class ResizeServiceTestStub2 extends Model
         [500, 500],
     ];
 
-    use FileableTrait;
+    use Fileable;
 }

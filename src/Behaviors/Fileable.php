@@ -4,7 +4,7 @@ namespace Ohio\Storage\Behaviors;
 use Ohio\Storage\File;
 use Rutorika\Sortable\MorphToSortedManyTrait;
 
-trait FileableTrait
+trait Fileable
 {
 
     use MorphToSortedManyTrait;
