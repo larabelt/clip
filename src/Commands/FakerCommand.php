@@ -13,7 +13,7 @@ class FakerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'ohio-storage:faker {--limit=5}';
+    protected $signature = 'ohio-storage:faker {--limit=5} {--c|category=}';
 
     /**
      * The console command description.
@@ -62,7 +62,7 @@ class FakerCommand extends Command
         $limit = $this->option('limit');
 
         for ($i = 1; $i <= $limit; $i++) {
-            $file = new \Illuminate\Http\File($faker->image());
+            $file = new \Illuminate\Http\File($faker->image(null, 640, 480, $this->option('category')));
             $disk->putFileAs('ohio/database/images', $file, $file->getFilename());
             $this->info($file->getFilename());
         }
