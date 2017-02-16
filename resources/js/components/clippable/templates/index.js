@@ -2,11 +2,11 @@ export default `
     <div>
         <div class="row">
             <div class="col-md-12">
-                <attachment-uploader 
+                <file-uploader 
                 :driver=uploader_driver
                 :path=uploader_path
                 :multiple=uploader_multiple
-                ></attachment-uploader>
+                ></file-uploader>
             </div>
         </div>
         <div class="row" v-for="attachment, index in attached">

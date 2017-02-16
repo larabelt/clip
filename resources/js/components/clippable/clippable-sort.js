@@ -1,4 +1,4 @@
-import attachmentUploader from '../base/uploader';
+import fileUploader from '../base/uploader';
 import attachmentService from '../attachment/service';
 import attachmentFormTemplate from '../attachment/templates/form';
 import clippableService from './service';
@@ -7,7 +7,7 @@ import clippableSortTemplate from './templates/sort';
 export default {
     mixins: [clippableService],
     components: {
-        attachmentUploader: attachmentUploader,
+        fileUploader: fileUploader,
     },
     data() {
         return {
