@@ -1,6 +1,6 @@
 {
-  "name": "larabelt/storage",
-  "description": "Storage package for LaraBelt.",
+  "name": "larabelt/clip",
+  "description": "Clip package for LaraBelt.",
   "authors": [
     {
       "name": "Matt Crowe",

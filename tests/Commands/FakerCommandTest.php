@@ -37,6 +37,7 @@ class FakerCommandTest extends BeltTestCase
         $cmd = m::mock(FakerCommand::class . '[disk, option, info]');
         $cmd->shouldReceive('disk')->andReturn($disk);
         $cmd->shouldReceive('option')->with('limit')->andReturn(3);
+        $cmd->shouldReceive('option')->with('category')->andReturn(null);
         $cmd->shouldReceive('info')->andReturn(null);
 
         $cmd->handle();
