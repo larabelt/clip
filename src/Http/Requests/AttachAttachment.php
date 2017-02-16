@@ -3,14 +3,14 @@ namespace Belt\Clip\Http\Requests;
 
 use Belt\Core\Http\Requests\FormRequest;
 
-class AttachFile extends FormRequest
+class AttachAttachment extends FormRequest
 {
 
 
     public function rules()
     {
         return [
-            'id' => 'required|exists:files,id',
+            'id' => 'required|exists:attachments,id',
         ];
     }
 

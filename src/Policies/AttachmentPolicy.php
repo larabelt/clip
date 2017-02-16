@@ -4,9 +4,9 @@ namespace Belt\Clip\Policies;
 
 use Belt\Core\User;
 use Belt\Core\Policies\BaseAdminPolicy;
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 
-class FilePolicy extends BaseAdminPolicy
+class AttachmentPolicy extends BaseAdminPolicy
 {
     /**
      * Determine whether the user can view the object.
@@ -23,7 +23,7 @@ class FilePolicy extends BaseAdminPolicy
      * Determine whether the user can view the object.
      *
      * @param  User $auth
-     * @param  File $object
+     * @param  Attachment $object
      * @return mixed
      */
     public function view(User $auth, $object)

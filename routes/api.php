@@ -19,12 +19,12 @@ Route::group([
 ],
     function () {
 
-        # files
-        Route::get('files/{id}', Clip\Http\Controllers\Api\FilesController::class . '@show');
-        Route::put('files/{id}', Clip\Http\Controllers\Api\FilesController::class . '@update');
-        Route::delete('files/{id}', Clip\Http\Controllers\Api\FilesController::class . '@destroy');
-        Route::get('files', Clip\Http\Controllers\Api\FilesController::class . '@index');
-        Route::post('files', Clip\Http\Controllers\Api\FilesController::class . '@store');
+        # attachments
+        Route::get('attachments/{id}', Clip\Http\Controllers\Api\AttachmentsController::class . '@show');
+        Route::put('attachments/{id}', Clip\Http\Controllers\Api\AttachmentsController::class . '@update');
+        Route::delete('attachments/{id}', Clip\Http\Controllers\Api\AttachmentsController::class . '@destroy');
+        Route::get('attachments', Clip\Http\Controllers\Api\AttachmentsController::class . '@index');
+        Route::post('attachments', Clip\Http\Controllers\Api\AttachmentsController::class . '@store');
 
         # clippables
         Route::group(['prefix' => 'clippables/{clippable_type}/{clippable_id}'], function () {

@@ -4,7 +4,7 @@ use Mockery as m;
 
 use Belt\Core\Testing\BeltTestCase;
 use Belt\Clip\Behaviors\Clippable;
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -18,25 +18,25 @@ class ClippableTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Clip\Behaviors\Clippable::files
+     * @covers \Belt\Clip\Behaviors\Clippable::attachments
      * @covers \Belt\Clip\Behaviors\Clippable::getResizePresets
      * @covers \Belt\Clip\Behaviors\Clippable::getBelongsToManyCaller
      */
     public function test()
     {
-        # files
+        # attachments
         $morphMany = m::mock(Relation::class);
         $morphMany->shouldReceive('orderBy')->withArgs(['position']);
         $pageMock = m::mock(ClippableTestStub::class . '[morphMany]');
-        $pageMock->shouldReceive('morphMany')->withArgs([File::class, 'clippable'])->andReturn($morphMany);
-        $pageMock->shouldReceive('files');
-        $pageMock->files();
+        $pageMock->shouldReceive('morphMany')->withArgs([Attachment::class, 'clippable'])->andReturn($morphMany);
+        $pageMock->shouldReceive('attachments');
+        $pageMock->attachments();
 
         # getResizePresets
         $this->assertNotEmpty(ClippableTestStub::getResizePresets());
 
         # getBelongsToManyCaller
-        $this->assertNotEmpty((new ClippableTestStub)->files());
+        $this->assertNotEmpty((new ClippableTestStub)->attachments());
     }
 
 }

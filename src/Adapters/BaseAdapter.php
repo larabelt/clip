@@ -22,7 +22,7 @@ abstract class BaseAdapter
 
         $this->driver = $driver;
 
-        $this->config = config("belt.storage.drivers.$driver");
+        $this->config = config("belt.clip.drivers.$driver");
 
         if (!$this->config('disk') || !$this->disk = Storage::disk($this->config('disk'))) {
             throw new \Exception('disk for adapter not specified or available');

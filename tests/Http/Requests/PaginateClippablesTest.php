@@ -2,7 +2,7 @@
 use Mockery as m;
 use Belt\Core\Testing;
 
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 use Belt\Clip\Http\Requests\PaginateClippables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,14 +23,14 @@ class PaginateClippablesTest extends Testing\BeltTestCase
      */
     public function test()
     {
-        $file1 = new File();
-        $file1->id = 1;
-        $file1->name = 'file 1';
+        $attachment1 = new Attachment();
+        $attachment1->id = 1;
+        $attachment1->name = 'attachment 1';
 
         $qbMock = m::mock(Builder::class);
-        $qbMock->shouldReceive('filed')->once()->with('pages', 1);
-        $qbMock->shouldReceive('notFiled')->once()->with('pages', 1);
-        $qbMock->shouldReceive('get')->once()->andReturn(new Collection([$file1]));
+        $qbMock->shouldReceive('attached')->once()->with('pages', 1);
+        $qbMock->shouldReceive('notAttached')->once()->with('pages', 1);
+        $qbMock->shouldReceive('get')->once()->andReturn(new Collection([$attachment1]));
 
         # modifyQuery
         $paginateRequest = new PaginateClippables(['clippable_id' => 1, 'clippable_type' => 'pages']);
@@ -38,11 +38,11 @@ class PaginateClippablesTest extends Testing\BeltTestCase
         $paginateRequest->merge(['not' => true]);
         $paginateRequest->modifyQuery($qbMock);
 
-//        # files
-//        s($paginateRequest->files);
-//        $this->assertNull($paginateRequest->files);
-//        $paginateRequest->files();
-//        $this->assertInstanceOf(File::class, $paginateRequest->files);
+//        # attachments
+//        s($paginateRequest->attachments);
+//        $this->assertNull($paginateRequest->attachments);
+//        $paginateRequest->attachments();
+//        $this->assertInstanceOf(Attachment::class, $paginateRequest->attachments);
 
         # items
         $paginateRequest->items($qbMock);

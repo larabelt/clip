@@ -4,7 +4,7 @@ namespace Belt\Clip\Http\Controllers\Api;
 
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Http\Controllers\Behaviors\Positionable;
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 use Belt\Clip\Http\Requests;
 use Belt\Core\Helpers\MorphHelper;
 
@@ -14,32 +14,32 @@ class ClippablesController extends ApiController
     use Positionable;
 
     /**
-     * @var File
+     * @var Attachment
      */
-    public $files;
+    public $attachments;
 
     /**
      * @var MorphHelper
      */
     public $morphHelper;
 
-    public function __construct(File $file, MorphHelper $morphHelper)
+    public function __construct(Attachment $attachment, MorphHelper $morphHelper)
     {
-        $this->files = $file;
+        $this->attachments = $attachment;
         $this->morphHelper = $morphHelper;
     }
 
-    public function file($id, $clippable = null)
+    public function attachment($id, $clippable = null)
     {
-        $qb = $this->files->with('resizes');
+        $qb = $this->attachments->with('resizes');
 
         if ($clippable) {
-            $qb->filed($clippable->getMorphClass(), $clippable->id);
+            $qb->attached($clippable->getMorphClass(), $clippable->id);
         }
 
-        $file = $qb->where('files.id', $id)->first();
+        $attachment = $qb->where('attachments.id', $id)->first();
 
-        return $file ?: $this->abort(404);
+        return $attachment ?: $this->abort(404);
     }
 
     public function clippable($clippable_type, $clippable_id)
@@ -69,7 +69,7 @@ class ClippablesController extends ApiController
             'clippable_type' => $owner->getMorphClass()
         ]);
 
-        $paginator = $this->paginator($this->files->with('resizes'), $request);
+        $paginator = $this->paginator($this->attachments->with('resizes'), $request);
 
         return response()->json($paginator->toArray());
     }
@@ -77,11 +77,11 @@ class ClippablesController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\AttachFile $request
+     * @param  Requests\AttachAttachment $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\AttachFile $request, $clippable_type, $clippable_id)
+    public function store(Requests\AttachAttachment $request, $clippable_type, $clippable_id)
     {
         $owner = $this->clippable($clippable_type, $clippable_id);
 
@@ -89,15 +89,15 @@ class ClippablesController extends ApiController
 
         $id = $request->get('id');
 
-        $file = $this->file($id);
+        $attachment = $this->attachment($id);
 
-        if ($owner->files->contains($id)) {
-            $this->abort(422, ['id' => ['file already attached']]);
+        if ($owner->attachments->contains($id)) {
+            $this->abort(422, ['id' => ['attachment already attached']]);
         }
 
-        $owner->files()->attach($id);
+        $owner->attachments()->attach($id);
 
-        return response()->json($file, 201);
+        return response()->json($attachment, 201);
     }
 
     /**
@@ -116,11 +116,11 @@ class ClippablesController extends ApiController
 
         $this->authorize('update', $owner);
 
-        $file = $this->file($id, $owner);
+        $attachment = $this->attachment($id, $owner);
 
-        $this->repositionEntity($request, $id, $owner->files, $owner->files());
+        $this->repositionEntity($request, $id, $owner->attachments, $owner->attachments());
 
-        return response()->json($file);
+        return response()->json($attachment);
     }
 
     /**
@@ -136,9 +136,9 @@ class ClippablesController extends ApiController
 
         $this->authorize('view', $owner);
 
-        $file = $this->file($id, $owner);
+        $attachment = $this->attachment($id, $owner);
 
-        return response()->json($file);
+        return response()->json($attachment);
     }
 
     /**
@@ -154,11 +154,11 @@ class ClippablesController extends ApiController
 
         $this->authorize('update', $owner);
 
-        if (!$owner->files->contains($id)) {
-            $this->abort(422, ['id' => ['file not attached']]);
+        if (!$owner->attachments->contains($id)) {
+            $this->abort(422, ['id' => ['attachment not attached']]);
         }
 
-        $owner->files()->detach($id);
+        $owner->attachments()->detach($id);
 
         return response()->json(null, 204);
     }

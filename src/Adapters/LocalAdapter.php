@@ -2,7 +2,7 @@
 namespace Belt\Clip\Adapters;
 
 use Storage;
-use Belt\Clip\FileInterface;
+use Belt\Clip\AttachmentInterface;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\File as LaravelFile;
@@ -14,17 +14,17 @@ class LocalAdapter extends BaseAdapter implements AdapterInterface
      */
     public $disk;
 
-    public function src(FileInterface $file)
+    public function src(AttachmentInterface $file)
     {
         return sprintf('%s/%s', $this->config('src.root'), $file->rel_path);
     }
 
-    public function secure(FileInterface $file)
+    public function secure(AttachmentInterface $file)
     {
         return sprintf('%s/%s', $this->config('secure.root'), $file->rel_path);
     }
 
-    public function contents(FileInterface $file)
+    public function contents(AttachmentInterface $file)
     {
         return $this->disk->get($file->rel_path);
     }

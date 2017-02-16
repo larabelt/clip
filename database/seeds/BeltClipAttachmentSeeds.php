@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 
-class BeltClipFileSeeds extends Seeder
+class BeltClipAttachmentSeeds extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class BeltClipFileSeeds extends Seeder
      */
     public function run()
     {
-        factory(File::class, 25)->create();
+        factory(Attachment::class, 25)->create();
     }
 }

@@ -4,13 +4,13 @@ namespace Belt\Clip;
 use Belt;
 use Illuminate\Database\Eloquent\Model;
 
-class File extends Model implements FileInterface
+class Attachment extends Model implements AttachmentInterface
 {
-    use FileTrait;
+    use AttachmentTrait;
 
-    protected $morphClass = 'files';
+    protected $morphClass = 'attachments';
 
-    protected $table = 'files';
+    protected $table = 'attachments';
 
     protected $fillable = ['driver', 'name'];
 
@@ -36,17 +36,17 @@ class File extends Model implements FileInterface
     }
 
     /**
-     * Return files associated with clippable
+     * Return attachments associated with clippable
      *
      * @param $query
      * @param $clippable_type
      * @param $clippable_id
      * @return mixed
      */
-    public function scopeFiled($query, $clippable_type, $clippable_id)
+    public function scopeAttached($query, $clippable_type, $clippable_id)
     {
-        $query->select(['files.*']);
-        $query->join('clippables', 'clippables.file_id', '=', 'files.id');
+        $query->select(['attachments.*']);
+        $query->join('clippables', 'clippables.attachment_id', '=', 'attachments.id');
         $query->where('clippables.clippable_type', $clippable_type);
         $query->where('clippables.clippable_id', $clippable_id);
         $query->orderBy('clippables.position');
@@ -55,18 +55,18 @@ class File extends Model implements FileInterface
     }
 
     /**
-     * Return files not associated with clippable
+     * Return attachments not associated with clippable
      *
      * @param $query
      * @param $clippable_type
      * @param $clippable_id
      * @return mixed
      */
-    public function scopeNotFiled($query, $clippable_type, $clippable_id)
+    public function scopeNotAttached($query, $clippable_type, $clippable_id)
     {
-        $query->select(['files.*']);
+        $query->select(['attachments.*']);
         $query->leftJoin('clippables', function ($subQB) use ($clippable_type, $clippable_id) {
-            $subQB->on('clippables.file_id', '=', 'files.id');
+            $subQB->on('clippables.attachment_id', '=', 'attachments.id');
             $subQB->where('clippables.clippable_id', $clippable_id);
             $subQB->where('clippables.clippable_type', $clippable_type);
         });

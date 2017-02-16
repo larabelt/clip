@@ -12,8 +12,8 @@ class UpdateClippable extends FormRequest
             'move' => 'required_with:position_entity_id|in:before,after',
             'position_entity_id' => [
                 'required_with:move',
-                'exists:files,id',
-                $this->ruleExists('clippables', 'file_id', ['clippable_id', 'clippable_type'])
+                'exists:attachments,id',
+                $this->ruleExists('clippables', 'attachment_id', ['clippable_id', 'clippable_type'])
             ],
         ];
     }

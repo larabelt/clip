@@ -2,7 +2,7 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 use Belt\Clip\Adapters\BaseAdapter;
 use Illuminate\Http\UploadedFile;
 
@@ -24,14 +24,14 @@ class BaseAdapterTest extends BeltTestCase
      */
     public function test()
     {
-        $file = factory(File::class)->make();
-        $file->name = 'test.jpg';
-        $file->file_path = 'public/images/test.jpg';
-        $file->web_path = 'images/test.jpg';
+        $attachment = factory(Attachment::class)->make();
+        $attachment->name = 'test.jpg';
+        $attachment->attachment_path = 'public/images/test.jpg';
+        $attachment->web_path = 'images/test.jpg';
 
-        $fileInfo = new UploadedFile(__DIR__ . '/../testing/test.jpg', 'test.jpg');
+        $attachmentInfo = new UploadedFile(__DIR__ . '/../testing/test.jpg', 'test.jpg');
 
-        app()['config']->set('belt.storage.drivers.BaseAdapterTest', [
+        app()['config']->set('belt.clip.drivers.BaseAdapterTest', [
             'disk' => 'public',
             'adapter' => LocalAdapter::class,
             'prefix' => 'testing',
@@ -65,7 +65,7 @@ class BaseAdapterTest extends BeltTestCase
         $this->assertEquals($adapter->config, $adapter->config());
 
         # randomFilename
-        $randomFilename = $adapter->randomFilename($fileInfo);
+        $randomFilename = $adapter->randomFilename($attachmentInfo);
         $randomFilename = explode('.', $randomFilename);
         $this->assertEquals(2, count($randomFilename));
         $this->assertTrue(in_array($randomFilename[1], ['jpg', 'jpeg']));
@@ -80,17 +80,17 @@ class BaseAdapterTest extends BeltTestCase
         $this->assertEquals('test/test', $adapter->normalizePath(['test', 'test']));
 
         # prefixedPath
-        $this->assertEquals('testing/test/test.jpg', $adapter->prefixedPath('/test/', $file->name));
+        $this->assertEquals('testing/test/test.jpg', $adapter->prefixedPath('/test/', $attachment->name));
 
         # __create
-        $sizes = getimagesize($fileInfo->getRealPath());
-        $data = $adapter->__create('testing/test', $fileInfo, $file->name);
+        $sizes = getimagesize($attachmentInfo->getRealPath());
+        $data = $adapter->__create('testing/test', $attachmentInfo, $attachment->name);
         $this->assertEquals($adapter->driver, $data['driver']);
-        $this->assertEquals($file->name, $data['name']);
-        $this->assertEquals($fileInfo->getFilename(), $data['original_name']);
+        $this->assertEquals($attachment->name, $data['name']);
+        $this->assertEquals($attachmentInfo->getFilename(), $data['original_name']);
         $this->assertEquals('testing/test', $data['path']);
-        $this->assertEquals($fileInfo->getSize(), $data['size']);
-        $this->assertEquals($fileInfo->getMimeType(), $data['mimetype']);
+        $this->assertEquals($attachmentInfo->getSize(), $data['size']);
+        $this->assertEquals($attachmentInfo->getMimeType(), $data['mimetype']);
         $this->assertEquals($sizes[0], $data['width']);
         $this->assertEquals($sizes[1], $data['height']);
     }

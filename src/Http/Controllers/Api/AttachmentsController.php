@@ -4,18 +4,18 @@ namespace Belt\Clip\Http\Controllers\Api;
 
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Clip\Adapters\AdapterFactory;
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 use Belt\Clip\Http\Requests;
 use Belt\Clip\Adapters\Ad;
 use Belt\Clip\Adapters\BaseAdapter;
 
-class FilesController extends ApiController
+class AttachmentsController extends ApiController
 {
 
     /**
-     * @var File
+     * @var Attachment
      */
-    public $files;
+    public $attachments;
 
     public function adapter($driver)
     {
@@ -24,16 +24,16 @@ class FilesController extends ApiController
 
     /**
      * ApiController constructor.
-     * @param File $file
+     * @param Attachment $attachment
      */
-    public function __construct(File $file)
+    public function __construct(Attachment $attachment)
     {
-        $this->files = $file;
+        $this->attachments = $attachment;
     }
 
     public function get($id)
     {
-        return $this->files->with('resizes')->find($id) ?: $this->abort(404);
+        return $this->attachments->with('resizes')->find($id) ?: $this->abort(404);
     }
 
     /**
@@ -42,11 +42,11 @@ class FilesController extends ApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateFiles $request)
+    public function index(Requests\PaginateAttachments $request)
     {
-        $this->authorize('index', File::class);
+        $this->authorize('index', Attachment::class);
 
-        $paginator = $this->paginator($this->files->query(), $request->reCapture());
+        $paginator = $this->paginator($this->attachments->query(), $request->reCapture());
 
         return response()->json($paginator->toArray());
     }
@@ -54,13 +54,13 @@ class FilesController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\StoreFile $request
+     * @param  Requests\StoreAttachment $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\StoreFile $request)
+    public function store(Requests\StoreAttachment $request)
     {
-        $this->authorize('create', File::class);
+        $this->authorize('create', Attachment::class);
 
         $driver = $request->get('driver') ?: 'default';
         $path = $request->get('path') ?: '';
@@ -71,9 +71,9 @@ class FilesController extends ApiController
 
         $input = array_merge($request->all(), $data);
 
-        $file = $this->files->createFromUpload($input);
+        $attachment = $this->attachments->createFromUpload($input);
 
-        $this->set($file, $input, [
+        $this->set($attachment, $input, [
             'is_public',
             'title',
             'note',
@@ -82,9 +82,9 @@ class FilesController extends ApiController
             'url',
         ]);
 
-        $file->save();
+        $attachment->save();
 
-        return response()->json($file, 201);
+        return response()->json($attachment, 201);
     }
 
     /**
@@ -96,30 +96,30 @@ class FilesController extends ApiController
      */
     public function show($id)
     {
-        $file = $this->get($id);
+        $attachment = $this->get($id);
 
-        $this->authorize('view', $file);
+        $this->authorize('view', $attachment);
 
-        return response()->json($file);
+        return response()->json($attachment);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Requests\UpdateFile $request
+     * @param  Requests\UpdateAttachment $request
      * @param  string $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\UpdateFile $request, $id)
+    public function update(Requests\UpdateAttachment $request, $id)
     {
-        $file = $this->get($id);
+        $attachment = $this->get($id);
 
-        $this->authorize('update', $file);
+        $this->authorize('update', $attachment);
 
         $input = $request->all();
 
-        $this->set($file, $input, [
+        $this->set($attachment, $input, [
             'is_public',
             'title',
             'note',
@@ -128,9 +128,9 @@ class FilesController extends ApiController
             'url',
         ]);
 
-        $file->save();
+        $attachment->save();
 
-        return response()->json($file);
+        return response()->json($attachment);
     }
 
 
@@ -143,11 +143,11 @@ class FilesController extends ApiController
      */
     public function destroy($id)
     {
-        $file = $this->get($id);
+        $attachment = $this->get($id);
 
-        $this->authorize('delete', $file);
+        $this->authorize('delete', $attachment);
 
-        $file->delete();
+        $attachment->delete();
 
         return response()->json(null, 204);
     }

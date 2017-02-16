@@ -3,13 +3,13 @@ namespace Belt\Clip;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Resize extends Model implements FileInterface
+class Resize extends Model implements AttachmentInterface
 {
-    use FileTrait;
+    use AttachmentTrait;
 
-    protected $table = 'file_resizes';
+    protected $table = 'attachment_resizes';
 
-    protected $morphClass = 'file_resizes';
+    protected $morphClass = 'attachment_resizes';
 
     protected $fillable = ['driver', 'name'];
 
@@ -18,15 +18,14 @@ class Resize extends Model implements FileInterface
     /**
      * Get owning model
      */
-    public function file()
+    public function attachment()
     {
-        return $this->belongsTo(File::class);
+        return $this->belongsTo(Attachment::class);
     }
 
     public function getPresetAttribute()
     {
         return sprintf('%s:%s', $this->width, $this->height);
-        //return sprintf('%s:%s:%s', $this->width, $this->height, substr($this->mode, 0, 1));
     }
 
 }

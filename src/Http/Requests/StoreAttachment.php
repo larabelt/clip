@@ -3,13 +3,13 @@ namespace Belt\Clip\Http\Requests;
 
 use Belt\Core\Http\Requests\FormRequest;
 
-class StoreFile extends FormRequest
+class StoreAttachment extends FormRequest
 {
 
     public function rules()
     {
 
-        $drivers = array_keys(config('belt.storage.drivers'));
+        $drivers = array_keys(config('belt.clip.drivers'));
 
         return [
             'file' => 'required|file',

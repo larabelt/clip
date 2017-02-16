@@ -4,7 +4,7 @@ namespace Belt\Clip;
 use Belt\Clip\Adapters\BaseAdapter;
 use Belt\Clip\Adapters\AdapterFactory;
 
-trait FileTrait
+trait AttachmentTrait
 {
 
     /**

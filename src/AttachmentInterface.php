@@ -1,7 +1,7 @@
 <?php
 namespace Belt\Clip;
 
-interface FileInterface
+interface AttachmentInterface
 {
     public function adapter();
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class BeltCreateFileResizesTable extends Migration
+class BeltCreateAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,21 @@ class BeltCreateFileResizesTable extends Migration
      */
     public function up()
     {
-        Schema::create('file_resizes', function (Blueprint $table) {
+        Schema::create('attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('file_id')->index();
-            $table->string('mode')->index();
+            $table->boolean('is_public')->default(1);
             $table->string('driver', 50);
             $table->text('path')->nullable();
             $table->string('name');
             // data
             $table->string('mimetype', 50)->nullable();
             $table->integer('size')->nullable();
+            // meta data
+            $table->string('title')->nullable();
+            $table->text('note')->nullable();
+            $table->text('credits')->nullable();
+            $table->text('alt')->nullable();
+            $table->text('target_url')->nullable();
             $table->string('original_name')->nullable();
             // image only data
             $table->integer('width')->nullable();
@@ -38,6 +43,6 @@ class BeltCreateFileResizesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('file_resizes');
+        Schema::drop('attachments');
     }
 }

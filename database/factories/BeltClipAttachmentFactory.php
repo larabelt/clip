@@ -4,7 +4,7 @@ use Belt\Core\Helpers\FactoryHelper;
 use Illuminate\Http\UploadedFile;
 use Belt\Clip\Adapters\AdapterFactory;
 
-$factory->define(Belt\Clip\File::class, function (Faker\Generator $faker) {
+$factory->define(Belt\Clip\Attachment::class, function (Faker\Generator $faker) {
 
     $adapter = AdapterFactory::up('default');
 

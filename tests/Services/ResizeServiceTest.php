@@ -3,7 +3,7 @@
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
 use Belt\Clip\Behaviors\Clippable;
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 use Belt\Clip\Resize;
 use Belt\Clip\Adapters\BaseAdapter;
 use Belt\Clip\Services\ResizeService;
@@ -22,7 +22,7 @@ class ResizeServiceTest extends BeltTestCase
     public function setUp()
     {
         parent::setUp();
-        app()['config']->set('belt.storage.resize', [
+        app()['config']->set('belt.clip.resize', [
             'foo' => 'bar',
             'local_driver' => 'default',
             'image_driver' => 'imagick',
@@ -66,30 +66,30 @@ class ResizeServiceTest extends BeltTestCase
      */
     public function testBatch()
     {
-        $files1 = $this->files([1, 2, 3]);
-        $files2 = $this->files([4, 5, 6]);
+        $attachments1 = $this->attachments([1, 2, 3]);
+        $attachments2 = $this->attachments([4, 5, 6]);
         $presets1 = ResizeServiceTestStub1::getResizePresets();
         $presets2 = ResizeServiceTestStub2::getResizePresets();
 
         $service = m::mock(ResizeService::class . '[query,resize]');
 
-        $service->files = m::mock(File::class);
-        $service->files->shouldReceive('find')->once()->with(1)->andReturn($files1->get(0));
-        $service->files->shouldReceive('find')->once()->with(2)->andReturn($files1->get(1));
-        $service->files->shouldReceive('find')->once()->with(3)->andReturn($files1->get(2));
-        $service->files->shouldReceive('find')->once()->with(4)->andReturn($files2->get(0));
-        $service->files->shouldReceive('find')->once()->with(5)->andReturn($files2->get(1));
-        $service->files->shouldReceive('find')->once()->with(6)->andReturn($files2->get(2));
+        $service->attachments = m::mock(Attachment::class);
+        $service->attachments->shouldReceive('find')->once()->with(1)->andReturn($attachments1->get(0));
+        $service->attachments->shouldReceive('find')->once()->with(2)->andReturn($attachments1->get(1));
+        $service->attachments->shouldReceive('find')->once()->with(3)->andReturn($attachments1->get(2));
+        $service->attachments->shouldReceive('find')->once()->with(4)->andReturn($attachments2->get(0));
+        $service->attachments->shouldReceive('find')->once()->with(5)->andReturn($attachments2->get(1));
+        $service->attachments->shouldReceive('find')->once()->with(6)->andReturn($attachments2->get(2));
 
-        $service->shouldReceive('query')->once()->with(ResizeServiceTestStub1::class, $presets1)->andReturn($files1);
-        $service->shouldReceive('query')->once()->with(ResizeServiceTestStub2::class, $presets2)->andReturn($files2);
+        $service->shouldReceive('query')->once()->with(ResizeServiceTestStub1::class, $presets1)->andReturn($attachments1);
+        $service->shouldReceive('query')->once()->with(ResizeServiceTestStub2::class, $presets2)->andReturn($attachments2);
 
-        $service->shouldReceive('resize')->once()->with($files1->get(0), $presets1);
-        $service->shouldReceive('resize')->once()->with($files1->get(1), $presets1);
-        $service->shouldReceive('resize')->once()->with($files1->get(2), $presets1);
-        $service->shouldReceive('resize')->once()->with($files2->get(0), $presets2);
-        $service->shouldReceive('resize')->once()->with($files2->get(1), $presets2);
-        $service->shouldReceive('resize')->once()->with($files2->get(2), $presets2);
+        $service->shouldReceive('resize')->once()->with($attachments1->get(0), $presets1);
+        $service->shouldReceive('resize')->once()->with($attachments1->get(1), $presets1);
+        $service->shouldReceive('resize')->once()->with($attachments1->get(2), $presets1);
+        $service->shouldReceive('resize')->once()->with($attachments2->get(0), $presets2);
+        $service->shouldReceive('resize')->once()->with($attachments2->get(1), $presets2);
+        $service->shouldReceive('resize')->once()->with($attachments2->get(2), $presets2);
 
         $service->batch();
     }
@@ -100,7 +100,7 @@ class ResizeServiceTest extends BeltTestCase
      */
     public function testQuery()
     {
-        $files1 = $this->files([1, 2, 3]);
+        $attachments1 = $this->attachments([1, 2, 3]);
         $presets1 = ResizeServiceTestStub1::getResizePresets();
 
         $qbMock = m::mock(Builder::class);
@@ -109,13 +109,13 @@ class ResizeServiceTest extends BeltTestCase
         $qbMock->shouldReceive('join')->andReturnSelf();
         $qbMock->shouldReceive('leftJoin')->times(count($presets1))->andReturnSelf();
         $qbMock->shouldReceive('orWhereNull')->times(count($presets1))->andReturnSelf();
-        $qbMock->shouldReceive('get')->andReturn($files1);
+        $qbMock->shouldReceive('get')->andReturn($attachments1);
 
-        $fileRepo = m::mock(File::class);
-        $fileRepo->shouldReceive('query')->andReturn($qbMock);
+        $attachmentRepo = m::mock(Attachment::class);
+        $attachmentRepo->shouldReceive('query')->andReturn($qbMock);
 
         $service = new ResizeService();
-        $service->files = $fileRepo;
+        $service->attachments = $attachmentRepo;
 
         $service->query(ResizeServiceTestStub1::class, $presets1);
     }
@@ -125,8 +125,8 @@ class ResizeServiceTest extends BeltTestCase
      */
     public function testResize()
     {
-        $file = $this->files([1])->first();
-        $file->resizes->push(factory(Resize::class)->make(['file' => $file, 'width' => 100, 'height' => 100]));
+        $attachment = $this->attachments([1])->first();
+        $attachment->resizes->push(factory(Resize::class)->make(['attachment' => $attachment, 'width' => 100, 'height' => 100]));
 
         $presets = ResizeServiceTestStub1::getResizePresets();
 
@@ -144,22 +144,22 @@ class ResizeServiceTest extends BeltTestCase
 
         $service = new ResizeService();
         $service->resizeRepo = $resizeRepo;
-        $service->resize($file, $presets);
+        $service->resize($attachment, $presets);
     }
 
 
-    public function files($ids = [])
+    public function attachments($ids = [])
     {
-        File::unguard();
-        $files = new Collection();
+        Attachment::unguard();
+        $attachments = new Collection();
         foreach ($ids as $id) {
-            $file = factory(File::class)->make();
-            $file->id = $id;
-            $file->resizes = new Collection();
-            $files->push($file);
+            $attachment = factory(Attachment::class)->make();
+            $attachment->id = $id;
+            $attachment->resizes = new Collection();
+            $attachments->push($attachment);
         }
 
-        return $files;
+        return $attachments;
     }
 
 }

@@ -2,7 +2,7 @@
 namespace Belt\Clip\Services;
 
 use Belt\Clip\Adapters;
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 use Belt\Clip\Resize;
 use Illuminate\Http\UploadedFile;
 use Intervention\Image\ImageManager;
@@ -26,9 +26,9 @@ class ResizeService
     public $adapter;
 
     /**
-     * @var File
+     * @var Attachment
      */
-    public $files;
+    public $attachments;
 
     /**
      * @var ImageManager
@@ -42,8 +42,8 @@ class ResizeService
 
     public function __construct($config = [])
     {
-        $this->config = array_merge(config('belt.storage.resize'), $config);
-        $this->files = new File();
+        $this->config = array_merge(config('belt.clip.resize'), $config);
+        $this->attachments = new Attachment();
     }
 
     public function config($key = null, $default = false)
@@ -80,11 +80,11 @@ class ResizeService
 
             $presets = $model::getResizePresets();
 
-            $files = $this->query($model, $presets);
+            $attachments = $this->query($model, $presets);
 
-            foreach ($files as $file) {
-                $file = $this->files->find($file->id);
-                $this->resize($file, $presets);
+            foreach ($attachments as $attachment) {
+                $attachment = $this->attachments->find($attachment->id);
+                $this->resize($attachment, $presets);
             }
 
         }
@@ -93,42 +93,42 @@ class ResizeService
     public function query($class, $presets)
     {
 
-        $qb1 = $this->files->query();
-        $qb1->select(['files.id']);
+        $qb1 = $this->attachments->query();
+        $qb1->select(['attachments.id']);
         $qb1->take(100);
 
         $qb1->join('clippables', function ($qb2) use ($class) {
-            $qb2->on('clippables.file_id', '=', 'files.id');
+            $qb2->on('clippables.attachment_id', '=', 'attachments.id');
             $qb2->where('clippables.clippable_type', (new $class)->getMorphClass());
         });
 
         foreach ($presets as $n => $preset) {
             $alias = "preset$n";
-            $qb1->leftJoin("file_resizes as $alias", function ($qb2) use ($alias, $preset) {
-                $qb2->on("$alias.file_id", '=', 'files.id');
+            $qb1->leftJoin("attachment_resizes as $alias", function ($qb2) use ($alias, $preset) {
+                $qb2->on("$alias.attachment_id", '=', 'attachments.id');
                 $qb2->where("$alias.width", $preset[0]);
                 $qb2->where("$alias.height", $preset[1]);
             });
             $qb1->orWhereNull("$alias.id");
         }
 
-        $files = $qb1->get();
+        $attachments = $qb1->get();
 
-        return $files;
+        return $attachments;
     }
 
-    public function resize(File $file, $presets = [])
+    public function resize(Attachment $attachment, $presets = [])
     {
-        $adapter = $this->adapter ?: $file->adapter();
+        $adapter = $this->adapter ?: $attachment->adapter();
 
-        $original = $this->manager()->make($file->contents);
+        $original = $this->manager()->make($attachment->contents);
 
         foreach ($presets as $preset) {
 
             $w = $preset[0];
             $h = $preset[1];
 
-            if ($file->__sized($w, $h)) {
+            if ($attachment->__sized($w, $h)) {
                 continue;
             }
 
@@ -141,15 +141,15 @@ class ResizeService
 
             file_put_contents('/tmp/tmp', $encoded);
 
-            $fileInfo = new UploadedFile('/tmp/tmp', $file->original_name);
+            $attachmentInfo = new UploadedFile('/tmp/tmp', $attachment->original_name);
 
-            $data = $adapter->upload('resizes', $fileInfo);
+            $data = $adapter->upload('resizes', $attachmentInfo);
 
             $this->resizeRepo()->unguard();
             $this->resizeRepo()->create(array_merge($data, [
                 'mode' => $mode,
-                'file_id' => $file->id,
-                'original_name' => $file->original_name,
+                'attachment_id' => $attachment->id,
+                'original_name' => $attachment->original_name,
             ]));
         }
 

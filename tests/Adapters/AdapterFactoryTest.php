@@ -13,7 +13,7 @@ class AdapterFactoryTest extends BeltTestCase
      */
     public function test()
     {
-        app()['config']->set('belt.storage.drivers.AdapterFactoryTest', [
+        app()['config']->set('belt.clip.drivers.AdapterFactoryTest', [
             'disk' => 'public',
             'adapter' => LocalAdapter::class,
             'prefix' => 'testing',

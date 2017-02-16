@@ -2,7 +2,7 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 use Belt\Clip\Adapters\LocalAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Filesystem\FilesystemAdapter;
@@ -30,7 +30,7 @@ class LocalAdapterTest extends BeltTestCase
             'root' => __DIR__ . '/../',
         ]);
 
-        app()['config']->set('belt.storage.drivers.LocalAdapterTest', [
+        app()['config']->set('belt.clip.drivers.LocalAdapterTest', [
             'disk' => 'LocalAdapterTest',
             'adapter' => LocalAdapter::class,
             'prefix' => 'testing',
@@ -42,11 +42,11 @@ class LocalAdapterTest extends BeltTestCase
             ],
         ]);
 
-        $file = factory(File::class)->make();
-        $file->name = 'test.jpg';
-        $file->path = 'testing';
+        $attachment = factory(Attachment::class)->make();
+        $attachment->name = 'test.jpg';
+        $attachment->path = 'testing';
 
-        $fileInfo = new UploadedFile(__DIR__ . '/../testing/test.jpg', 'test.jpg');
+        $attachmentInfo = new UploadedFile(__DIR__ . '/../testing/test.jpg', 'test.jpg');
 
         # construct
         $adapter = new LocalAdapter('LocalAdapterTest');
@@ -55,31 +55,31 @@ class LocalAdapterTest extends BeltTestCase
         $this->assertNotEmpty($adapter->config);
 
         # src
-        $this->assertEquals('http://localhost/images/testing/test.jpg', $adapter->src($file));
+        $this->assertEquals('http://localhost/images/testing/test.jpg', $adapter->src($attachment));
 
         # secure
-        $this->assertEquals('https://localhost/images/testing/test.jpg', $adapter->secure($file));
+        $this->assertEquals('https://localhost/images/testing/test.jpg', $adapter->secure($attachment));
 
         # secure
-        $this->assertNotEmpty($adapter->contents($file));
+        $this->assertNotEmpty($adapter->contents($attachment));
 
         # upload
         $disk = m::mock(FilesystemAdapter::class);
-        $disk->shouldReceive('putFileAs')->once()->with('testing/test', $fileInfo, 'test.jpg')->andReturn(true);
-        $disk->shouldReceive('putFileAs')->once()->with('testing/test', $fileInfo, 'invalid.jpg')->andReturn(false);
+        $disk->shouldReceive('putFileAs')->once()->with('testing/test', $attachmentInfo, 'test.jpg')->andReturn(true);
+        $disk->shouldReceive('putFileAs')->once()->with('testing/test', $attachmentInfo, 'invalid.jpg')->andReturn(false);
         $adapter->disk = $disk;
-        $this->assertNotEmpty($adapter->upload('test', $fileInfo, 'test.jpg'));
-        $this->assertNull($adapter->upload('test', $fileInfo, 'invalid.jpg'));
+        $this->assertNotEmpty($adapter->upload('test', $attachmentInfo, 'test.jpg'));
+        $this->assertNull($adapter->upload('test', $attachmentInfo, 'invalid.jpg'));
 
         # __create
-        $sizes = getimagesize($fileInfo->getRealPath());
-        $data = $adapter->__create('testing/test', $fileInfo, $file->name);
+        $sizes = getimagesize($attachmentInfo->getRealPath());
+        $data = $adapter->__create('testing/test', $attachmentInfo, $attachment->name);
         $this->assertEquals('LocalAdapterTest', $data['driver']);
-        $this->assertEquals($file->name, $data['name']);
-        $this->assertEquals($fileInfo->getFilename(), $data['original_name']);
+        $this->assertEquals($attachment->name, $data['name']);
+        $this->assertEquals($attachmentInfo->getFilename(), $data['original_name']);
         $this->assertEquals('testing/test', $data['path']);
-        $this->assertEquals($fileInfo->getSize(), $data['size']);
-        $this->assertEquals($fileInfo->getMimeType(), $data['mimetype']);
+        $this->assertEquals($attachmentInfo->getSize(), $data['size']);
+        $this->assertEquals($attachmentInfo->getMimeType(), $data['mimetype']);
         $this->assertEquals($sizes[0], $data['width']);
         $this->assertEquals($sizes[1], $data['height']);
 

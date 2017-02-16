@@ -6,6 +6,6 @@ interface ClippableInterface
 
     public static function getResizePresets();
 
-    public function files();
+    public function attachments();
 
 }

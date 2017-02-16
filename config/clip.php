@@ -18,7 +18,6 @@ return [
         'local_driver' => 'default',
         'image_driver' => 'imagick',
         'models' => [
-            \Belt\Content\Page::class,
             \Belt\Spot\Place::class,
         ],
     ],

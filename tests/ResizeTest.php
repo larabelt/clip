@@ -2,7 +2,7 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 use Belt\Clip\Resize;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,16 +16,16 @@ class ResizeTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Clip\Resize::file
+     * @covers \Belt\Clip\Resize::attachment
      * @covers \Belt\Clip\Resize::getPresetAttribute
      */
     public function test()
     {
-        $file = factory(File::class)->make();
-        $resize = factory(Resize::class)->make(['file' => $file, 'width' => 100, 'height' => 100]);
+        $attachment = factory(Attachment::class)->make();
+        $resize = factory(Resize::class)->make(['attachment' => $attachment, 'width' => 100, 'height' => 100]);
 
-        # file
-        $this->assertInstanceOf(BelongsTo::class, $resize->file());
+        # attachment
+        $this->assertInstanceOf(BelongsTo::class, $resize->attachment());
 
         # preset
         $this->assertEquals('100:100', $resize->preset);

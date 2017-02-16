@@ -1,17 +1,17 @@
 <?php
 namespace Belt\Clip\Adapters;
 
-use Belt\Clip\FileInterface;
+use Belt\Clip\AttachmentInterface;
 use Illuminate\Http\UploadedFile;
 
 interface AdapterInterface
 {
 
-    public function src(FileInterface $file);
+    public function src(AttachmentInterface $file);
 
-    public function secure(FileInterface $file);
+    public function secure(AttachmentInterface $file);
 
-    public function contents(FileInterface $file);
+    public function contents(AttachmentInterface $file);
 
     public function prefixedPath($path, $filename);
 

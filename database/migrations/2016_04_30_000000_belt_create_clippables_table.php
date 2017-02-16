@@ -14,7 +14,7 @@ class BeltCreateClippablesTable extends Migration
     {
         Schema::create('clippables', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('file_id')->index();
+            $table->integer('attachment_id')->index();
             $table->morphs('clippable');
             $table->integer('position')->nullable()->default(1); // Your model must have position field:
             $table->timestamps();

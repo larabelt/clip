@@ -1,7 +1,7 @@
 <?php
 namespace Belt\Clip\Behaviors;
 
-use Belt\Clip\File;
+use Belt\Clip\Attachment;
 use Rutorika\Sortable\MorphToSortedManyTrait;
 
 trait Clippable
@@ -27,9 +27,9 @@ trait Clippable
         return isset(static::$presets) ? static::$presets : [];
     }
 
-    public function files()
+    public function attachments()
     {
-        return $this->morphToSortedMany(File::class, 'clippable');
+        return $this->morphToSortedMany(Attachment::class, 'clippable');
     }
 
 }

@@ -23,9 +23,9 @@ export default {
     computed: {
     },
     methods: {
-        attach(file_id) {
+        attach(attachment_id) {
             if (typeof this.$parent.attach === 'function') {
-                this.$parent.attach(file_id);
+                this.$parent.attach(attachment_id);
             }
         },
         onFileClick: function () {

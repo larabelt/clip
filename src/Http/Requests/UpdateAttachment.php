@@ -3,7 +3,7 @@ namespace Belt\Clip\Http\Requests;
 
 use Belt\Core\Http\Requests\FormRequest;
 
-class UpdateFile extends FormRequest
+class UpdateAttachment extends FormRequest
 {
 
     public function rules()

@@ -6,16 +6,16 @@ use Belt\Clip\Adapters\AdapterFactory;
 
 $factory->define(Belt\Clip\Resize::class, function (Faker\Generator $faker, $params = null) {
 
-    $file = array_get($params, 'file');
+    $attachment = array_get($params, 'attachment');
 
     return [
-        'file_id' => $file->id,
-        'driver' => $file->driver,
-        'path' => $file->path,
-        'name' => $file->name,
-        'mimetype' => $file->mimetype,
-        'size' => $file->size,
-        'original_name' => $file->original_name,
+        'attachment_id' => $attachment->id,
+        'driver' => $attachment->driver,
+        'path' => $attachment->path,
+        'name' => $attachment->name,
+        'mimetype' => $attachment->mimetype,
+        'size' => $attachment->size,
+        'original_name' => $attachment->original_name,
         'mode' => $faker->randomElement(['fit', 'resize']),
         'width' => $faker->randomElement([100, 200, 300, 400, 500]),
         'height' => $faker->randomElement([100, 200, 300, 400, 500]),
