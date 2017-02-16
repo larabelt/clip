@@ -2,11 +2,11 @@
 
 ```
 # install assets & migrate
-php artisan belt-storage:publish
+php artisan belt-clip:publish
 composer dumpautoload
 
 # create additional faker images for file seeds
-php artisan belt-storage:faker
+php artisan belt-clip:faker
 
 # migrate & seed
 php artisan migrate

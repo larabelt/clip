@@ -20,19 +20,19 @@ Route::group([
     function () {
 
         # files
-        Route::get('files/{id}', Storage\Http\Controllers\Api\FilesController::class . '@show');
-        Route::put('files/{id}', Storage\Http\Controllers\Api\FilesController::class . '@update');
-        Route::delete('files/{id}', Storage\Http\Controllers\Api\FilesController::class . '@destroy');
-        Route::get('files', Storage\Http\Controllers\Api\FilesController::class . '@index');
-        Route::post('files', Storage\Http\Controllers\Api\FilesController::class . '@store');
+        Route::get('files/{id}', Clip\Http\Controllers\Api\FilesController::class . '@show');
+        Route::put('files/{id}', Clip\Http\Controllers\Api\FilesController::class . '@update');
+        Route::delete('files/{id}', Clip\Http\Controllers\Api\FilesController::class . '@destroy');
+        Route::get('files', Clip\Http\Controllers\Api\FilesController::class . '@index');
+        Route::post('files', Clip\Http\Controllers\Api\FilesController::class . '@store');
 
-        # fileables
-        Route::group(['prefix' => 'fileables/{fileable_type}/{fileable_id}'], function () {
-            Route::get('{id}', Storage\Http\Controllers\Api\FileablesController::class . '@show');
-            Route::put('{id}', Storage\Http\Controllers\Api\FileablesController::class . '@update');
-            Route::delete('{id}', Storage\Http\Controllers\Api\FileablesController::class . '@destroy');
-            Route::get('', Storage\Http\Controllers\Api\FileablesController::class . '@index');
-            Route::post('', Storage\Http\Controllers\Api\FileablesController::class . '@store');
+        # clippables
+        Route::group(['prefix' => 'clippables/{clippable_type}/{clippable_id}'], function () {
+            Route::get('{id}', Clip\Http\Controllers\Api\ClippablesController::class . '@show');
+            Route::put('{id}', Clip\Http\Controllers\Api\ClippablesController::class . '@update');
+            Route::delete('{id}', Clip\Http\Controllers\Api\ClippablesController::class . '@destroy');
+            Route::get('', Clip\Http\Controllers\Api\ClippablesController::class . '@index');
+            Route::post('', Clip\Http\Controllers\Api\ClippablesController::class . '@store');
         });
 
     }

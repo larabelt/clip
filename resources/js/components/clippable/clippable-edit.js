@@ -8,8 +8,8 @@ export default {
         return {
             mode: this.$parent.mode,
             item: this.$parent.item,
-            fileable_type: this.$parent.fileable_type,
-            fileable_id: this.$parent.fileable_id,
+            clippable_type: this.$parent.clippable_type,
+            clippable_id: this.$parent.clippable_id,
         }
     },
     mounted() {

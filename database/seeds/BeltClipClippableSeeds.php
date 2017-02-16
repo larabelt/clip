@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 use Belt\Clip\File;
 use Belt\Spot\Place;
 
-class BeltClipFileableSeeds extends Seeder
+class BeltClipClippableSeeds extends Seeder
 {
     /**
      * Run the database seeds.

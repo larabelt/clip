@@ -9,16 +9,16 @@ export default {
         return {
             perPage: 5,
             image: null,
-            url: '/api/v1/fileables',
-            fileable_type: '',
-            fileable_id: null,
+            url: '/api/v1/clippables',
+            clippable_type: '',
+            clippable_id: null,
         }
     },
     computed: {
         fullUrl() {
             let url = this.url +
-                '/' + this.fileable_type +
-                '/' + this.fileable_id +
+                '/' + this.clippable_type +
+                '/' + this.clippable_id +
                 '/';
             return url;
         }

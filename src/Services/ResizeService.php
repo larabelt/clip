@@ -97,9 +97,9 @@ class ResizeService
         $qb1->select(['files.id']);
         $qb1->take(100);
 
-        $qb1->join('fileables', function ($qb2) use ($class) {
-            $qb2->on('fileables.file_id', '=', 'files.id');
-            $qb2->where('fileables.fileable_type', (new $class)->getMorphClass());
+        $qb1->join('clippables', function ($qb2) use ($class) {
+            $qb2->on('clippables.file_id', '=', 'files.id');
+            $qb2->where('clippables.clippable_type', (new $class)->getMorphClass());
         });
 
         foreach ($presets as $n => $preset) {

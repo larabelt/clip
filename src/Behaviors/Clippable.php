@@ -4,7 +4,7 @@ namespace Belt\Clip\Behaviors;
 use Belt\Clip\File;
 use Rutorika\Sortable\MorphToSortedManyTrait;
 
-trait Fileable
+trait Clippable
 {
 
     use MorphToSortedManyTrait;
@@ -29,7 +29,7 @@ trait Fileable
 
     public function files()
     {
-        return $this->morphToSortedMany(File::class, 'fileable');
+        return $this->morphToSortedMany(File::class, 'clippable');
     }
 
 }

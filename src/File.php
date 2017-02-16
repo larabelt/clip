@@ -36,41 +36,41 @@ class File extends Model implements FileInterface
     }
 
     /**
-     * Return files associated with fileable
+     * Return files associated with clippable
      *
      * @param $query
-     * @param $fileable_type
-     * @param $fileable_id
+     * @param $clippable_type
+     * @param $clippable_id
      * @return mixed
      */
-    public function scopeFiled($query, $fileable_type, $fileable_id)
+    public function scopeFiled($query, $clippable_type, $clippable_id)
     {
         $query->select(['files.*']);
-        $query->join('fileables', 'fileables.file_id', '=', 'files.id');
-        $query->where('fileables.fileable_type', $fileable_type);
-        $query->where('fileables.fileable_id', $fileable_id);
-        $query->orderBy('fileables.position');
+        $query->join('clippables', 'clippables.file_id', '=', 'files.id');
+        $query->where('clippables.clippable_type', $clippable_type);
+        $query->where('clippables.clippable_id', $clippable_id);
+        $query->orderBy('clippables.position');
 
         return $query;
     }
 
     /**
-     * Return files not associated with fileable
+     * Return files not associated with clippable
      *
      * @param $query
-     * @param $fileable_type
-     * @param $fileable_id
+     * @param $clippable_type
+     * @param $clippable_id
      * @return mixed
      */
-    public function scopeNotFiled($query, $fileable_type, $fileable_id)
+    public function scopeNotFiled($query, $clippable_type, $clippable_id)
     {
         $query->select(['files.*']);
-        $query->leftJoin('fileables', function ($subQB) use ($fileable_type, $fileable_id) {
-            $subQB->on('fileables.file_id', '=', 'files.id');
-            $subQB->where('fileables.fileable_id', $fileable_id);
-            $subQB->where('fileables.fileable_type', $fileable_type);
+        $query->leftJoin('clippables', function ($subQB) use ($clippable_type, $clippable_id) {
+            $subQB->on('clippables.file_id', '=', 'files.id');
+            $subQB->where('clippables.clippable_id', $clippable_id);
+            $subQB->where('clippables.clippable_type', $clippable_type);
         });
-        $query->whereNull('fileables.id');
+        $query->whereNull('clippables.id');
 
         return $query;
     }

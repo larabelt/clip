@@ -13,7 +13,7 @@ class ResizeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt-storage:resize';
+    protected $signature = 'belt-clip:resize';
 
     /**
      * The console command description.

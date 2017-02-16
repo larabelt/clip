@@ -2,7 +2,7 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Clip\Behaviors\Fileable;
+use Belt\Clip\Behaviors\Clippable;
 use Belt\Clip\File;
 use Belt\Clip\Resize;
 use Belt\Clip\Adapters\BaseAdapter;
@@ -173,7 +173,7 @@ class ResizeServiceTestStub1 extends Model
         [300, 300, 'resize'],
     ];
 
-    use Fileable;
+    use Clippable;
 
 }
 
@@ -185,5 +185,5 @@ class ResizeServiceTestStub2 extends Model
         [500, 500],
     ];
 
-    use Fileable;
+    use Clippable;
 }

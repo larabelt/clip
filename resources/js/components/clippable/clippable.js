@@ -1,7 +1,7 @@
-import fileableIndex from './fileable-index';
-import fileableEdit from './fileable-edit';
-import fileableSearch from './fileable-search';
-import fileableSort from './fileable-sort';
+import clippableIndex from './clippable-index';
+import clippableEdit from './clippable-edit';
+import clippableSearch from './clippable-search';
+import clippableSort from './clippable-sort';
 import mode from 'belt/core/js/mixins/base/mode';
 
 export default {
@@ -14,15 +14,15 @@ export default {
     data() {
         return {
             mode: 'default',
-            fileable_type: this.$parent.morphable_type,
-            fileable_id: this.$parent.morphable_id,
+            clippable_type: this.$parent.morphable_type,
+            clippable_id: this.$parent.morphable_id,
         }
     },
     components: {
-        fileableIndex,
-        fileableEdit,
-        fileableSearch,
-        fileableSort,
+        clippableIndex,
+        clippableEdit,
+        clippableSearch,
+        clippableSort,
     },
     methods: {
 
@@ -38,20 +38,20 @@ export default {
             </div>
             <div class="box-body">
                 <div v-if="isMode('default')" >
-                    <fileable-index   
+                    <clippable-index   
                         :uploader_driver=uploader_driver
                         :uploader_path=uploader_path
                         :uploader_multiple=uploader_multiple
-                    ></fileable-index>
+                    ></clippable-index>
                 </div>
                 <div v-if="isMode('edit')" >
-                    <fileable-edit></fileable-edit>
+                    <clippable-edit></clippable-edit>
                 </div>
                 <div v-if="isMode('search')" >
-                    <fileable-search></fileable-search>
+                    <clippable-search></clippable-search>
                 </div>
                 <div v-if="isMode('sort')" >
-                    <fileable-sort></fileable-sort>
+                    <clippable-sort></clippable-sort>
                 </div>
             </div>
         </div>

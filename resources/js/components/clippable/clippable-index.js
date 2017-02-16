@@ -1,14 +1,14 @@
 import fileUploader from '../base/uploader';
 import fileService from '../file/service';
 import fileFormTemplate from '../file/templates/form';
-import fileableService from './service';
-import fileableIndexTemplate from './templates/index';
-import fileableEdit from './fileable-edit';
+import clippableService from './service';
+import clippableIndexTemplate from './templates/index';
+import clippableEdit from './clippable-edit';
 
 export default {
-    mixins: [fileableService],
+    mixins: [clippableService],
     components: {
-        fileableEdit,
+        clippableEdit,
         fileUploader: fileUploader,
         fileForm: {
             props: ['index'],
@@ -26,8 +26,8 @@ export default {
     },
     data() {
         return {
-            fileable_type: this.$parent.fileable_type,
-            fileable_id: this.$parent.fileable_id,
+            clippable_type: this.$parent.clippable_type,
+            clippable_id: this.$parent.clippable_id,
         }
     },
     mounted() {
@@ -47,5 +47,5 @@ export default {
             //return this.$parent.mode = 'edit';
         },
     },
-    template: fileableIndexTemplate,
+    template: clippableIndexTemplate,
 }

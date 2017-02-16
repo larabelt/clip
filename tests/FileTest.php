@@ -37,26 +37,26 @@ class FileTest extends BeltTestCase
         # scopeFiled
         $qbMock = m::mock(Builder::class);
         $qbMock->shouldReceive('select')->once()->with(['files.*']);
-        $qbMock->shouldReceive('join')->once()->with('fileables', 'fileables.file_id', '=', 'files.id');
-        $qbMock->shouldReceive('where')->once()->with('fileables.fileable_type', 'pages');
-        $qbMock->shouldReceive('where')->once()->with('fileables.fileable_id', 1);
-        $qbMock->shouldReceive('orderBy')->once()->with('fileables.position');
+        $qbMock->shouldReceive('join')->once()->with('clippables', 'clippables.file_id', '=', 'files.id');
+        $qbMock->shouldReceive('where')->once()->with('clippables.clippable_type', 'pages');
+        $qbMock->shouldReceive('where')->once()->with('clippables.clippable_id', 1);
+        $qbMock->shouldReceive('orderBy')->once()->with('clippables.position');
         $file->scopeFiled($qbMock, 'pages', 1);
 
         # scopeNotFiled
         $qbMock = m::mock(Builder::class);
         $qbMock->shouldReceive('select')->once()->with(['files.*']);
-        $qbMock->shouldReceive('leftJoin')->once()->with('fileables',
+        $qbMock->shouldReceive('leftJoin')->once()->with('clippables',
             m::on(function (\Closure $closure) {
                 $subQBMock = m::mock(Builder::class);
-                $subQBMock->shouldReceive('on')->once()->with('fileables.file_id', '=', 'files.id');
-                $subQBMock->shouldReceive('where')->once()->with('fileables.fileable_type', 'pages');
-                $subQBMock->shouldReceive('where')->once()->with('fileables.fileable_id', 1);
+                $subQBMock->shouldReceive('on')->once()->with('clippables.file_id', '=', 'files.id');
+                $subQBMock->shouldReceive('where')->once()->with('clippables.clippable_type', 'pages');
+                $subQBMock->shouldReceive('where')->once()->with('clippables.clippable_id', 1);
                 $closure($subQBMock);
                 return is_callable($closure);
             })
         );
-        $qbMock->shouldReceive('whereNull')->once()->with('fileables.id');
+        $qbMock->shouldReceive('whereNull')->once()->with('clippables.id');
         $file->scopeNotFiled($qbMock, 'pages', 1);
 
     }

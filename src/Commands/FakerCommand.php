@@ -13,7 +13,7 @@ class FakerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt-storage:faker {--limit=5} {--c|category=}';
+    protected $signature = 'belt-clip:faker {--limit=5} {--c|category=}';
 
     /**
      * The console command description.

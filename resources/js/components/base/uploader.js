@@ -8,8 +8,8 @@ export default {
     },
     data() {
         return {
-            fileable_id: '',
-            fileable_type: '',
+            clippable_id: '',
+            clippable_type: '',
             pending: [],
             uploaded: [],
             progress: [],
@@ -17,8 +17,8 @@ export default {
     },
     mounted() {
         //this.$store.registerModule('fileUploader', fileUploaderStore);
-        this.fileable_id = this.$parent.fileable_id;
-        this.fileable_type = this.$parent.fileable_type;
+        this.clippable_id = this.$parent.clippable_id;
+        this.clippable_type = this.$parent.clippable_type;
     },
     computed: {
     },

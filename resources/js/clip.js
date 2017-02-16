@@ -7,11 +7,11 @@ export default class BeltClip {
 
     constructor() {
 
-        if ($('#belt-storage').length > 0) {
+        if ($('#belt-clip').length > 0) {
 
             const router = new VueRouter({
                 mode: 'history',
-                base: '/admin/belt/storage',
+                base: '/admin/belt/clip',
                 routes: [
                     {path: '/files', component: fileIndex, canReuse: false, name: 'fileIndex'},
                     {path: '/files/create', component: fileCreate, name: 'fileCreate'},
@@ -19,7 +19,7 @@ export default class BeltClip {
                 ]
             });
 
-            const app = new Vue({router, store}).$mount('#belt-storage');
+            const app = new Vue({router, store}).$mount('#belt-clip');
         }
     }
 

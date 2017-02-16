@@ -12,6 +12,6 @@ class BeltClipSeeder extends Seeder
     public function run()
     {
         $this->call(BeltClipFileSeeds::class);
-        $this->call(BeltClipFileableSeeds::class);
+        $this->call(BeltClipClippableSeeds::class);
     }
 }

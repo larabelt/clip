@@ -1,7 +1,7 @@
 import headingTemplate from 'belt/core/js/templates/base/heading.html';
 import placeService from './service';
 import placeFormTemplate from './templates/form';
-import fileable from 'belt/storage/js/components/fileable/fileable';
+import clippable from 'belt/clip/js/components/clippable/clippable';
 import taggable from 'belt/content/js/components/tag/taggable/ctlr-edit';
 import handleable from 'belt/content/js/components/handle/ctlr-edit';
 
@@ -35,7 +35,7 @@ export default {
         },
         handleable,
         taggable,
-        fileable,
+        clippable,
     },
     template: `
         <div>
@@ -55,7 +55,7 @@ export default {
                                     <place-form></place-form>
                                 </div>
                                 <div class="tab-pane" id="tab_2-2">
-                                    <fileable uploader_path="places"></fileable>
+                                    <clippable uploader_path="places"></clippable>
                                 </div>
                                 <div class="tab-pane" id="tab_3-3">
                                     <handleable></handleable>

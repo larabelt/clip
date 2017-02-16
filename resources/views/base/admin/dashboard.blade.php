@@ -2,7 +2,7 @@
 
 @section('main')
 
-    <div id="belt-storage">
+    <div id="belt-clip">
         <router-view></router-view>
     </div>
 

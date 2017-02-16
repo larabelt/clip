@@ -3,14 +3,14 @@
 use Belt\Core;
 
 Route::group([
-    'prefix' => 'admin/belt/storage',
+    'prefix' => 'admin/belt/clip',
     'middleware' => ['web', 'auth']
 ],
     function () {
 
-        # admin/belt/storage home
+        # admin/belt/clip home
         Route::get('{any?}', function () {
-            return view('belt-storage::base.admin.dashboard');
+            return view('belt-clip::base.admin.dashboard');
         })->where('any', '(.*)');
     }
 );

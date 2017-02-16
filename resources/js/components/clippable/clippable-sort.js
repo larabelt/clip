@@ -1,11 +1,11 @@
 import fileUploader from '../base/uploader';
 import fileService from '../file/service';
 import fileFormTemplate from '../file/templates/form';
-import fileableService from './service';
-import fileableSortTemplate from './templates/sort';
+import clippableService from './service';
+import clippableSortTemplate from './templates/sort';
 
 export default {
-    mixins: [fileableService],
+    mixins: [clippableService],
     components: {
         fileUploader: fileUploader,
     },
@@ -14,8 +14,8 @@ export default {
             perPage: 999,
             dragged: '',
             dropped: '',
-            fileable_type: this.$parent.fileable_type,
-            fileable_id: this.$parent.fileable_id,
+            clippable_type: this.$parent.clippable_type,
+            clippable_id: this.$parent.clippable_id,
         }
     },
     mounted() {
@@ -38,5 +38,5 @@ export default {
             this.paginate();
         }
     },
-    template: fileableSortTemplate,
+    template: clippableSortTemplate,
 }

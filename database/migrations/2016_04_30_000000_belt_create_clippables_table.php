@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class BeltCreateFileablesTable extends Migration
+class BeltCreateClippablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class BeltCreateFileablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fileables', function (Blueprint $table) {
+        Schema::create('clippables', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('file_id')->index();
-            $table->morphs('fileable');
+            $table->morphs('clippable');
             $table->integer('position')->nullable()->default(1); // Your model must have position field:
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class BeltCreateFileablesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('fileables');
+        Schema::drop('clippables');
     }
 }

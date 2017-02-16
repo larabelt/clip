@@ -8,7 +8,7 @@ use Belt\Clip\File;
 use Belt\Clip\Http\Requests;
 use Belt\Core\Helpers\MorphHelper;
 
-class FileablesController extends ApiController
+class ClippablesController extends ApiController
 {
 
     use Positionable;
@@ -29,12 +29,12 @@ class FileablesController extends ApiController
         $this->morphHelper = $morphHelper;
     }
 
-    public function file($id, $fileable = null)
+    public function file($id, $clippable = null)
     {
         $qb = $this->files->with('resizes');
 
-        if ($fileable) {
-            $qb->filed($fileable->getMorphClass(), $fileable->id);
+        if ($clippable) {
+            $qb->filed($clippable->getMorphClass(), $clippable->id);
         }
 
         $file = $qb->where('files.id', $id)->first();
@@ -42,11 +42,11 @@ class FileablesController extends ApiController
         return $file ?: $this->abort(404);
     }
 
-    public function fileable($fileable_type, $fileable_id)
+    public function clippable($clippable_type, $clippable_id)
     {
-        $fileable = $this->morphHelper->morph($fileable_type, $fileable_id);
+        $clippable = $this->morphHelper->morph($clippable_type, $clippable_id);
 
-        return $fileable ?: $this->abort(404);
+        return $clippable ?: $this->abort(404);
     }
 
     /**
@@ -55,18 +55,18 @@ class FileablesController extends ApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateFileables $request, $fileable_type, $fileable_id)
+    public function index(Requests\PaginateClippables $request, $clippable_type, $clippable_id)
     {
 
         $request->reCapture();
 
-        $owner = $this->fileable($fileable_type, $fileable_id);
+        $owner = $this->clippable($clippable_type, $clippable_id);
 
         $this->authorize('view', $owner);
 
         $request->merge([
-            'fileable_id' => $owner->id,
-            'fileable_type' => $owner->getMorphClass()
+            'clippable_id' => $owner->id,
+            'clippable_type' => $owner->getMorphClass()
         ]);
 
         $paginator = $this->paginator($this->files->with('resizes'), $request);
@@ -81,9 +81,9 @@ class FileablesController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\AttachFile $request, $fileable_type, $fileable_id)
+    public function store(Requests\AttachFile $request, $clippable_type, $clippable_id)
     {
-        $owner = $this->fileable($fileable_type, $fileable_id);
+        $owner = $this->clippable($clippable_type, $clippable_id);
 
         $this->authorize('update', $owner);
 
@@ -103,16 +103,16 @@ class FileablesController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  Requests\UpdateFileable $request
-     * @param  string $fileable_type
-     * @param  string $fileable_id
+     * @param  Requests\UpdateClippable $request
+     * @param  string $clippable_type
+     * @param  string $clippable_id
      * @param  string $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\UpdateFileable $request, $fileable_type, $fileable_id, $id)
+    public function update(Requests\UpdateClippable $request, $clippable_type, $clippable_id, $id)
     {
-        $owner = $this->fileable($fileable_type, $fileable_id);
+        $owner = $this->clippable($clippable_type, $clippable_id);
 
         $this->authorize('update', $owner);
 
@@ -130,9 +130,9 @@ class FileablesController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($fileable_type, $fileable_id, $id)
+    public function show($clippable_type, $clippable_id, $id)
     {
-        $owner = $this->fileable($fileable_type, $fileable_id);
+        $owner = $this->clippable($clippable_type, $clippable_id);
 
         $this->authorize('view', $owner);
 
@@ -148,9 +148,9 @@ class FileablesController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($fileable_type, $fileable_id, $id)
+    public function destroy($clippable_type, $clippable_id, $id)
     {
-        $owner = $this->fileable($fileable_type, $fileable_id);
+        $owner = $this->clippable($clippable_type, $clippable_id);
 
         $this->authorize('update', $owner);
 

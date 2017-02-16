@@ -3,7 +3,7 @@ namespace Belt\Clip\Http\Requests;
 
 use Belt\Core\Http\Requests\FormRequest;
 
-class UpdateFileable extends FormRequest
+class UpdateClippable extends FormRequest
 {
 
     public function rules()
@@ -13,7 +13,7 @@ class UpdateFileable extends FormRequest
             'position_entity_id' => [
                 'required_with:move',
                 'exists:files,id',
-                $this->ruleExists('fileables', 'file_id', ['fileable_id', 'fileable_type'])
+                $this->ruleExists('clippables', 'file_id', ['clippable_id', 'clippable_type'])
             ],
         ];
     }

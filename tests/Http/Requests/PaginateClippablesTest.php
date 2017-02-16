@@ -3,11 +3,11 @@ use Mockery as m;
 use Belt\Core\Testing;
 
 use Belt\Clip\File;
-use Belt\Clip\Http\Requests\PaginateFileables;
+use Belt\Clip\Http\Requests\PaginateClippables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class PaginateFileablesTest extends Testing\BeltTestCase
+class PaginateClippablesTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -18,8 +18,8 @@ class PaginateFileablesTest extends Testing\BeltTestCase
     }
 
     /**
-     * @covers \Belt\Clip\Http\Requests\PaginateFileables::modifyQuery
-     * @covers \Belt\Clip\Http\Requests\PaginateFileables::items
+     * @covers \Belt\Clip\Http\Requests\PaginateClippables::modifyQuery
+     * @covers \Belt\Clip\Http\Requests\PaginateClippables::items
      */
     public function test()
     {
@@ -33,7 +33,7 @@ class PaginateFileablesTest extends Testing\BeltTestCase
         $qbMock->shouldReceive('get')->once()->andReturn(new Collection([$file1]));
 
         # modifyQuery
-        $paginateRequest = new PaginateFileables(['fileable_id' => 1, 'fileable_type' => 'pages']);
+        $paginateRequest = new PaginateClippables(['clippable_id' => 1, 'clippable_type' => 'pages']);
         $paginateRequest->modifyQuery($qbMock);
         $paginateRequest->merge(['not' => true]);
         $paginateRequest->modifyQuery($qbMock);

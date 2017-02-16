@@ -15,7 +15,7 @@ export default `
             </div>
             <div class="col-sm-9">
                 <div v-if="item.id == file.id">
-                    <fileable-edit></fileable-edit>
+                    <clippable-edit></clippable-edit>
                 </div>
                 <div v-else>
                     <div class="row">

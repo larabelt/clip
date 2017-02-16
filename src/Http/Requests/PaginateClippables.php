@@ -4,11 +4,11 @@ namespace Belt\Clip\Http\Requests;
 use Belt\Clip\File;
 use Illuminate\Database\Eloquent\Builder;
 
-class PaginateFileables extends PaginateFiles
+class PaginateClippables extends PaginateFiles
 {
     public $perPage = 5;
 
-    public $orderBy = 'fileables.position';
+    public $orderBy = 'clippables.position';
 
 //    /**
 //     * @var File
@@ -25,14 +25,14 @@ class PaginateFileables extends PaginateFiles
      */
     public function modifyQuery(Builder $query)
     {
-        # show files associated with fileable
+        # show files associated with clippable
         if (!$this->get('not')) {
-            $query->filed($this->get('fileable_type'), $this->get('fileable_id'));
+            $query->filed($this->get('clippable_type'), $this->get('clippable_id'));
         }
 
-        # show files not associated with fileable
+        # show files not associated with clippable
         if ($this->get('not')) {
-            $query->notFiled($this->get('fileable_type'), $this->get('fileable_id'));
+            $query->notFiled($this->get('clippable_type'), $this->get('clippable_id'));
         }
 
         return $query;

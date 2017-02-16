@@ -12,7 +12,7 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt-storage:publish {--force}';
+    protected $signature = 'belt-clip:publish {--force}';
 
     /**
      * The console command description.
@@ -23,7 +23,7 @@ class PublishCommand extends Command
 
     protected $dirs = [
         'vendor/larabelt/clip/config' => 'config/belt',
-        'vendor/larabelt/clip/resources' => 'resources/belt/storage',
+        'vendor/larabelt/clip/resources' => 'resources/belt/clip',
         'vendor/larabelt/clip/database/factories' => 'database/factories',
         'vendor/larabelt/clip/database/migrations' => 'database/migrations',
         'vendor/larabelt/clip/database/seeds' => 'database/seeds',
