@@ -1,9 +1,9 @@
-import fileService from '../file/service';
-import fileFormTemplate from '../file/templates/form';
+import attachmentService from '../attachment/service';
+import attachmentFormTemplate from '../attachment/templates/form';
 import mode from 'belt/core/js/mixins/base/mode';
 
 export default {
-    mixins: [mode, fileService],
+    mixins: [mode, attachmentService],
     data() {
         return {
             mode: this.$parent.mode,
@@ -18,5 +18,5 @@ export default {
     methods: {
 
     },
-    template: fileFormTemplate,
+    template: attachmentFormTemplate,
 }

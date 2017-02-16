@@ -6,7 +6,7 @@ export default {
 
     data() {
         return {
-            url: '/api/v1/files/',
+            url: '/api/v1/attachments/',
         }
     },
 
@@ -43,7 +43,7 @@ export default {
         store(params) {
             this.errors = {};
             this.$http.post(this.url, params).then((response) => {
-                this.$router.push({name: 'fileEdit', params: {id: response.data.id}})
+                this.$router.push({name: 'attachmentEdit', params: {id: response.data.id}})
             }, (response) => {
                 if (response.status == 422) {
                     this.errors = response.data.message;

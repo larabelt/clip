@@ -1,6 +1,6 @@
-import fileUploader from '../base/uploader';
-import fileService from '../file/service';
-import fileFormTemplate from '../file/templates/form';
+import attachmentUploader from '../base/uploader';
+import attachmentService from '../attachment/service';
+import attachmentFormTemplate from '../attachment/templates/form';
 import clippableService from './service';
 import clippableIndexTemplate from './templates/index';
 import clippableEdit from './clippable-edit';
@@ -9,11 +9,11 @@ export default {
     mixins: [clippableService],
     components: {
         clippableEdit,
-        fileUploader: fileUploader,
-        fileForm: {
+        attachmentUploader: attachmentUploader,
+        attachmentForm: {
             props: ['index'],
-            mixins: [fileService],
-            template: fileFormTemplate,
+            mixins: [attachmentService],
+            template: attachmentFormTemplate,
             mounted() {
                 this.item = this.$parent.items[this.index];
             },

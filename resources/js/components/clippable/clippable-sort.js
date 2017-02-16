@@ -1,13 +1,13 @@
-import fileUploader from '../base/uploader';
-import fileService from '../file/service';
-import fileFormTemplate from '../file/templates/form';
+import attachmentUploader from '../base/uploader';
+import attachmentService from '../attachment/service';
+import attachmentFormTemplate from '../attachment/templates/form';
 import clippableService from './service';
 import clippableSortTemplate from './templates/sort';
 
 export default {
     mixins: [clippableService],
     components: {
-        fileUploader: fileUploader,
+        attachmentUploader: attachmentUploader,
     },
     data() {
         return {

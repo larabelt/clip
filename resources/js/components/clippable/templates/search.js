@@ -9,14 +9,14 @@ export default `
         </div>
         <div class="col-md-12">
             <div v-if="items" class="clearfix">
-                <div v-for="file in detached">
-                    <span class="pull-left"><img class="img-thumbnail" :src="file.src" style="max-height: 100px" v-on:click="attach(file.id)" /></span>
+                <div v-for="attachment in detached">
+                    <span class="pull-left"><img class="img-thumbnail" :src="attachment.src" style="max-height: 100px" v-on:click="attach(attachment.id)" /></span>
                 </div>
             </div>
         </div>
         <div class="col-md-12">
-           <div v-for="file, index in attached">
-                <img class="img-thumbnail pull-left" :src="file.src" :data-index=index style="max-height: 100px" />
+           <div v-for="attachment, index in attached">
+                <img class="img-thumbnail pull-left" :src="attachment.src" :data-index=index style="max-height: 100px" />
             </div>
         </div>
     </div>

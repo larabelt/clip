@@ -7,11 +7,11 @@ export default `
                         <tr>
                             <th>
                                 ID
-                                <column-sorter :route="'fileIndex'" :column="'files.id'"></column-sorter>
+                                <column-sorter :route="'attachmentIndex'" :column="'attachments.id'"></column-sorter>
                             </th>
                             <th>
                                 Name
-                                <column-sorter :route="'fileIndex'" :column="'files.name'"></column-sorter>
+                                <column-sorter :route="'attachmentIndex'" :column="'attachments.name'"></column-sorter>
                             </th>
                             <th class="text-right">Actions</th>
                         </tr>
@@ -21,7 +21,7 @@ export default `
                             <td>{{ item.id }}</td>
                             <td>{{ item.name }}</td>
                             <td class="text-right">
-                                <router-link :to="{ name: 'fileEdit', params: { id: item.id } }" v-bind:class="'btn btn-xs btn-warning'">
+                                <router-link :to="{ name: 'attachmentEdit', params: { id: item.id } }" v-bind:class="'btn btn-xs btn-warning'">
                                     <i class="fa fa-edit"></i>
                                 </router-link>
                                 <a class="btn btn-xs btn-danger" v-on:click="destroy(item.id)"><i class="fa fa-trash"></i></a>
@@ -37,7 +37,7 @@ export default `
                     </tfoot>
                 </table>
             </div>
-            <pagination :route="'fileIndex'"></pagination>
+            <pagination :route="'attachmentIndex'"></pagination>
         </div>
     </div>
 `;

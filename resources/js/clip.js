@@ -1,6 +1,6 @@
-import fileIndex from './components/file/ctlr-index';
-import fileCreate from './components/file/ctlr-create';
-import fileEdit  from './components/file/ctlr-edit';
+import attachmentIndex from './components/attachment/ctlr-index';
+import attachmentCreate from './components/attachment/ctlr-create';
+import attachmentEdit  from './components/attachment/ctlr-edit';
 import store from 'belt/core/js/store/index';
 
 export default class BeltClip {
@@ -13,9 +13,9 @@ export default class BeltClip {
                 mode: 'history',
                 base: '/admin/belt/clip',
                 routes: [
-                    {path: '/files', component: fileIndex, canReuse: false, name: 'fileIndex'},
-                    {path: '/files/create', component: fileCreate, name: 'fileCreate'},
-                    {path: '/files/edit/:id', component: fileEdit, name: 'fileEdit'}
+                    {path: '/attachments', component: attachmentIndex, canReuse: false, name: 'attachmentIndex'},
+                    {path: '/attachments/create', component: attachmentCreate, name: 'attachmentCreate'},
+                    {path: '/attachments/edit/:id', component: attachmentEdit, name: 'attachmentEdit'}
                 ]
             });
 

@@ -1,6 +1,6 @@
 import headingTemplate from 'belt/core/js/templates/base/heading.html';
-import fileService from './service';
-import fileIndexTemplate from './templates/index';
+import attachmentService from './service';
+import attachmentIndexTemplate from './templates/index';
 
 export default {
 
@@ -8,16 +8,16 @@ export default {
         'heading': {
             data() {
                 return {
-                    title: 'File Manager',
+                    title: 'Attachment Manager',
                     subtitle: '',
                     crumbs: [],
                 }
             },
             'template': headingTemplate
         },
-        'file-index': {
-            mixins: [fileService],
-            template: fileIndexTemplate,
+        'attachment-index': {
+            mixins: [attachmentService],
+            template: attachmentIndexTemplate,
             mounted() {
                 this.query = this.getUrlQuery();
                 this.paginate();
@@ -29,7 +29,7 @@ export default {
         <div>
             <heading></heading>
             <section class="content">
-                <file-index></file-index>
+                <attachment-index></attachment-index>
             </section>
         </div>
         `

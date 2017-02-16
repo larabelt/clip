@@ -1,24 +1,24 @@
 import headingTemplate from 'belt/core/js/templates/base/heading.html';
-import fileService from './service';
-import fileFormTemplate from './templates/form';
+import attachmentService from './service';
+import attachmentFormTemplate from './templates/form';
 
 export default {
     components: {
         'heading': {
             data() {
                 return {
-                    title: 'File Creator',
+                    title: 'Attachment Creator',
                     subtitle: '',
                     crumbs: [
-                        {route: 'fileIndex', text: 'Files'}
+                        {route: 'attachmentIndex', text: 'Attachments'}
                     ],
                 }
             },
             'template': headingTemplate
         },
-        'file-form': {
-            mixins: [fileService],
-            template: fileFormTemplate,
+        'attachment-form': {
+            mixins: [attachmentService],
+            template: attachmentFormTemplate,
         },
     },
     template: `
@@ -29,9 +29,9 @@ export default {
                     <div class="col-md-9">
                         <div class="box box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Create File</h3>
+                                <h3 class="box-title">Create Attachment</h3>
                             </div>
-                            <file-form></file-form>
+                            <attachment-form></attachment-form>
                         </div>
                     </div>
                 </div>

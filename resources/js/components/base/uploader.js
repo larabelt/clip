@@ -1,4 +1,4 @@
-//import fileUploaderStore from './store';
+//import attachmentUploaderStore from './store';
 
 export default {
     props: {
@@ -16,7 +16,7 @@ export default {
         }
     },
     mounted() {
-        //this.$store.registerModule('fileUploader', fileUploaderStore);
+        //this.$store.registerModule('attachmentUploader', attachmentUploaderStore);
         this.clippable_id = this.$parent.clippable_id;
         this.clippable_type = this.$parent.clippable_type;
     },
@@ -28,52 +28,52 @@ export default {
                 this.$parent.attach(attachment_id);
             }
         },
-        onFileClick: function () {
-            // click actually triggers after the file dialog opens
+        onAttachmentClick: function () {
+            // click actually triggers after the attachment dialog opens
         },
-        onFileChange(e) {
+        onAttachmentChange(e) {
 
             this.pending = [];
 
-            let files = e.target.files || e.dataTransfer.files;
+            let attachments = e.target.attachments || e.dataTransfer.attachments;
 
-            if (!files.length) {
+            if (!attachments.length) {
                 return;
             }
 
-            for (let i = 0; i < files.length; i++) {
-                let file = files.item(i);
-                file.progress = 0;
-                this.pending[i] = file;
+            for (let i = 0; i < attachments.length; i++) {
+                let attachment = attachments.item(i);
+                attachment.progress = 0;
+                this.pending[i] = attachment;
             }
 
-            this.uploadFiles();
+            this.uploadAttachments();
         },
-        uploadFiles() {
+        uploadAttachments() {
             for (let i = 0; i < this.pending.length; i++) {
-                this.uploadFile(i);
+                this.uploadAttachment(i);
             }
             console.log(this.progress);
         },
-        uploadFile(i) {
+        uploadAttachment(i) {
 
             let self = this;
-            let file = this.pending[i];
+            let attachment = this.pending[i];
             let formData = new FormData();
 
             this.progress[i] = 0;
 
-            formData.append('file', file);
+            formData.append('attachment', attachment);
             formData.append('driver', this.driver);
             formData.append('path', this.path);
 
             //this.errors = {};
 
-            this.$http.post('/api/v1/files', formData, {
+            this.$http.post('/api/v1/attachments', formData, {
                 progress(e) {
                     if (e.lengthComputable) {
                         self.progress[i] = Math.ceil(e.loaded / e.total * 100);
-                        file.progress = Math.ceil(e.loaded / e.total * 100);
+                        attachment.progress = Math.ceil(e.loaded / e.total * 100);
                     }
                 }
             }).then((response) => {
@@ -90,18 +90,18 @@ export default {
     },
     template: `
         <div>
-            <div class="file-group">
-                <label for="file">
-                    <input type="file" name="file" id="file-uploader" accept="image/*" @click="onFileClick" @change="onFileChange" v-bind:multiple="multiple">
+            <div class="attachment-group">
+                <label for="attachment">
+                    <input type="attachment" name="attachment" id="attachment-uploader" accept="image/*" @click="onAttachmentClick" @change="onAttachmentChange" v-bind:multiple="multiple">
                     <slot></slot>
                 </label>
-                <button class="btn btn-default hide" type="button" v-on:click="uploadFiles">upload</button>
+                <button class="btn btn-default hide" type="button" v-on:click="uploadAttachments">upload</button>
             </div>
             <div v-if="pending">
                 <table class="table">
-                    <tr v-for="file, i in pending">
-                        <td>{{ file.name }}</td>
-                        <td>{{ file.progress }}</td>
+                    <tr v-for="attachment, i in pending">
+                        <td>{{ attachment.name }}</td>
+                        <td>{{ attachment.progress }}</td>
                         <td>
                             <div class="progress">
                               <div class="progress-bar" role="progressbar" :aria-valuenow=progress[i] aria-valuemin="0" aria-valuemax="100" :style="'width: ' + progress[i] + '%;'">

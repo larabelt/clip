@@ -2,19 +2,19 @@ export default `
     <div>
         <div class="row">
             <div class="col-md-12">
-                <file-uploader 
+                <attachment-uploader 
                 :driver=uploader_driver
                 :path=uploader_path
                 :multiple=uploader_multiple
-                ></file-uploader>
+                ></attachment-uploader>
             </div>
         </div>
-        <div class="row" v-for="file, index in attached">
+        <div class="row" v-for="attachment, index in attached">
             <div class="col-sm-2">
-                <img class="img-thumbnail" :src="file.src" style="max-height: 140px;" />                
+                <img class="img-thumbnail" :src="attachment.src" style="max-height: 140px;" />                
             </div>
             <div class="col-sm-9">
-                <div v-if="item.id == file.id">
+                <div v-if="item.id == attachment.id">
                     <clippable-edit></clippable-edit>
                 </div>
                 <div v-else>
@@ -24,28 +24,28 @@ export default `
                                 <tbody>
                                     <tr>
                                         <td><strong>ID</strong></td>
-                                        <td>{{ file.id }}</td>
+                                        <td>{{ attachment.id }}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Driver</strong></td>
-                                        <td>{{ file.driver }}</td>
+                                        <td>{{ attachment.driver }}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Mimetype</strong></td>
-                                        <td>{{ file.mimetype }}</td>
+                                        <td>{{ attachment.mimetype }}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Size</strong></td>
-                                        <td>{{ file.readable_size }}</td>
+                                        <td>{{ attachment.readable_size }}</td>
                                     </tr>
-                                    <tr v-if=file.width>
+                                    <tr v-if=attachment.width>
                                         <td><strong>W x H</strong></td>
-                                        <td>{{ file.width }} x {{ file.height }}</td>
+                                        <td>{{ attachment.width }} x {{ attachment.height }}</td>
                                     </tr>
-                                    <tr v-if="file.resizes.length > 0">
-                                        <td><strong>Files</strong></td>
+                                    <tr v-if="attachment.resizes.length > 0">
+                                        <td><strong>Attachments</strong></td>
                                         <td>
-                                            <div v-for="resize in file.resizes">
+                                            <div v-for="resize in attachment.resizes">
                                                 <a :href=resize.secure>{{ resize.preset }}</a>
                                             </div>
                                         </td>
@@ -55,23 +55,23 @@ export default `
                         </div>
                         <div class="col-md-9">
                             <table>
-                                <tr v-if=file.title>
-                                    <td colspan="100%"><strong>{{ file.title }}</strong></td>
+                                <tr v-if=attachment.title>
+                                    <td colspan="100%"><strong>{{ attachment.title }}</strong></td>
                                 </tr>
-                                <tr v-if=file.note>
-                                    <td colspan="100%">{{ file.note }}</td>
+                                <tr v-if=attachment.note>
+                                    <td colspan="100%">{{ attachment.note }}</td>
                                 </tr>
-                                <tr v-if=file.credits>
+                                <tr v-if=attachment.credits>
                                     <td><em>Credits:</em> </td>
-                                    <td>{{ file.credits }}</td>
+                                    <td>{{ attachment.credits }}</td>
                                 </tr>
-                                <tr v-if=file.alt>
+                                <tr v-if=attachment.alt>
                                     <td><em>Alt:</em> </td>
-                                    <td>{{ file.alt }}</td>
+                                    <td>{{ attachment.alt }}</td>
                                 </tr>
-                                <tr v-if=file.target_url>
+                                <tr v-if=attachment.target_url>
                                     <td><em>Target Url:</em> </td>
-                                    <td>{{ file.target_url }}</td>
+                                    <td>{{ attachment.target_url }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -80,8 +80,8 @@ export default `
             </div>
             <div class="col-sm-1">
                 <div class="btn-group pull-right">
-                    <a class="btn btn-xs btn-primary" @click="edit(file)"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-xs btn-danger" @click="detach(file.id)"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-xs btn-primary" @click="edit(attachment)"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-xs btn-danger" @click="detach(attachment.id)"><i class="fa fa-trash"></i></a>
                 </div>
             </div>
         </div>

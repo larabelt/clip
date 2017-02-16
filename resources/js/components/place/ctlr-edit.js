@@ -46,7 +46,7 @@ export default {
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs pull-right">
                                 <li class="active"><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">Main</a></li>
-                                <li class=""><a href="#tab_2-2" data-toggle="tab" aria-expanded="false">Files</a></li>
+                                <li class=""><a href="#tab_2-2" data-toggle="tab" aria-expanded="false">Attachments</a></li>
                                 <li class=""><a href="#tab_3-3" data-toggle="tab" aria-expanded="false">Handles</a></li>
                                 <li class=""><a href="#tab_4-4" data-toggle="tab" aria-expanded="false">Tags</a></li>
                             </ul>

@@ -1,10 +1,10 @@
 @php
-    $file = $section->sectionable;
+    $attachment = $section->sectionable;
 @endphp
 
-<div class="section section-file {{ $section->param('class') }}">
+<div class="section section-attachment {{ $section->param('class') }}">
     @include('belt-content::sections.sections._header')
     @include('belt-content::sections.sections._body')
-    @include('belt-clip::files.web._show')
+    @include('belt-clip::attachments.web._show')
     @include('belt-content::sections.sections._footer')
 </div>

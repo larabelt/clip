@@ -1,1 +1,1 @@
-<img class="img-responsive center-file" src="{{ $file->src }}"/>
+<img class="img-responsive center-attachment" src="{{ $attachment->src }}"/>
