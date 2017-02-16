@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Storage;
+namespace Belt\Storage;
 
 interface FileInterface
 {

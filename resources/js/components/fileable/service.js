@@ -1,5 +1,5 @@
-import form from 'ohio/core/js/mixins/base/forms';
-import positionable from 'ohio/core/js/mixins/base/positionable';
+import form from 'belt/core/js/mixins/base/forms';
+import positionable from 'belt/core/js/mixins/base/positionable';
 
 export default {
 

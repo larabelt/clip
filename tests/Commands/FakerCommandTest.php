@@ -1,13 +1,13 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\Commands\FakerCommand;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Storage\Commands\FakerCommand;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Faker\Generator;
 
-class FakerCommandTest extends OhioTestCase
+class FakerCommandTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -15,9 +15,9 @@ class FakerCommandTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Commands\FakerCommand::disk
-     * @covers \Ohio\Storage\Commands\FakerCommand::faker
-     * @covers \Ohio\Storage\Commands\FakerCommand::handle
+     * @covers \Belt\Storage\Commands\FakerCommand::disk
+     * @covers \Belt\Storage\Commands\FakerCommand::faker
+     * @covers \Belt\Storage\Commands\FakerCommand::handle
      */
     public function testHandle()
     {

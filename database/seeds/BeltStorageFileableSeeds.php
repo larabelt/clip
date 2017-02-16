@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
-use Ohio\Storage\File;
-use Ohio\Spot\Place;
+use Belt\Storage\File;
+use Belt\Spot\Place;
 
-class OhioStorageFileableSeeds extends Seeder
+class BeltStorageFileableSeeds extends Seeder
 {
     /**
      * Run the database seeds.

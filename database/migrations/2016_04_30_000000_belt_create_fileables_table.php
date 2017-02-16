@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class OhioCreateFileablesTable extends Migration
+class BeltCreateFileablesTable extends Migration
 {
     /**
      * Run the migrations.

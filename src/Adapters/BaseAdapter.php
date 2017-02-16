@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Storage\Adapters;
+namespace Belt\Storage\Adapters;
 
 use Storage;
 use Illuminate\Http\UploadedFile;
@@ -22,7 +22,7 @@ abstract class BaseAdapter
 
         $this->driver = $driver;
 
-        $this->config = config("ohio.storage.drivers.$driver");
+        $this->config = config("belt.storage.drivers.$driver");
 
         if (!$this->config('disk') || !$this->disk = Storage::disk($this->config('disk'))) {
             throw new \Exception('disk for adapter not specified or available');

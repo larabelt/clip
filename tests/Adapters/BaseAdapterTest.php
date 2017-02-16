@@ -1,12 +1,12 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\File;
-use Ohio\Storage\Adapters\BaseAdapter;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Storage\File;
+use Belt\Storage\Adapters\BaseAdapter;
 use Illuminate\Http\UploadedFile;
 
-class BaseAdapterTest extends OhioTestCase
+class BaseAdapterTest extends BeltTestCase
 {
 
     public function tearDown()
@@ -15,12 +15,12 @@ class BaseAdapterTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Adapters\BaseAdapter::__construct
-     * @covers \Ohio\Storage\Adapters\BaseAdapter::config
-     * @covers \Ohio\Storage\Adapters\BaseAdapter::randomFilename
-     * @covers \Ohio\Storage\Adapters\BaseAdapter::normalizePath
-     * @covers \Ohio\Storage\Adapters\BaseAdapter::prefixedPath
-     * @covers \Ohio\Storage\Adapters\BaseAdapter::__create
+     * @covers \Belt\Storage\Adapters\BaseAdapter::__construct
+     * @covers \Belt\Storage\Adapters\BaseAdapter::config
+     * @covers \Belt\Storage\Adapters\BaseAdapter::randomFilename
+     * @covers \Belt\Storage\Adapters\BaseAdapter::normalizePath
+     * @covers \Belt\Storage\Adapters\BaseAdapter::prefixedPath
+     * @covers \Belt\Storage\Adapters\BaseAdapter::__create
      */
     public function test()
     {
@@ -31,7 +31,7 @@ class BaseAdapterTest extends OhioTestCase
 
         $fileInfo = new UploadedFile(__DIR__ . '/../testing/test.jpg', 'test.jpg');
 
-        app()['config']->set('ohio.storage.drivers.BaseAdapterTest', [
+        app()['config']->set('belt.storage.drivers.BaseAdapterTest', [
             'disk' => 'public',
             'adapter' => LocalAdapter::class,
             'prefix' => 'testing',

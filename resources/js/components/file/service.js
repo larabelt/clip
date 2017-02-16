@@ -1,4 +1,4 @@
-import form from 'ohio/core/js/mixins/base/forms';
+import form from 'belt/core/js/mixins/base/forms';
 
 export default {
 

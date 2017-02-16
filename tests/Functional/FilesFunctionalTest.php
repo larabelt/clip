@@ -1,8 +1,8 @@
 <?php
 
-use Ohio\Core\Testing;
+use Belt\Core\Testing;
 
-class FilesFunctionalTest extends Testing\OhioTestCase
+class FilesFunctionalTest extends Testing\BeltTestCase
 {
     use Testing\CommonMocks;
 

@@ -1,16 +1,16 @@
 <?php
 
-use Ohio\Core;
+use Belt\Core;
 
 Route::group([
-    'prefix' => 'admin/ohio/storage',
+    'prefix' => 'admin/belt/storage',
     'middleware' => ['web', 'auth']
 ],
     function () {
 
-        # admin/ohio/storage home
+        # admin/belt/storage home
         Route::get('{any?}', function () {
-            return view('ohio-storage::base.admin.dashboard');
+            return view('belt-storage::base.admin.dashboard');
         })->where('any', '(.*)');
     }
 );

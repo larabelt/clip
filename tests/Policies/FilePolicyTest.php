@@ -1,16 +1,16 @@
 <?php
 
-use Ohio\Core\Testing;
-use Ohio\Storage\Policies\FilePolicy;
+use Belt\Core\Testing;
+use Belt\Storage\Policies\FilePolicy;
 
-class FilePolicyTest extends Testing\OhioTestCase
+class FilePolicyTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
 
     /**
-     * @covers \Ohio\Storage\Policies\FilePolicy::index
-     * @covers \Ohio\Storage\Policies\FilePolicy::view
+     * @covers \Belt\Storage\Policies\FilePolicy::index
+     * @covers \Belt\Storage\Policies\FilePolicy::view
      */
     public function test()
     {

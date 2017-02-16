@@ -1,7 +1,7 @@
 <?php
-namespace Ohio\Storage\Http\Requests;
+namespace Belt\Storage\Http\Requests;
 
-use Ohio\Core\Http\Requests\FormRequest;
+use Belt\Core\Http\Requests\FormRequest;
 
 class UpdateFile extends FormRequest
 {

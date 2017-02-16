@@ -1,20 +1,20 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
+use Belt\Core\Testing;
 
-use Ohio\Storage\File;
-use Ohio\Storage\Http\Requests\StoreFile;
-use Ohio\Storage\Http\Requests\PaginateFiles;
-use Ohio\Storage\Http\Requests\UpdateFile;
-use Ohio\Storage\Http\Controllers\Api\FilesController;
-use Ohio\Storage\Adapters\AdapterFactory;
-use Ohio\Storage\Adapters\BaseAdapter;
-use Ohio\Core\Http\Exceptions\ApiNotFoundHttpException;
+use Belt\Storage\File;
+use Belt\Storage\Http\Requests\StoreFile;
+use Belt\Storage\Http\Requests\PaginateFiles;
+use Belt\Storage\Http\Requests\UpdateFile;
+use Belt\Storage\Http\Controllers\Api\FilesController;
+use Belt\Storage\Adapters\AdapterFactory;
+use Belt\Storage\Adapters\BaseAdapter;
+use Belt\Core\Http\Exceptions\ApiNotFoundHttpException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
 
-class FilesControllerTest extends Testing\OhioTestCase
+class FilesControllerTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -25,14 +25,14 @@ class FilesControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Http\Controllers\Api\FilesController::__construct
-     * @covers \Ohio\Storage\Http\Controllers\Api\FilesController::get
-     * @covers \Ohio\Storage\Http\Controllers\Api\FilesController::show
-     * @covers \Ohio\Storage\Http\Controllers\Api\FilesController::destroy
-     * @covers \Ohio\Storage\Http\Controllers\Api\FilesController::update
-     * @covers \Ohio\Storage\Http\Controllers\Api\FilesController::store
-     * @covers \Ohio\Storage\Http\Controllers\Api\FilesController::index
-     * @covers \Ohio\Storage\Http\Controllers\Api\FilesController::adapter
+     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::__construct
+     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::get
+     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::show
+     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::destroy
+     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::update
+     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::store
+     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::index
+     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::adapter
      */
     public function test()
     {

@@ -1,6 +1,6 @@
 import fileService from '../file/service';
 import fileFormTemplate from '../file/templates/form';
-import mode from 'ohio/core/js/mixins/base/mode';
+import mode from 'belt/core/js/mixins/base/mode';
 
 export default {
     mixins: [mode, fileService],

@@ -1,7 +1,7 @@
 <?php
-namespace Ohio\Storage;
+namespace Belt\Storage;
 
-use Ohio;
+use Belt;
 use Illuminate\Database\Eloquent\Model;
 
 class File extends Model implements FileInterface

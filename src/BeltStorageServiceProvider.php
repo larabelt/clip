@@ -1,14 +1,14 @@
 <?php
 
-namespace Ohio\Storage;
+namespace Belt\Storage;
 
-use Ohio;
+use Belt;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
-class OhioStorageServiceProvider extends ServiceProvider
+class BeltStorageServiceProvider extends ServiceProvider
 {
 
     /**
@@ -17,7 +17,7 @@ class OhioStorageServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Ohio\Storage\File::class => Ohio\Storage\Policies\FilePolicy::class,
+        Belt\Storage\File::class => Belt\Storage\Policies\FilePolicy::class,
     ];
 
     /**
@@ -41,23 +41,23 @@ class OhioStorageServiceProvider extends ServiceProvider
     {
 
         // set view paths
-        $this->loadViewsFrom(resource_path('ohio/storage/views'), 'ohio-storage');
+        $this->loadViewsFrom(resource_path('belt/storage/views'), 'belt-storage');
 
         // set backup view paths
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'ohio-storage');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'belt-storage');
 
         // policies
         $this->registerPolicies($gate);
 
         // morphMap
         Relation::morphMap([
-            'files' => Ohio\Storage\File::class,
+            'files' => Belt\Storage\File::class,
         ]);
 
         // commands
-        $this->commands(Ohio\Storage\Commands\FakerCommand::class);
-        $this->commands(Ohio\Storage\Commands\PublishCommand::class);
-        $this->commands(Ohio\Storage\Commands\ResizeCommand::class);
+        $this->commands(Belt\Storage\Commands\FakerCommand::class);
+        $this->commands(Belt\Storage\Commands\PublishCommand::class);
+        $this->commands(Belt\Storage\Commands\ResizeCommand::class);
     }
 
     /**

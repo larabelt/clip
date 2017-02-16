@@ -1,6 +1,6 @@
 <?php
 
-namespace Ohio\Storage\Commands;
+namespace Belt\Storage\Commands;
 
 use Faker, Storage;
 use Illuminate\Console\Command;
@@ -13,7 +13,7 @@ class FakerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'ohio-storage:faker {--limit=5} {--c|category=}';
+    protected $signature = 'belt-storage:faker {--limit=5} {--c|category=}';
 
     /**
      * The console command description.
@@ -63,7 +63,7 @@ class FakerCommand extends Command
 
         for ($i = 1; $i <= $limit; $i++) {
             $file = new \Illuminate\Http\File($faker->image(null, 640, 480, $this->option('category')));
-            $disk->putFileAs('ohio/database/images', $file, $file->getFilename());
+            $disk->putFileAs('belt/database/images', $file, $file->getFilename());
             $this->info($file->getFilename());
         }
 

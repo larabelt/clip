@@ -1,8 +1,8 @@
 <?php
 
-namespace Ohio\Storage\Commands;
+namespace Belt\Storage\Commands;
 
-use Ohio\Storage\Services\ResizeService;
+use Belt\Storage\Services\ResizeService;
 use Illuminate\Console\Command;
 
 class ResizeCommand extends Command
@@ -13,7 +13,7 @@ class ResizeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'ohio-storage:resize';
+    protected $signature = 'belt-storage:resize';
 
     /**
      * The console command description.

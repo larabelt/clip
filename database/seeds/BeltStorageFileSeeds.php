@@ -2,7 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
-class OhioStorageSeeder extends Seeder
+use Belt\Storage\File;
+
+class BeltStorageFileSeeds extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +13,6 @@ class OhioStorageSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(OhioStorageFileSeeds::class);
-        $this->call(OhioStorageFileableSeeds::class);
+        factory(File::class, 25)->create();
     }
 }

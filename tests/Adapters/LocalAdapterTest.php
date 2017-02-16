@@ -1,13 +1,13 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\File;
-use Ohio\Storage\Adapters\LocalAdapter;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Storage\File;
+use Belt\Storage\Adapters\LocalAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Filesystem\FilesystemAdapter;
 
-class LocalAdapterTest extends OhioTestCase
+class LocalAdapterTest extends BeltTestCase
 {
 
     public function tearDown()
@@ -16,12 +16,12 @@ class LocalAdapterTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Adapters\LocalAdapter::__construct
-     * @covers \Ohio\Storage\Adapters\LocalAdapter::src
-     * @covers \Ohio\Storage\Adapters\LocalAdapter::secure
-     * @covers \Ohio\Storage\Adapters\LocalAdapter::contents
-     * @covers \Ohio\Storage\Adapters\LocalAdapter::upload
-     * @covers \Ohio\Storage\Adapters\LocalAdapter::__create
+     * @covers \Belt\Storage\Adapters\LocalAdapter::__construct
+     * @covers \Belt\Storage\Adapters\LocalAdapter::src
+     * @covers \Belt\Storage\Adapters\LocalAdapter::secure
+     * @covers \Belt\Storage\Adapters\LocalAdapter::contents
+     * @covers \Belt\Storage\Adapters\LocalAdapter::upload
+     * @covers \Belt\Storage\Adapters\LocalAdapter::__create
      */
     public function test()
     {
@@ -30,7 +30,7 @@ class LocalAdapterTest extends OhioTestCase
             'root' => __DIR__ . '/../',
         ]);
 
-        app()['config']->set('ohio.storage.drivers.LocalAdapterTest', [
+        app()['config']->set('belt.storage.drivers.LocalAdapterTest', [
             'disk' => 'LocalAdapterTest',
             'adapter' => LocalAdapter::class,
             'prefix' => 'testing',

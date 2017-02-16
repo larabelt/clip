@@ -1,13 +1,13 @@
 <?php
 
-namespace Ohio\Storage\Http\Controllers\Api;
+namespace Belt\Storage\Http\Controllers\Api;
 
-use Ohio\Core\Http\Controllers\ApiController;
-use Ohio\Storage\Adapters\AdapterFactory;
-use Ohio\Storage\File;
-use Ohio\Storage\Http\Requests;
-use Ohio\Storage\Adapters\Ad;
-use Ohio\Storage\Adapters\BaseAdapter;
+use Belt\Core\Http\Controllers\ApiController;
+use Belt\Storage\Adapters\AdapterFactory;
+use Belt\Storage\File;
+use Belt\Storage\Http\Requests;
+use Belt\Storage\Adapters\Ad;
+use Belt\Storage\Adapters\BaseAdapter;
 
 class FilesController extends ApiController
 {

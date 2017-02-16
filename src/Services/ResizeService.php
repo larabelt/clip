@@ -1,9 +1,9 @@
 <?php
-namespace Ohio\Storage\Services;
+namespace Belt\Storage\Services;
 
-use Ohio\Storage\Adapters;
-use Ohio\Storage\File;
-use Ohio\Storage\Resize;
+use Belt\Storage\Adapters;
+use Belt\Storage\File;
+use Belt\Storage\Resize;
 use Illuminate\Http\UploadedFile;
 use Intervention\Image\ImageManager;
 
@@ -42,7 +42,7 @@ class ResizeService
 
     public function __construct($config = [])
     {
-        $this->config = array_merge(config('ohio.storage.resize'), $config);
+        $this->config = array_merge(config('belt.storage.resize'), $config);
         $this->files = new File();
     }
 

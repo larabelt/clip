@@ -1,16 +1,16 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
-use Ohio\Core\Http\Exceptions\ApiException;
-use Ohio\Core\Helpers\MorphHelper;
-use Ohio\Storage\File;
-use Ohio\Storage\Http\Requests;
-use Ohio\Storage\Http\Controllers\Api\FileablesController;
-use Ohio\Storage\Behaviors\Fileable;
+use Belt\Core\Testing;
+use Belt\Core\Http\Exceptions\ApiException;
+use Belt\Core\Helpers\MorphHelper;
+use Belt\Storage\File;
+use Belt\Storage\Http\Requests;
+use Belt\Storage\Http\Controllers\Api\FileablesController;
+use Belt\Storage\Behaviors\Fileable;
 use Illuminate\Database\Eloquent\Model;
 
-class FileablesControllerTest extends Testing\OhioTestCase
+class FileablesControllerTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -21,14 +21,14 @@ class FileablesControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Http\Controllers\Api\FileablesController::__construct
-     * @covers \Ohio\Storage\Http\Controllers\Api\FileablesController::file
-     * @covers \Ohio\Storage\Http\Controllers\Api\FileablesController::fileable
-     * @covers \Ohio\Storage\Http\Controllers\Api\FileablesController::show
-     * @covers \Ohio\Storage\Http\Controllers\Api\FileablesController::destroy
-     * @covers \Ohio\Storage\Http\Controllers\Api\FileablesController::store
-     * @covers \Ohio\Storage\Http\Controllers\Api\FileablesController::update
-     * @covers \Ohio\Storage\Http\Controllers\Api\FileablesController::index
+     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::__construct
+     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::file
+     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::fileable
+     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::show
+     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::destroy
+     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::store
+     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::update
+     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::index
      */
     public function test()
     {

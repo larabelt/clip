@@ -1,10 +1,10 @@
 <?php
 
-namespace Ohio\Storage\Policies;
+namespace Belt\Storage\Policies;
 
-use Ohio\Core\User;
-use Ohio\Core\Policies\BaseAdminPolicy;
-use Ohio\Storage\File;
+use Belt\Core\User;
+use Belt\Core\Policies\BaseAdminPolicy;
+use Belt\Storage\File;
 
 class FilePolicy extends BaseAdminPolicy
 {

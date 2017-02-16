@@ -1,6 +1,6 @@
 {
-  "name": "ohiocms/storage",
-  "description": "Storage package for OhioCMS.",
+  "name": "larabelt/storage",
+  "description": "Storage package for LaraBelt.",
   "authors": [
     {
       "name": "Matt Crowe",
@@ -13,12 +13,12 @@
   ],
   "minimum-stability": "dev",
   "require": {
-    "ohiocms/core": "dev-master",
+    "larabelt/core": "dev-master",
     "intervention/image": "2.3.*"
   },
   "autoload": {
     "psr-4": {
-      "Ohio\\Storage\\": "src/"
+      "Belt\\Storage\\": "src/"
     }
   }
 }

@@ -1,10 +1,10 @@
 <?php
 
-use Ohio\Core\Helpers\FactoryHelper;
+use Belt\Core\Helpers\FactoryHelper;
 use Illuminate\Http\UploadedFile;
-use Ohio\Storage\Adapters\AdapterFactory;
+use Belt\Storage\Adapters\AdapterFactory;
 
-$factory->define(Ohio\Storage\Resize::class, function (Faker\Generator $faker, $params = null) {
+$factory->define(Belt\Storage\Resize::class, function (Faker\Generator $faker, $params = null) {
 
     $file = array_get($params, 'file');
 

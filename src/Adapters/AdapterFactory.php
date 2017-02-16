@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Storage\Adapters;
+namespace Belt\Storage\Adapters;
 
 class AdapterFactory
 {
@@ -17,7 +17,7 @@ class AdapterFactory
             return static::$adapters[$driver];
         }
 
-        $adapterClass = config("ohio.storage.drivers.$driver.adapter");
+        $adapterClass = config("belt.storage.drivers.$driver.adapter");
 
         if (!$adapterClass || !class_exists($adapterClass)) {
             throw new \Exception('adapter for file driver type not specified or available');

@@ -1,13 +1,13 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\File;
-use Ohio\Storage\Resize;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Storage\File;
+use Belt\Storage\Resize;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class FileTest extends OhioTestCase
+class FileTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -15,11 +15,11 @@ class FileTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\File::resizes
-     * @covers \Ohio\Storage\File::scopeFiled
-     * @covers \Ohio\Storage\File::scopeNotFiled
-     * @covers \Ohio\Storage\File::sized
-     * @covers \Ohio\Storage\File::__sized
+     * @covers \Belt\Storage\File::resizes
+     * @covers \Belt\Storage\File::scopeFiled
+     * @covers \Belt\Storage\File::scopeNotFiled
+     * @covers \Belt\Storage\File::sized
+     * @covers \Belt\Storage\File::__sized
      */
     public function test()
     {

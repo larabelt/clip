@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Storage\Behaviors;
+namespace Belt\Storage\Behaviors;
 
 interface FileableInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Ohio\Storage\Commands;
+namespace Belt\Storage\Commands;
 
-use Ohio\Core\Commands\PublishCommand as Command;
+use Belt\Core\Commands\PublishCommand as Command;
 
 class PublishCommand extends Command
 {
@@ -12,22 +12,22 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'ohio-storage:publish {--force}';
+    protected $signature = 'belt-storage:publish {--force}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'publish assets for ohio storage';
+    protected $description = 'publish assets for belt storage';
 
     protected $dirs = [
-        'vendor/ohiocms/storage/config' => 'config/ohio',
-        'vendor/ohiocms/storage/resources' => 'resources/ohio/storage',
-        'vendor/ohiocms/storage/database/factories' => 'database/factories',
-        'vendor/ohiocms/storage/database/migrations' => 'database/migrations',
-        'vendor/ohiocms/storage/database/seeds' => 'database/seeds',
-        'vendor/ohiocms/storage/database/images' => 'storage/app/public/ohio/database/images',
+        'vendor/larabelt/storage/config' => 'config/belt',
+        'vendor/larabelt/storage/resources' => 'resources/belt/storage',
+        'vendor/larabelt/storage/database/factories' => 'database/factories',
+        'vendor/larabelt/storage/database/migrations' => 'database/migrations',
+        'vendor/larabelt/storage/database/seeds' => 'database/seeds',
+        'vendor/larabelt/storage/database/images' => 'storage/app/public/belt/database/images',
     ];
 
 }

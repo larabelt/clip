@@ -1,12 +1,12 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\File;
-use Ohio\Storage\FileTrait;
-use Ohio\Storage\Adapters\LocalAdapter;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Storage\File;
+use Belt\Storage\FileTrait;
+use Belt\Storage\Adapters\LocalAdapter;
 
-class FileTraitTest extends OhioTestCase
+class FileTraitTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -14,21 +14,21 @@ class FileTraitTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\FileTrait::adapter
-     * @covers \Ohio\Storage\FileTrait::getSrcAttribute
-     * @covers \Ohio\Storage\FileTrait::getSecureAttribute
-     * @covers \Ohio\Storage\FileTrait::getContentsAttribute
-     * @covers \Ohio\Storage\FileTrait::setDriverAttribute
-     * @covers \Ohio\Storage\FileTrait::setNameAttribute
-     * @covers \Ohio\Storage\FileTrait::setOriginalNameAttribute
-     * @covers \Ohio\Storage\FileTrait::setPathAttribute
-     * @covers \Ohio\Storage\FileTrait::getRelPathAttribute
-     * @covers \Ohio\Storage\FileTrait::setMimetypeAttribute
-     * @covers \Ohio\Storage\FileTrait::setWidthAttribute
-     * @covers \Ohio\Storage\FileTrait::setSizeAttribute
-     * @covers \Ohio\Storage\FileTrait::setHeightAttribute
-     * @covers \Ohio\Storage\FileTrait::createFromUpload
-     * @covers \Ohio\Storage\FileTrait::getReadableSizeAttribute
+     * @covers \Belt\Storage\FileTrait::adapter
+     * @covers \Belt\Storage\FileTrait::getSrcAttribute
+     * @covers \Belt\Storage\FileTrait::getSecureAttribute
+     * @covers \Belt\Storage\FileTrait::getContentsAttribute
+     * @covers \Belt\Storage\FileTrait::setDriverAttribute
+     * @covers \Belt\Storage\FileTrait::setNameAttribute
+     * @covers \Belt\Storage\FileTrait::setOriginalNameAttribute
+     * @covers \Belt\Storage\FileTrait::setPathAttribute
+     * @covers \Belt\Storage\FileTrait::getRelPathAttribute
+     * @covers \Belt\Storage\FileTrait::setMimetypeAttribute
+     * @covers \Belt\Storage\FileTrait::setWidthAttribute
+     * @covers \Belt\Storage\FileTrait::setSizeAttribute
+     * @covers \Belt\Storage\FileTrait::setHeightAttribute
+     * @covers \Belt\Storage\FileTrait::createFromUpload
+     * @covers \Belt\Storage\FileTrait::getReadableSizeAttribute
      */
     public function test()
     {

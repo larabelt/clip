@@ -2,14 +2,14 @@
 
 use Mockery as m;
 
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\Behaviors\Fileable;
-use Ohio\Storage\File;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Storage\Behaviors\Fileable;
+use Belt\Storage\File;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-class FileableTest extends OhioTestCase
+class FileableTest extends BeltTestCase
 {
 
     public function tearDown()
@@ -18,9 +18,9 @@ class FileableTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Behaviors\Fileable::files
-     * @covers \Ohio\Storage\Behaviors\Fileable::getResizePresets
-     * @covers \Ohio\Storage\Behaviors\Fileable::getBelongsToManyCaller
+     * @covers \Belt\Storage\Behaviors\Fileable::files
+     * @covers \Belt\Storage\Behaviors\Fileable::getResizePresets
+     * @covers \Belt\Storage\Behaviors\Fileable::getBelongsToManyCaller
      */
     public function test()
     {

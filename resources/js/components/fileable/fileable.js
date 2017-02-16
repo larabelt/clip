@@ -2,7 +2,7 @@ import fileableIndex from './fileable-index';
 import fileableEdit from './fileable-edit';
 import fileableSearch from './fileable-search';
 import fileableSort from './fileable-sort';
-import mode from 'ohio/core/js/mixins/base/mode';
+import mode from 'belt/core/js/mixins/base/mode';
 
 export default {
     mixins: [mode],

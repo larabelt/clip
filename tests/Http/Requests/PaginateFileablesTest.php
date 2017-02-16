@@ -1,13 +1,13 @@
 <?php
 use Mockery as m;
-use Ohio\Core\Testing;
+use Belt\Core\Testing;
 
-use Ohio\Storage\File;
-use Ohio\Storage\Http\Requests\PaginateFileables;
+use Belt\Storage\File;
+use Belt\Storage\Http\Requests\PaginateFileables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class PaginateFileablesTest extends Testing\OhioTestCase
+class PaginateFileablesTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -18,8 +18,8 @@ class PaginateFileablesTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Http\Requests\PaginateFileables::modifyQuery
-     * @covers \Ohio\Storage\Http\Requests\PaginateFileables::items
+     * @covers \Belt\Storage\Http\Requests\PaginateFileables::modifyQuery
+     * @covers \Belt\Storage\Http\Requests\PaginateFileables::items
      */
     public function test()
     {

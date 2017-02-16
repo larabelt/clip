@@ -1,12 +1,12 @@
 <?php
 
-namespace Ohio\Storage\Http\Controllers\Api;
+namespace Belt\Storage\Http\Controllers\Api;
 
-use Ohio\Core\Http\Controllers\ApiController;
-use Ohio\Core\Http\Controllers\Behaviors\Positionable;
-use Ohio\Storage\File;
-use Ohio\Storage\Http\Requests;
-use Ohio\Core\Helpers\MorphHelper;
+use Belt\Core\Http\Controllers\ApiController;
+use Belt\Core\Http\Controllers\Behaviors\Positionable;
+use Belt\Storage\File;
+use Belt\Storage\Http\Requests;
+use Belt\Core\Helpers\MorphHelper;
 
 class FileablesController extends ApiController
 {

@@ -1,14 +1,14 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\File;
-use Ohio\Storage\Resize;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Storage\File;
+use Belt\Storage\Resize;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ResizeTest extends OhioTestCase
+class ResizeTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -16,8 +16,8 @@ class ResizeTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Resize::file
-     * @covers \Ohio\Storage\Resize::getPresetAttribute
+     * @covers \Belt\Storage\Resize::file
+     * @covers \Belt\Storage\Resize::getPresetAttribute
      */
     public function test()
     {

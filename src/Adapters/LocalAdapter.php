@@ -1,8 +1,8 @@
 <?php
-namespace Ohio\Storage\Adapters;
+namespace Belt\Storage\Adapters;
 
 use Storage;
-use Ohio\Storage\FileInterface;
+use Belt\Storage\FileInterface;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\File as LaravelFile;

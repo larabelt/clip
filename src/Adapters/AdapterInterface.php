@@ -1,7 +1,7 @@
 <?php
-namespace Ohio\Storage\Adapters;
+namespace Belt\Storage\Adapters;
 
-use Ohio\Storage\FileInterface;
+use Belt\Storage\FileInterface;
 use Illuminate\Http\UploadedFile;
 
 interface AdapterInterface

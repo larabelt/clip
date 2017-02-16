@@ -1,8 +1,8 @@
 <?php
-namespace Ohio\Storage;
+namespace Belt\Storage;
 
-use Ohio\Storage\Adapters\BaseAdapter;
-use Ohio\Storage\Adapters\AdapterFactory;
+use Belt\Storage\Adapters\BaseAdapter;
+use Belt\Storage\Adapters\AdapterFactory;
 
 trait FileTrait
 {

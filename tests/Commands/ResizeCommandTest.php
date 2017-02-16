@@ -1,12 +1,12 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\Commands\ResizeCommand;
-use Ohio\Storage\Services\ResizeService;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Storage\Commands\ResizeCommand;
+use Belt\Storage\Services\ResizeService;
 use Illuminate\Filesystem\FilesystemAdapter;
 
-class ResizeCommandTest extends OhioTestCase
+class ResizeCommandTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -14,8 +14,8 @@ class ResizeCommandTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Commands\ResizeCommand::service
-     * @covers \Ohio\Storage\Commands\ResizeCommand::handle
+     * @covers \Belt\Storage\Commands\ResizeCommand::service
+     * @covers \Belt\Storage\Commands\ResizeCommand::handle
      */
     public function testHandle()
     {

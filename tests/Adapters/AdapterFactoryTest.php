@@ -1,19 +1,19 @@
 <?php
 
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\Adapters\BaseAdapter;
-use Ohio\Storage\Adapters\AdapterFactory;
-use Ohio\Storage\Adapters\LocalAdapter;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Storage\Adapters\BaseAdapter;
+use Belt\Storage\Adapters\AdapterFactory;
+use Belt\Storage\Adapters\LocalAdapter;
 
-class AdapterFactoryTest extends OhioTestCase
+class AdapterFactoryTest extends BeltTestCase
 {
 
     /**
-     * @covers \Ohio\Storage\Adapters\AdapterFactory::up
+     * @covers \Belt\Storage\Adapters\AdapterFactory::up
      */
     public function test()
     {
-        app()['config']->set('ohio.storage.drivers.AdapterFactoryTest', [
+        app()['config']->set('belt.storage.drivers.AdapterFactoryTest', [
             'disk' => 'public',
             'adapter' => LocalAdapter::class,
             'prefix' => 'testing',

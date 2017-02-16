@@ -1,18 +1,18 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Storage\Behaviors\Fileable;
-use Ohio\Storage\File;
-use Ohio\Storage\Resize;
-use Ohio\Storage\Adapters\BaseAdapter;
-use Ohio\Storage\Services\ResizeService;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Storage\Behaviors\Fileable;
+use Belt\Storage\File;
+use Belt\Storage\Resize;
+use Belt\Storage\Adapters\BaseAdapter;
+use Belt\Storage\Services\ResizeService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Intervention\Image\ImageManager;
 
-class ResizeServiceTest extends OhioTestCase
+class ResizeServiceTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -22,7 +22,7 @@ class ResizeServiceTest extends OhioTestCase
     public function setUp()
     {
         parent::setUp();
-        app()['config']->set('ohio.storage.resize', [
+        app()['config']->set('belt.storage.resize', [
             'foo' => 'bar',
             'local_driver' => 'default',
             'image_driver' => 'imagick',
@@ -34,11 +34,11 @@ class ResizeServiceTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Services\ResizeService::__construct
-     * @covers \Ohio\Storage\Services\ResizeService::config
-     * @covers \Ohio\Storage\Services\ResizeService::adapter
-     * @covers \Ohio\Storage\Services\ResizeService::manager
-     * @covers \Ohio\Storage\Services\ResizeService::resizeRepo
+     * @covers \Belt\Storage\Services\ResizeService::__construct
+     * @covers \Belt\Storage\Services\ResizeService::config
+     * @covers \Belt\Storage\Services\ResizeService::adapter
+     * @covers \Belt\Storage\Services\ResizeService::manager
+     * @covers \Belt\Storage\Services\ResizeService::resizeRepo
      */
     public function test()
     {
@@ -62,7 +62,7 @@ class ResizeServiceTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Services\ResizeService::batch
+     * @covers \Belt\Storage\Services\ResizeService::batch
      */
     public function testBatch()
     {
@@ -96,7 +96,7 @@ class ResizeServiceTest extends OhioTestCase
 
 
     /**
-     * @covers \Ohio\Storage\Services\ResizeService::query
+     * @covers \Belt\Storage\Services\ResizeService::query
      */
     public function testQuery()
     {
@@ -121,7 +121,7 @@ class ResizeServiceTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Storage\Services\ResizeService::resize
+     * @covers \Belt\Storage\Services\ResizeService::resize
      */
     public function testResize()
     {
