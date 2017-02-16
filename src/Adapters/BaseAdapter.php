@@ -1,5 +1,5 @@
 <?php
-namespace Belt\Storage\Adapters;
+namespace Belt\Clip\Adapters;
 
 use Storage;
 use Illuminate\Http\UploadedFile;

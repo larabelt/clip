@@ -1,8 +1,8 @@
 <?php
 
-namespace Belt\Storage\Commands;
+namespace Belt\Clip\Commands;
 
-use Belt\Storage\Services\ResizeService;
+use Belt\Clip\Services\ResizeService;
 use Illuminate\Console\Command;
 
 class ResizeCommand extends Command

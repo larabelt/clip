@@ -1,13 +1,13 @@
 <?php
 
-namespace Belt\Storage\Http\Controllers\Api;
+namespace Belt\Clip\Http\Controllers\Api;
 
 use Belt\Core\Http\Controllers\ApiController;
-use Belt\Storage\Adapters\AdapterFactory;
-use Belt\Storage\File;
-use Belt\Storage\Http\Requests;
-use Belt\Storage\Adapters\Ad;
-use Belt\Storage\Adapters\BaseAdapter;
+use Belt\Clip\Adapters\AdapterFactory;
+use Belt\Clip\File;
+use Belt\Clip\Http\Requests;
+use Belt\Clip\Adapters\Ad;
+use Belt\Clip\Adapters\BaseAdapter;
 
 class FilesController extends ApiController
 {

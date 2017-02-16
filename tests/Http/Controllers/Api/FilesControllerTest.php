@@ -3,13 +3,13 @@
 use Mockery as m;
 use Belt\Core\Testing;
 
-use Belt\Storage\File;
-use Belt\Storage\Http\Requests\StoreFile;
-use Belt\Storage\Http\Requests\PaginateFiles;
-use Belt\Storage\Http\Requests\UpdateFile;
-use Belt\Storage\Http\Controllers\Api\FilesController;
-use Belt\Storage\Adapters\AdapterFactory;
-use Belt\Storage\Adapters\BaseAdapter;
+use Belt\Clip\File;
+use Belt\Clip\Http\Requests\StoreFile;
+use Belt\Clip\Http\Requests\PaginateFiles;
+use Belt\Clip\Http\Requests\UpdateFile;
+use Belt\Clip\Http\Controllers\Api\FilesController;
+use Belt\Clip\Adapters\AdapterFactory;
+use Belt\Clip\Adapters\BaseAdapter;
 use Belt\Core\Http\Exceptions\ApiNotFoundHttpException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
@@ -25,14 +25,14 @@ class FilesControllerTest extends Testing\BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::__construct
-     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::get
-     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::show
-     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::destroy
-     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::update
-     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::store
-     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::index
-     * @covers \Belt\Storage\Http\Controllers\Api\FilesController::adapter
+     * @covers \Belt\Clip\Http\Controllers\Api\FilesController::__construct
+     * @covers \Belt\Clip\Http\Controllers\Api\FilesController::get
+     * @covers \Belt\Clip\Http\Controllers\Api\FilesController::show
+     * @covers \Belt\Clip\Http\Controllers\Api\FilesController::destroy
+     * @covers \Belt\Clip\Http\Controllers\Api\FilesController::update
+     * @covers \Belt\Clip\Http\Controllers\Api\FilesController::store
+     * @covers \Belt\Clip\Http\Controllers\Api\FilesController::index
+     * @covers \Belt\Clip\Http\Controllers\Api\FilesController::adapter
      */
     public function test()
     {

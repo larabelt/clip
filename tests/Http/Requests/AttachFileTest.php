@@ -1,12 +1,12 @@
 <?php
 
-use Belt\Storage\Http\Requests\AttachFile;
+use Belt\Clip\Http\Requests\AttachFile;
 
 class AttachFileTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Belt\Storage\Http\Requests\AttachFile::rules
+     * @covers \Belt\Clip\Http\Requests\AttachFile::rules
      */
     public function test()
     {

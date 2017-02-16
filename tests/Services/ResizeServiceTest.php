@@ -2,11 +2,11 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Storage\Behaviors\Fileable;
-use Belt\Storage\File;
-use Belt\Storage\Resize;
-use Belt\Storage\Adapters\BaseAdapter;
-use Belt\Storage\Services\ResizeService;
+use Belt\Clip\Behaviors\Fileable;
+use Belt\Clip\File;
+use Belt\Clip\Resize;
+use Belt\Clip\Adapters\BaseAdapter;
+use Belt\Clip\Services\ResizeService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -34,11 +34,11 @@ class ResizeServiceTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Services\ResizeService::__construct
-     * @covers \Belt\Storage\Services\ResizeService::config
-     * @covers \Belt\Storage\Services\ResizeService::adapter
-     * @covers \Belt\Storage\Services\ResizeService::manager
-     * @covers \Belt\Storage\Services\ResizeService::resizeRepo
+     * @covers \Belt\Clip\Services\ResizeService::__construct
+     * @covers \Belt\Clip\Services\ResizeService::config
+     * @covers \Belt\Clip\Services\ResizeService::adapter
+     * @covers \Belt\Clip\Services\ResizeService::manager
+     * @covers \Belt\Clip\Services\ResizeService::resizeRepo
      */
     public function test()
     {
@@ -62,7 +62,7 @@ class ResizeServiceTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Services\ResizeService::batch
+     * @covers \Belt\Clip\Services\ResizeService::batch
      */
     public function testBatch()
     {
@@ -96,7 +96,7 @@ class ResizeServiceTest extends BeltTestCase
 
 
     /**
-     * @covers \Belt\Storage\Services\ResizeService::query
+     * @covers \Belt\Clip\Services\ResizeService::query
      */
     public function testQuery()
     {
@@ -121,7 +121,7 @@ class ResizeServiceTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Services\ResizeService::resize
+     * @covers \Belt\Clip\Services\ResizeService::resize
      */
     public function testResize()
     {

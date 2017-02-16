@@ -2,7 +2,7 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Storage\Commands\FakerCommand;
+use Belt\Clip\Commands\FakerCommand;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Faker\Generator;
@@ -15,9 +15,9 @@ class FakerCommandTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Commands\FakerCommand::disk
-     * @covers \Belt\Storage\Commands\FakerCommand::faker
-     * @covers \Belt\Storage\Commands\FakerCommand::handle
+     * @covers \Belt\Clip\Commands\FakerCommand::disk
+     * @covers \Belt\Clip\Commands\FakerCommand::faker
+     * @covers \Belt\Clip\Commands\FakerCommand::handle
      */
     public function testHandle()
     {

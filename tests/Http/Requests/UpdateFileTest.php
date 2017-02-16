@@ -1,12 +1,12 @@
 <?php
 
-use Belt\Storage\Http\Requests\UpdateFile;
+use Belt\Clip\Http\Requests\UpdateFile;
 
 class UpdateFileTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Belt\Storage\Http\Requests\UpdateFile::rules
+     * @covers \Belt\Clip\Http\Requests\UpdateFile::rules
      */
     public function test()
     {

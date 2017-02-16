@@ -1,7 +1,7 @@
 <?php
-namespace Belt\Storage\Behaviors;
+namespace Belt\Clip\Behaviors;
 
-use Belt\Storage\File;
+use Belt\Clip\File;
 use Rutorika\Sortable\MorphToSortedManyTrait;
 
 trait Fileable

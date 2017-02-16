@@ -2,8 +2,8 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Storage\File;
-use Belt\Storage\Adapters\BaseAdapter;
+use Belt\Clip\File;
+use Belt\Clip\Adapters\BaseAdapter;
 use Illuminate\Http\UploadedFile;
 
 class BaseAdapterTest extends BeltTestCase
@@ -15,12 +15,12 @@ class BaseAdapterTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Adapters\BaseAdapter::__construct
-     * @covers \Belt\Storage\Adapters\BaseAdapter::config
-     * @covers \Belt\Storage\Adapters\BaseAdapter::randomFilename
-     * @covers \Belt\Storage\Adapters\BaseAdapter::normalizePath
-     * @covers \Belt\Storage\Adapters\BaseAdapter::prefixedPath
-     * @covers \Belt\Storage\Adapters\BaseAdapter::__create
+     * @covers \Belt\Clip\Adapters\BaseAdapter::__construct
+     * @covers \Belt\Clip\Adapters\BaseAdapter::config
+     * @covers \Belt\Clip\Adapters\BaseAdapter::randomFilename
+     * @covers \Belt\Clip\Adapters\BaseAdapter::normalizePath
+     * @covers \Belt\Clip\Adapters\BaseAdapter::prefixedPath
+     * @covers \Belt\Clip\Adapters\BaseAdapter::__create
      */
     public function test()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Belt\Storage\Commands;
+namespace Belt\Clip\Commands;
 
 use Belt\Core\Commands\PublishCommand as Command;
 
@@ -22,12 +22,12 @@ class PublishCommand extends Command
     protected $description = 'publish assets for belt storage';
 
     protected $dirs = [
-        'vendor/larabelt/storage/config' => 'config/belt',
-        'vendor/larabelt/storage/resources' => 'resources/belt/storage',
-        'vendor/larabelt/storage/database/factories' => 'database/factories',
-        'vendor/larabelt/storage/database/migrations' => 'database/migrations',
-        'vendor/larabelt/storage/database/seeds' => 'database/seeds',
-        'vendor/larabelt/storage/database/images' => 'storage/app/public/belt/database/images',
+        'vendor/larabelt/clip/config' => 'config/belt',
+        'vendor/larabelt/clip/resources' => 'resources/belt/storage',
+        'vendor/larabelt/clip/database/factories' => 'database/factories',
+        'vendor/larabelt/clip/database/migrations' => 'database/migrations',
+        'vendor/larabelt/clip/database/seeds' => 'database/seeds',
+        'vendor/larabelt/clip/database/images' => 'storage/app/public/belt/database/images',
     ];
 
 }

@@ -1,7 +1,7 @@
 <?php
-namespace Belt\Storage\Http\Requests;
+namespace Belt\Clip\Http\Requests;
 
-use Belt\Storage\File;
+use Belt\Clip\File;
 use Illuminate\Database\Eloquent\Builder;
 
 class PaginateFileables extends PaginateFiles

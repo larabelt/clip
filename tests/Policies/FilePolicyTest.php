@@ -1,7 +1,7 @@
 <?php
 
 use Belt\Core\Testing;
-use Belt\Storage\Policies\FilePolicy;
+use Belt\Clip\Policies\FilePolicy;
 
 class FilePolicyTest extends Testing\BeltTestCase
 {
@@ -9,8 +9,8 @@ class FilePolicyTest extends Testing\BeltTestCase
     use Testing\CommonMocks;
 
     /**
-     * @covers \Belt\Storage\Policies\FilePolicy::index
-     * @covers \Belt\Storage\Policies\FilePolicy::view
+     * @covers \Belt\Clip\Policies\FilePolicy::index
+     * @covers \Belt\Clip\Policies\FilePolicy::view
      */
     public function test()
     {

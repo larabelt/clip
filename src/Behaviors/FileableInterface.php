@@ -1,5 +1,5 @@
 <?php
-namespace Belt\Storage\Behaviors;
+namespace Belt\Clip\Behaviors;
 
 interface FileableInterface
 {

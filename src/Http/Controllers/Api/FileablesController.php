@@ -1,11 +1,11 @@
 <?php
 
-namespace Belt\Storage\Http\Controllers\Api;
+namespace Belt\Clip\Http\Controllers\Api;
 
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Http\Controllers\Behaviors\Positionable;
-use Belt\Storage\File;
-use Belt\Storage\Http\Requests;
+use Belt\Clip\File;
+use Belt\Clip\Http\Requests;
 use Belt\Core\Helpers\MorphHelper;
 
 class FileablesController extends ApiController

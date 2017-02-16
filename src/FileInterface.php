@@ -1,5 +1,5 @@
 <?php
-namespace Belt\Storage;
+namespace Belt\Clip;
 
 interface FileInterface
 {

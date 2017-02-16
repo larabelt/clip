@@ -1,15 +1,15 @@
 <?php
 
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Storage\Adapters\BaseAdapter;
-use Belt\Storage\Adapters\AdapterFactory;
-use Belt\Storage\Adapters\LocalAdapter;
+use Belt\Clip\Adapters\BaseAdapter;
+use Belt\Clip\Adapters\AdapterFactory;
+use Belt\Clip\Adapters\LocalAdapter;
 
 class AdapterFactoryTest extends BeltTestCase
 {
 
     /**
-     * @covers \Belt\Storage\Adapters\AdapterFactory::up
+     * @covers \Belt\Clip\Adapters\AdapterFactory::up
      */
     public function test()
     {

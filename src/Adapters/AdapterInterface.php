@@ -1,7 +1,7 @@
 <?php
-namespace Belt\Storage\Adapters;
+namespace Belt\Clip\Adapters;
 
-use Belt\Storage\FileInterface;
+use Belt\Clip\FileInterface;
 use Illuminate\Http\UploadedFile;
 
 interface AdapterInterface

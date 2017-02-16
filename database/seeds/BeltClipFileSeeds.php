@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
-use Belt\Storage\File;
+use Belt\Clip\File;
 
-class BeltStorageFileSeeds extends Seeder
+class BeltClipFileSeeds extends Seeder
 {
     /**
      * Run the database seeds.

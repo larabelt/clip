@@ -4,7 +4,7 @@ return [
     'drivers' => [
         'default' => [
             'disk' => 'public',
-            'adapter' => \Belt\Storage\Adapters\LocalAdapter::class,
+            'adapter' => \Belt\Clip\Adapters\LocalAdapter::class,
             'prefix' => env('APP_ENV'),
             'src' => [
                 'root' => sprintf('%s/storage', env('APP_URL')),

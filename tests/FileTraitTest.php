@@ -2,9 +2,9 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Storage\File;
-use Belt\Storage\FileTrait;
-use Belt\Storage\Adapters\LocalAdapter;
+use Belt\Clip\File;
+use Belt\Clip\FileTrait;
+use Belt\Clip\Adapters\LocalAdapter;
 
 class FileTraitTest extends BeltTestCase
 {
@@ -14,21 +14,21 @@ class FileTraitTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\FileTrait::adapter
-     * @covers \Belt\Storage\FileTrait::getSrcAttribute
-     * @covers \Belt\Storage\FileTrait::getSecureAttribute
-     * @covers \Belt\Storage\FileTrait::getContentsAttribute
-     * @covers \Belt\Storage\FileTrait::setDriverAttribute
-     * @covers \Belt\Storage\FileTrait::setNameAttribute
-     * @covers \Belt\Storage\FileTrait::setOriginalNameAttribute
-     * @covers \Belt\Storage\FileTrait::setPathAttribute
-     * @covers \Belt\Storage\FileTrait::getRelPathAttribute
-     * @covers \Belt\Storage\FileTrait::setMimetypeAttribute
-     * @covers \Belt\Storage\FileTrait::setWidthAttribute
-     * @covers \Belt\Storage\FileTrait::setSizeAttribute
-     * @covers \Belt\Storage\FileTrait::setHeightAttribute
-     * @covers \Belt\Storage\FileTrait::createFromUpload
-     * @covers \Belt\Storage\FileTrait::getReadableSizeAttribute
+     * @covers \Belt\Clip\FileTrait::adapter
+     * @covers \Belt\Clip\FileTrait::getSrcAttribute
+     * @covers \Belt\Clip\FileTrait::getSecureAttribute
+     * @covers \Belt\Clip\FileTrait::getContentsAttribute
+     * @covers \Belt\Clip\FileTrait::setDriverAttribute
+     * @covers \Belt\Clip\FileTrait::setNameAttribute
+     * @covers \Belt\Clip\FileTrait::setOriginalNameAttribute
+     * @covers \Belt\Clip\FileTrait::setPathAttribute
+     * @covers \Belt\Clip\FileTrait::getRelPathAttribute
+     * @covers \Belt\Clip\FileTrait::setMimetypeAttribute
+     * @covers \Belt\Clip\FileTrait::setWidthAttribute
+     * @covers \Belt\Clip\FileTrait::setSizeAttribute
+     * @covers \Belt\Clip\FileTrait::setHeightAttribute
+     * @covers \Belt\Clip\FileTrait::createFromUpload
+     * @covers \Belt\Clip\FileTrait::getReadableSizeAttribute
      */
     public function test()
     {

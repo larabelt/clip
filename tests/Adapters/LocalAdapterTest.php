@@ -2,8 +2,8 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Storage\File;
-use Belt\Storage\Adapters\LocalAdapter;
+use Belt\Clip\File;
+use Belt\Clip\Adapters\LocalAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Filesystem\FilesystemAdapter;
 
@@ -16,12 +16,12 @@ class LocalAdapterTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Adapters\LocalAdapter::__construct
-     * @covers \Belt\Storage\Adapters\LocalAdapter::src
-     * @covers \Belt\Storage\Adapters\LocalAdapter::secure
-     * @covers \Belt\Storage\Adapters\LocalAdapter::contents
-     * @covers \Belt\Storage\Adapters\LocalAdapter::upload
-     * @covers \Belt\Storage\Adapters\LocalAdapter::__create
+     * @covers \Belt\Clip\Adapters\LocalAdapter::__construct
+     * @covers \Belt\Clip\Adapters\LocalAdapter::src
+     * @covers \Belt\Clip\Adapters\LocalAdapter::secure
+     * @covers \Belt\Clip\Adapters\LocalAdapter::contents
+     * @covers \Belt\Clip\Adapters\LocalAdapter::upload
+     * @covers \Belt\Clip\Adapters\LocalAdapter::__create
      */
     public function test()
     {

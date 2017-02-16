@@ -4,10 +4,10 @@ use Mockery as m;
 use Belt\Core\Testing;
 use Belt\Core\Http\Exceptions\ApiException;
 use Belt\Core\Helpers\MorphHelper;
-use Belt\Storage\File;
-use Belt\Storage\Http\Requests;
-use Belt\Storage\Http\Controllers\Api\FileablesController;
-use Belt\Storage\Behaviors\Fileable;
+use Belt\Clip\File;
+use Belt\Clip\Http\Requests;
+use Belt\Clip\Http\Controllers\Api\FileablesController;
+use Belt\Clip\Behaviors\Fileable;
 use Illuminate\Database\Eloquent\Model;
 
 class FileablesControllerTest extends Testing\BeltTestCase
@@ -21,14 +21,14 @@ class FileablesControllerTest extends Testing\BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::__construct
-     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::file
-     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::fileable
-     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::show
-     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::destroy
-     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::store
-     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::update
-     * @covers \Belt\Storage\Http\Controllers\Api\FileablesController::index
+     * @covers \Belt\Clip\Http\Controllers\Api\FileablesController::__construct
+     * @covers \Belt\Clip\Http\Controllers\Api\FileablesController::file
+     * @covers \Belt\Clip\Http\Controllers\Api\FileablesController::fileable
+     * @covers \Belt\Clip\Http\Controllers\Api\FileablesController::show
+     * @covers \Belt\Clip\Http\Controllers\Api\FileablesController::destroy
+     * @covers \Belt\Clip\Http\Controllers\Api\FileablesController::store
+     * @covers \Belt\Clip\Http\Controllers\Api\FileablesController::update
+     * @covers \Belt\Clip\Http\Controllers\Api\FileablesController::index
      */
     public function test()
     {

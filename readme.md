@@ -10,7 +10,7 @@ php artisan belt-storage:faker
 
 # migrate & seed
 php artisan migrate
-php artisan db:seed --class=BeltStorageSeeder
+php artisan db:seed --class=BeltClipSeeder
 
 # compile assets
 gulp

@@ -2,9 +2,9 @@
 
 use Belt\Core\Helpers\FactoryHelper;
 use Illuminate\Http\UploadedFile;
-use Belt\Storage\Adapters\AdapterFactory;
+use Belt\Clip\Adapters\AdapterFactory;
 
-$factory->define(Belt\Storage\Resize::class, function (Faker\Generator $faker, $params = null) {
+$factory->define(Belt\Clip\Resize::class, function (Faker\Generator $faker, $params = null) {
 
     $file = array_get($params, 'file');
 

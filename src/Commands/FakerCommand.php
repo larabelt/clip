@@ -1,6 +1,6 @@
 <?php
 
-namespace Belt\Storage\Commands;
+namespace Belt\Clip\Commands;
 
 use Faker, Storage;
 use Illuminate\Console\Command;

@@ -1,8 +1,8 @@
 <?php
-namespace Belt\Storage;
+namespace Belt\Clip;
 
-use Belt\Storage\Adapters\BaseAdapter;
-use Belt\Storage\Adapters\AdapterFactory;
+use Belt\Clip\Adapters\BaseAdapter;
+use Belt\Clip\Adapters\AdapterFactory;
 
 trait FileTrait
 {

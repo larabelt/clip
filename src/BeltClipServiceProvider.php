@@ -1,6 +1,6 @@
 <?php
 
-namespace Belt\Storage;
+namespace Belt\Clip;
 
 use Belt;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
-class BeltStorageServiceProvider extends ServiceProvider
+class BeltClipServiceProvider extends ServiceProvider
 {
 
     /**
@@ -17,7 +17,7 @@ class BeltStorageServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Belt\Storage\File::class => Belt\Storage\Policies\FilePolicy::class,
+        Belt\Clip\File::class => Belt\Clip\Policies\FilePolicy::class,
     ];
 
     /**
@@ -51,13 +51,13 @@ class BeltStorageServiceProvider extends ServiceProvider
 
         // morphMap
         Relation::morphMap([
-            'files' => Belt\Storage\File::class,
+            'files' => Belt\Clip\File::class,
         ]);
 
         // commands
-        $this->commands(Belt\Storage\Commands\FakerCommand::class);
-        $this->commands(Belt\Storage\Commands\PublishCommand::class);
-        $this->commands(Belt\Storage\Commands\ResizeCommand::class);
+        $this->commands(Belt\Clip\Commands\FakerCommand::class);
+        $this->commands(Belt\Clip\Commands\PublishCommand::class);
+        $this->commands(Belt\Clip\Commands\ResizeCommand::class);
     }
 
     /**

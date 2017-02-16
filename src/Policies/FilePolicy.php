@@ -1,10 +1,10 @@
 <?php
 
-namespace Belt\Storage\Policies;
+namespace Belt\Clip\Policies;
 
 use Belt\Core\User;
 use Belt\Core\Policies\BaseAdminPolicy;
-use Belt\Storage\File;
+use Belt\Clip\File;
 
 class FilePolicy extends BaseAdminPolicy
 {

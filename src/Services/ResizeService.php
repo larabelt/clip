@@ -1,9 +1,9 @@
 <?php
-namespace Belt\Storage\Services;
+namespace Belt\Clip\Services;
 
-use Belt\Storage\Adapters;
-use Belt\Storage\File;
-use Belt\Storage\Resize;
+use Belt\Clip\Adapters;
+use Belt\Clip\File;
+use Belt\Clip\Resize;
 use Illuminate\Http\UploadedFile;
 use Intervention\Image\ImageManager;
 

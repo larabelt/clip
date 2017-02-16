@@ -2,8 +2,8 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Storage\Commands\ResizeCommand;
-use Belt\Storage\Services\ResizeService;
+use Belt\Clip\Commands\ResizeCommand;
+use Belt\Clip\Services\ResizeService;
 use Illuminate\Filesystem\FilesystemAdapter;
 
 class ResizeCommandTest extends BeltTestCase
@@ -14,8 +14,8 @@ class ResizeCommandTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Commands\ResizeCommand::service
-     * @covers \Belt\Storage\Commands\ResizeCommand::handle
+     * @covers \Belt\Clip\Commands\ResizeCommand::service
+     * @covers \Belt\Clip\Commands\ResizeCommand::handle
      */
     public function testHandle()
     {

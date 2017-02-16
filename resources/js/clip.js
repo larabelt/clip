@@ -3,7 +3,7 @@ import fileCreate from './components/file/ctlr-create';
 import fileEdit  from './components/file/ctlr-edit';
 import store from 'belt/core/js/store/index';
 
-export default class BeltStorage {
+export default class BeltClip {
 
     constructor() {
 

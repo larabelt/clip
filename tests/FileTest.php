@@ -2,8 +2,8 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Storage\File;
-use Belt\Storage\Resize;
+use Belt\Clip\File;
+use Belt\Clip\Resize;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -15,11 +15,11 @@ class FileTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\File::resizes
-     * @covers \Belt\Storage\File::scopeFiled
-     * @covers \Belt\Storage\File::scopeNotFiled
-     * @covers \Belt\Storage\File::sized
-     * @covers \Belt\Storage\File::__sized
+     * @covers \Belt\Clip\File::resizes
+     * @covers \Belt\Clip\File::scopeFiled
+     * @covers \Belt\Clip\File::scopeNotFiled
+     * @covers \Belt\Clip\File::sized
+     * @covers \Belt\Clip\File::__sized
      */
     public function test()
     {

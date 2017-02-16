@@ -3,8 +3,8 @@
 use Mockery as m;
 
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Storage\Behaviors\Fileable;
-use Belt\Storage\File;
+use Belt\Clip\Behaviors\Fileable;
+use Belt\Clip\File;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -18,9 +18,9 @@ class FileableTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Behaviors\Fileable::files
-     * @covers \Belt\Storage\Behaviors\Fileable::getResizePresets
-     * @covers \Belt\Storage\Behaviors\Fileable::getBelongsToManyCaller
+     * @covers \Belt\Clip\Behaviors\Fileable::files
+     * @covers \Belt\Clip\Behaviors\Fileable::getResizePresets
+     * @covers \Belt\Clip\Behaviors\Fileable::getBelongsToManyCaller
      */
     public function test()
     {

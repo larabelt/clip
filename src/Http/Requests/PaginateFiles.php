@@ -1,5 +1,5 @@
 <?php
-namespace Belt\Storage\Http\Requests;
+namespace Belt\Clip\Http\Requests;
 
 use Belt\Core\Http\Requests\PaginateRequest;
 

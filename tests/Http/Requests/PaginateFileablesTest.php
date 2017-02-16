@@ -2,8 +2,8 @@
 use Mockery as m;
 use Belt\Core\Testing;
 
-use Belt\Storage\File;
-use Belt\Storage\Http\Requests\PaginateFileables;
+use Belt\Clip\File;
+use Belt\Clip\Http\Requests\PaginateFileables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -18,8 +18,8 @@ class PaginateFileablesTest extends Testing\BeltTestCase
     }
 
     /**
-     * @covers \Belt\Storage\Http\Requests\PaginateFileables::modifyQuery
-     * @covers \Belt\Storage\Http\Requests\PaginateFileables::items
+     * @covers \Belt\Clip\Http\Requests\PaginateFileables::modifyQuery
+     * @covers \Belt\Clip\Http\Requests\PaginateFileables::items
      */
     public function test()
     {
