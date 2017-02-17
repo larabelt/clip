@@ -41,10 +41,10 @@ class BeltClipServiceProvider extends ServiceProvider
     {
 
         // set view paths
-        $this->loadViewsFrom(resource_path('belt/clip/views'), 'belt-clip');
+        // $this->loadViewsFrom(resource_path('belt/clip/views'), 'belt-clip');
 
         // set backup view paths
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'belt-clip');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'belt-clip');
 
         // policies
         $this->registerPolicies($gate);
