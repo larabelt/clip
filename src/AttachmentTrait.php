@@ -4,6 +4,10 @@ namespace Belt\Clip;
 use Belt\Clip\Adapters\BaseAdapter;
 use Belt\Clip\Adapters\AdapterFactory;
 
+/**
+ * Class AttachmentTrait
+ * @package Belt\Clip
+ */
 trait AttachmentTrait
 {
 
@@ -12,71 +16,113 @@ trait AttachmentTrait
      */
     public $adapter;
 
+    /**
+     * @return BaseAdapter
+     */
     public function adapter()
     {
         return $this->adapter ?: AdapterFactory::up($this->driver);
     }
 
+    /**
+     * @return mixed
+     */
     public function getSrcAttribute()
     {
         return $this->adapter()->src($this);
     }
 
+    /**
+     * @return mixed
+     */
     public function getSecureAttribute()
     {
         return $this->adapter()->secure($this);
     }
 
+    /**
+     * @return mixed
+     */
     public function getContentsAttribute()
     {
         return $this->adapter()->contents($this);
     }
 
+    /**
+     * @return string
+     */
     public function getRelPathAttribute()
     {
         return sprintf('%s/%s', $this->path, $this->name);
     }
 
+    /**
+     * @param $value
+     */
     public function setDriverAttribute($value)
     {
         $this->attributes['driver'] = trim($value);
     }
 
+    /**
+     * @param $value
+     */
     public function setPathAttribute($value)
     {
         $this->attributes['path'] = trim($value);
     }
 
+    /**
+     * @param $value
+     */
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = trim($value);
     }
 
+    /**
+     * @param $value
+     */
     public function setOriginalNameAttribute($value)
     {
         $this->attributes['original_name'] = trim($value);
     }
 
+    /**
+     * @param $value
+     */
     public function setMimetypeAttribute($value)
     {
         $this->attributes['mimetype'] = trim($value);
     }
 
+    /**
+     * @param $value
+     */
     public function setSizeAttribute($value)
     {
         $this->attributes['size'] = trim($value);
     }
 
+    /**
+     * @param $value
+     */
     public function setWidthAttribute($value)
     {
         $this->attributes['width'] = trim($value);
     }
 
+    /**
+     * @param $value
+     */
     public function setHeightAttribute($value)
     {
         $this->attributes['height'] = trim($value);
     }
 
+    /**
+     * @return string
+     */
     public function getReadableSizeAttribute()
     {
         $size = $this->size;
@@ -96,6 +142,10 @@ trait AttachmentTrait
         return number_format($size) . " bytes";
     }
 
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
     public static function createFromUpload(array $attributes = [])
     {
         static::unguard();

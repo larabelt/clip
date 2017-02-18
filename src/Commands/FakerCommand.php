@@ -5,6 +5,10 @@ namespace Belt\Clip\Commands;
 use Faker, Storage;
 use Illuminate\Console\Command;
 
+/**
+ * Class FakerCommand
+ * @package Belt\Clip\Commands
+ */
 class FakerCommand extends Command
 {
 

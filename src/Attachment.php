@@ -4,28 +4,57 @@ namespace Belt\Clip;
 use Belt;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Attachment
+ * @package Belt\Clip
+ */
 class Attachment extends Model implements AttachmentInterface
 {
     use AttachmentTrait;
 
+    /**
+     * @var string
+     */
     protected $morphClass = 'attachments';
 
+    /**
+     * @var string
+     */
     protected $table = 'attachments';
 
+    /**
+     * @var array
+     */
     protected $fillable = ['driver', 'name'];
 
+    /**
+     * @var array
+     */
     protected $appends = ['src', 'secure', 'rel_path', 'readable_size'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function resizes()
     {
         return $this->hasMany(Resize::class);
     }
 
+    /**
+     * @param $w
+     * @param $h
+     * @return Attachment
+     */
     public function sized($w, $h)
     {
         return $this->__sized($w, $h) ?: $this;
     }
 
+    /**
+     * @param $w
+     * @param $h
+     * @return mixed
+     */
     public function __sized($w, $h)
     {
         $preset = sprintf('%s:%s', $w, $h);

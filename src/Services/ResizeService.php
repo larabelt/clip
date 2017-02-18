@@ -7,6 +7,10 @@ use Belt\Clip\Resize;
 use Illuminate\Http\UploadedFile;
 use Intervention\Image\ImageManager;
 
+/**
+ * Class ResizeService
+ * @package Belt\Clip\Services
+ */
 class ResizeService
 {
 
@@ -40,12 +44,21 @@ class ResizeService
      */
     public $resizeRepo;
 
+    /**
+     * ResizeService constructor.
+     * @param array $config
+     */
     public function __construct($config = [])
     {
         $this->config = array_merge(config('belt.clip.resize'), $config);
         $this->attachments = new Attachment();
     }
 
+    /**
+     * @param null $key
+     * @param bool $default
+     * @return array|mixed
+     */
     public function config($key = null, $default = false)
     {
         if ($key) {
@@ -55,11 +68,17 @@ class ResizeService
         return $this->config;
     }
 
+    /**
+     * @return Adapters\BaseAdapter
+     */
     public function adapter()
     {
         return $this->adapter ?: $this->adapter = Adapters\AdapterFactory::up($this->config('local_driver'));
     }
 
+    /**
+     * @return ImageManager
+     */
     public function manager()
     {
         return $this->manager ?: $this->manager = new ImageManager([
@@ -67,11 +86,17 @@ class ResizeService
         ]);
     }
 
+    /**
+     * @return Resize
+     */
     public function resizeRepo()
     {
         return $this->resizeRepo ?: $this->resizeRepo = new Resize();
     }
 
+    /**
+     *
+     */
     public function batch()
     {
         $models = $this->config('models');
@@ -90,6 +115,11 @@ class ResizeService
         }
     }
 
+    /**
+     * @param $class
+     * @param $presets
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function query($class, $presets)
     {
 
@@ -117,6 +147,10 @@ class ResizeService
         return $attachments;
     }
 
+    /**
+     * @param Attachment $attachment
+     * @param array $presets
+     */
     public function resize(Attachment $attachment, $presets = [])
     {
         $adapter = $this->adapter ?: $attachment->adapter();

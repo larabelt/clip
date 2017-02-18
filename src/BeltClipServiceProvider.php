@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class BeltClipServiceProvider
+ * @package Belt\Clip
+ */
 class BeltClipServiceProvider extends ServiceProvider
 {
 

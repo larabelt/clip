@@ -1,9 +1,16 @@
 <?php
 namespace Belt\Clip\Adapters;
 
+/**
+ * Class AdapterFactory
+ * @package Belt\Clip\Adapters
+ */
 class AdapterFactory
 {
 
+    /**
+     * @var array
+     */
     public static $adapters = [];
 
     /**

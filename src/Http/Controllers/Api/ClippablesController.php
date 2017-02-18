@@ -8,6 +8,10 @@ use Belt\Clip\Attachment;
 use Belt\Clip\Http\Requests;
 use Belt\Core\Helpers\MorphHelper;
 
+/**
+ * Class ClippablesController
+ * @package Belt\Clip\Http\Controllers\Api
+ */
 class ClippablesController extends ApiController
 {
 
@@ -23,12 +27,21 @@ class ClippablesController extends ApiController
      */
     public $morphHelper;
 
+    /**
+     * ClippablesController constructor.
+     * @param Attachment $attachment
+     * @param MorphHelper $morphHelper
+     */
     public function __construct(Attachment $attachment, MorphHelper $morphHelper)
     {
         $this->attachments = $attachment;
         $this->morphHelper = $morphHelper;
     }
 
+    /**
+     * @param $id
+     * @param null $clippable
+     */
     public function attachment($id, $clippable = null)
     {
         $qb = $this->attachments->with('resizes');
@@ -42,6 +55,10 @@ class ClippablesController extends ApiController
         return $attachment ?: $this->abort(404);
     }
 
+    /**
+     * @param $clippable_type
+     * @param $clippable_id
+     */
     public function clippable($clippable_type, $clippable_id)
     {
         $clippable = $this->morphHelper->morph($clippable_type, $clippable_id);

@@ -4,9 +4,16 @@ namespace Belt\Clip\Adapters;
 use Storage;
 use Illuminate\Http\UploadedFile;
 
+/**
+ * Class BaseAdapter
+ * @package Belt\Clip\Adapters
+ */
 abstract class BaseAdapter
 {
 
+    /**
+     * @var
+     */
     public $driver;
 
     /**
@@ -15,8 +22,16 @@ abstract class BaseAdapter
     public $config = [];
 
 
+    /**
+     * @var \Illuminate\Filesystem\FilesystemAdapter
+     */
     public $disk;
 
+    /**
+     * BaseAdapter constructor.
+     * @param $driver
+     * @throws \Exception
+     */
     public function __construct($driver)
     {
 
@@ -29,6 +44,11 @@ abstract class BaseAdapter
         }
     }
 
+    /**
+     * @param null $key
+     * @param bool $default
+     * @return array|mixed
+     */
     public function config($key = null, $default = false)
     {
         if ($key) {
@@ -38,11 +58,19 @@ abstract class BaseAdapter
         return $this->config;
     }
 
+    /**
+     * @param $fileInfo
+     * @return string
+     */
     public function randomFilename($fileInfo)
     {
         return sprintf('%s.%s', uniqid(), $fileInfo->guessExtension());
     }
 
+    /**
+     * @param $path
+     * @return string
+     */
     public function normalizePath($path)
     {
 
@@ -62,6 +90,11 @@ abstract class BaseAdapter
         return $path;
     }
 
+    /**
+     * @param $path
+     * @param null $filename
+     * @return string
+     */
     public function prefixedPath($path, $filename = null)
     {
         $prefix = $this->config('prefix');
@@ -71,6 +104,12 @@ abstract class BaseAdapter
         return $filename ? "$path/$filename" : $path;
     }
 
+    /**
+     * @param $path
+     * @param UploadedFile $uploadedFile
+     * @param null $filename
+     * @return array
+     */
     public function __create($path, UploadedFile $uploadedFile, $filename = null)
     {
         $filename = $filename ?: $uploadedFile->getFilename();

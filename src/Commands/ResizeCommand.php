@@ -5,6 +5,10 @@ namespace Belt\Clip\Commands;
 use Belt\Clip\Services\ResizeService;
 use Illuminate\Console\Command;
 
+/**
+ * Class ResizeCommand
+ * @package Belt\Clip\Commands
+ */
 class ResizeCommand extends Command
 {
 

@@ -9,6 +9,10 @@ use Belt\Clip\Http\Requests;
 use Belt\Clip\Adapters\Ad;
 use Belt\Clip\Adapters\BaseAdapter;
 
+/**
+ * Class AttachmentsController
+ * @package Belt\Clip\Http\Controllers\Api
+ */
 class AttachmentsController extends ApiController
 {
 
@@ -17,6 +21,10 @@ class AttachmentsController extends ApiController
      */
     public $attachments;
 
+    /**
+     * @param $driver
+     * @return BaseAdapter
+     */
     public function adapter($driver)
     {
         return AdapterFactory::up($driver);
@@ -31,6 +39,9 @@ class AttachmentsController extends ApiController
         $this->attachments = $attachment;
     }
 
+    /**
+     * @param $id
+     */
     public function get($id)
     {
         return $this->attachments->with('resizes')->find($id) ?: $this->abort(404);

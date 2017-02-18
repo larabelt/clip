@@ -6,6 +6,10 @@ use Belt\Core\User;
 use Belt\Core\Policies\BaseAdminPolicy;
 use Belt\Clip\Attachment;
 
+/**
+ * Class AttachmentPolicy
+ * @package Belt\Clip\Policies
+ */
 class AttachmentPolicy extends BaseAdminPolicy
 {
     /**

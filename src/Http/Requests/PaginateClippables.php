@@ -1,13 +1,22 @@
 <?php
 namespace Belt\Clip\Http\Requests;
 
-use Belt\Clip\Attachment;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Class PaginateClippables
+ * @package Belt\Clip\Http\Requests
+ */
 class PaginateClippables extends PaginateAttachments
 {
+    /**
+     * @var int
+     */
     public $perPage = 5;
 
+    /**
+     * @var string
+     */
     public $orderBy = 'clippables.position';
 
     /**
