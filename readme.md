@@ -1,17 +1,22 @@
 ## Installation
 
+Add the ServiceProvider to the providers array in config/app.php
+
+```php
+Belt\Clip\BeltClipServiceProvider::class,
 ```
-# install assets & migrate
+
+```
+# publish
 php artisan belt-clip:publish
 composer dumpautoload
 
-# create additional faker images for file seeds
-php artisan belt-clip:faker
-
-# migrate & seed
+# migration
 php artisan migrate
+
+# seed
 php artisan db:seed --class=BeltClipSeeder
 
 # compile assets
-gulp
+npm run
 ```

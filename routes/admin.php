@@ -1,7 +1,5 @@
 <?php
 
-use Belt\Core;
-
 Route::group([
     'prefix' => 'admin/belt/clip',
     'middleware' => ['web', 'auth']
