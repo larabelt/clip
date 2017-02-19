@@ -62,6 +62,10 @@ class BeltClipServiceProvider extends ServiceProvider
         $this->commands(Belt\Clip\Commands\FakerCommand::class);
         $this->commands(Belt\Clip\Commands\PublishCommand::class);
         $this->commands(Belt\Clip\Commands\ResizeCommand::class);
+
+        # beltable values for global belt command
+        $this->app['belt']->publish('belt-clip:publish');
+        $this->app['belt']->seeders('BeltClipSeeder');
     }
 
     /**
