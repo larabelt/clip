@@ -39,7 +39,7 @@ class AttachmentTest extends BeltTestCase
 
         # scopeAttached
         $qbMock = m::mock(Builder::class);
-        $qbMock->shouldReceive('select')->once()->with(['attachments.*']);
+        $qbMock->shouldReceive('select')->once()->with(['attachments.*', 'clippables.position']);
         $qbMock->shouldReceive('join')->once()->with('clippables', 'clippables.attachment_id', '=', 'attachments.id');
         $qbMock->shouldReceive('where')->once()->with('clippables.clippable_type', 'pages');
         $qbMock->shouldReceive('where')->once()->with('clippables.clippable_id', 1);
