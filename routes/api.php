@@ -4,7 +4,7 @@ use Belt\Clip\Http\Controllers\Api;
 
 Route::group([
     'prefix' => 'api/v1',
-    'middleware' => ['web', 'auth', 'api']
+    'middleware' => ['api']
 ],
     function () {
 

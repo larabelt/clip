@@ -39,7 +39,7 @@ trait Clippable
      */
     public function attachments()
     {
-        return $this->morphToSortedMany(Attachment::class, 'clippable');
+        return $this->morphToSortedMany(Attachment::class, 'clippable')->withPivot('position');
     }
 
 }

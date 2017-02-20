@@ -74,7 +74,7 @@ class Attachment extends Model implements AttachmentInterface
      */
     public function scopeAttached($query, $clippable_type, $clippable_id)
     {
-        $query->select(['attachments.*']);
+        $query->select(['attachments.*', 'clippables.position']);
         $query->join('clippables', 'clippables.attachment_id', '=', 'attachments.id');
         $query->where('clippables.clippable_type', $clippable_type);
         $query->where('clippables.clippable_id', $clippable_id);
