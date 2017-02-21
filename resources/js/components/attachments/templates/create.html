@@ -1,0 +1,17 @@
+<div>
+    <heading>
+        <span slot="title">Attachment Creator</span>
+        <li><router-link :to="{ name: 'attachments' }">Attachments</router-link></li>
+    </heading>
+    <section class="content">
+        <div class="box box-primary">
+            <div class="box-body">
+                <uploader
+                        :driver=uploader_driver
+                        :path=uploader_path
+                        :multiple=uploader_multiple
+                ></uploader>
+            </div>
+        </div>
+    </section>
+</div>

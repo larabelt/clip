@@ -92,10 +92,10 @@ export default {
         <div>
             <div class="file-group">
                 <label for="file">
-                    <input type="file" name="file" id="file-uploader" accept="image/*" @click="onFileClick" @change="onFileChange" v-bind:multiple="multiple">
+                    <input type="file" name="file" id="file-uploader" accept="image/*" @click="onFileClick" @change="onFileChange" :multiple="multiple">
                     <slot></slot>
                 </label>
-                <button class="btn btn-default hide" type="button" v-on:click="uploadFiles">upload</button>
+                <button class="btn btn-default hide" type="button" @click="uploadFiles">upload</button>
             </div>
             <div v-if="pending">
                 <table class="table">

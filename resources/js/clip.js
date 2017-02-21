@@ -1,7 +1,4 @@
-import attachmentIndex from './components/attachment/ctlr-index';
-import attachmentCreate from './components/attachment/ctlr-create';
-import attachmentEdit  from './components/attachment/ctlr-edit';
-import store from 'belt/core/js/store/index';
+import attachments  from './components/attachments/routes';
 
 export default class BeltClip {
 
@@ -12,14 +9,12 @@ export default class BeltClip {
             const router = new VueRouter({
                 mode: 'history',
                 base: '/admin/belt/clip',
-                routes: [
-                    {path: '/attachments', component: attachmentIndex, canReuse: false, name: 'attachmentIndex'},
-                    {path: '/attachments/create', component: attachmentCreate, name: 'attachmentCreate'},
-                    {path: '/attachments/edit/:id', component: attachmentEdit, name: 'attachmentEdit'}
-                ]
+                routes: []
             });
 
-            const app = new Vue({router, store}).$mount('#belt-clip');
+            router.addRoutes(attachments);
+
+            const app = new Vue({router}).$mount('#belt-clip');
         }
     }
 
