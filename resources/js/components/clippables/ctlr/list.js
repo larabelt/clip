@@ -1,13 +1,13 @@
 import uploader from '../../base/uploader';
 
 // helpers
-import Form from '../form';
+//import Form from '../form';
+import Form from 'belt/clip/js/components/attachments/form';
 import Table from '../table';
-
-//import foo from 'belt/clip/js/components/attachments/ctlr/form';
 
 // templates
 import list_html from '../templates/list.html';
+import edit_html from 'belt/clip/js/components/attachments/templates/form.html';
 
 export default {
     props: {
@@ -37,16 +37,24 @@ export default {
     },
     components: {
         uploader: uploader,
+        edit: {
+            data() {
+                return {
+                    form: this.$parent.form,
+                }
+            },
+            template: edit_html
+        }
     },
     mounted() {
         this.table.index();
     },
     methods: {
         edit(item) {
-            if (this.item.id != item.id) {
-                this.item = item;
+            if (this.form.id != item.id) {
+                this.form.setData(item);
             } else {
-                this.item = '';
+                this.form.reset();
             }
         },
     },
