@@ -1,22 +1,28 @@
 import BaseForm from 'belt/core/js/helpers/form';
 import BaseService from 'belt/core/js/helpers/service';
 
-class AttachmentForm extends BaseForm {
+class UploaderForm extends BaseForm {
 
     constructor(options = {}) {
         super(options);
         this.service = new BaseService({baseUrl: '/api/v1/attachments/'});
-        //this.routeEditName = 'pages.edit';
+        this.reset();
+    }
+
+    /**
+     * Reset the form fields.
+     */
+    reset() {
         this.setData({
             id: '',
-            title: '',
-            note: '',
-            credits: '',
-            alt: '',
-            target_url: '',
-        })
+            driver: '',
+            path: '',
+            file: '',
+        });
+
+        this.errors.clear();
     }
 
 }
 
-export default AttachmentForm;
+export default UploaderForm;

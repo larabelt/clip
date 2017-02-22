@@ -14,9 +14,10 @@ class Form extends BaseForm {
         let baseUrl = `/api/v1/${this.morphable_type}/${this.morphable_id}/attachments/`;
 
         this.service = new BaseService({baseUrl: baseUrl});
-        this.routeEditName = 'attachmentEdit';
         this.setData({
             id: '',
+            move: '',
+            position_entity_id: '',
         });
     }
 
