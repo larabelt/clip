@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
  * Class Attachment
  * @package Belt\Clip
  */
-class Attachment extends Model implements AttachmentInterface
+class Attachment extends Model
+    implements AttachmentInterface,
+    Belt\Content\Behaviors\SectionableInterface
 {
     use AttachmentTrait;
+    use Belt\Content\Behaviors\Sectionable;
 
     /**
      * @var string
