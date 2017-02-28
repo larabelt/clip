@@ -1,0 +1,68 @@
+<div>
+    <form role="form" @submit.prevent="panel.form.submit()" @keydown="panel.form.errors.clear($event.target.name)">
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group" :class="{ 'has-error': panel.form.error('template') }">
+                    <label for="template">Template</label>
+                    <select v-model="panel.form.template" name="template" class="form-control">
+                        <template v-for="label, value in dropdown">
+                            <option :value="value">{{ label }}</option>
+                        </template>
+                    </select>
+                    <span v-for="error in panel.form.error('template')" class="contents-danger">{{ error }}</span>
+                </div>
+                <div class="row alt-box-footer">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" :disabled="panel.form.errors.any()">
+                                <span v-if="panel.form.saving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                                <span v-else>Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" :class="{ 'has-error': panel.form.error('sectionable_id') }">
+                    <label for="sectionable_id">attachment</label>
+                    <input type="text" class="form-control" v-model="panel.form.sectionable_id" placeholder="attachment id" readonly>
+                    <span v-for="error in panel.form.error('sectionable_id')" class="contents-danger">{{ error }}</span>
+                </div>
+                <div class="form-group" :class="{ 'has-error': panel.form.error('sectionable_id') }">
+                    <label for="sectionable_id">Search</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            v-model="table.query.q"
+                            placeholder="search"
+                            @keydown="table.index()"
+                    >
+                    <span v-for="error in panel.form.error('sectionable_id')" class="contents-danger">{{ error }}</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <a class="btn btn-sm btn-default" href="/admin/belt/clip/attachments/create" target="_blank"><i class="fa fa-plus"></i></a>
+                        <a v-if="attachment.id" class="btn btn-sm btn-default" :href="'/admin/belt/clip/attachments/edit/' + attachment.id" target="_blank">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+                <p><img class="img-responsive" :src="attachment.src" /></p>
+                <p><strong>name</strong></p>
+                <p>{{ attachment.name }}</p>
+                <template v-if="attachment.title">
+                    <p><strong>title</strong></p>
+                    <p>{{ attachment.title }}</p>
+                </template>
+            </div>
+        </div>
+
+        <div v-if="table.items.length">
+            <template v-for="attachment in table.items">
+                <img class="img-thumbnail pull-left" :src="attachment.src" style="max-height: 100px" @click="update(attachment.id)"/>
+            </template>
+        </div>
+
+    </form>
+</div>
