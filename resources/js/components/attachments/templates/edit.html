@@ -1,12 +1,31 @@
 <div>
     <heading>
         <span slot="title">Attachment Editor</span>
-        <li><router-link :to="{ name: 'attachments' }">Attachments</router-link></li>
+        <li>
+            <router-link :to="{ name: 'attachments' }">Attachments</router-link>
+        </li>
     </heading>
     <section class="content">
         <div class="nav-tabs-custom">
             <div class="tab-content">
-                <edit></edit>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p v-if="form.is_image"><img class="img-responsive" :src="form.src"/></p>
+                        <p><strong>name</strong></p>
+                        <p>{{ form.name }}</p>
+                        <p><strong>mimetype</strong></p>
+                        <p>{{ form.mimetype }}</p>
+                        <p><strong>size</strong></p>
+                        <p>{{ form.size }}</p>
+                        <template v-if="form.is_image">
+                            <p><strong>w x h</strong></p>
+                            <p>{{ form.width }} x {{ form.height }}</p>
+                        </template>
+                    </div>
+                    <div class="col-md-8">
+                        <edit></edit>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

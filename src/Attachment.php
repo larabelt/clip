@@ -33,7 +33,7 @@ class Attachment extends Model
     /**
      * @var array
      */
-    protected $appends = ['src', 'secure', 'rel_path', 'readable_size'];
+    protected $appends = ['src', 'secure', 'rel_path', 'readable_size', 'is_image'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

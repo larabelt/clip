@@ -57,6 +57,16 @@ trait AttachmentTrait
     }
 
     /**
+     * Is file an image
+     *
+     * @return boolean
+     */
+    public function getIsImageAttribute()
+    {
+        return strpos($this->mimetype, 'image/') !== false;
+    }
+
+    /**
      * @param $value
      */
     public function setDriverAttribute($value)

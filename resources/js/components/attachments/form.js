@@ -14,6 +14,11 @@ class AttachmentForm extends BaseForm {
             credits: '',
             alt: '',
             target_url: '',
+            src: '',
+            is_image: '',
+            mimetype: '',
+            size: '',
+            readable_size: '',
         })
     }
 

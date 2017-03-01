@@ -26,9 +26,14 @@
                             ID
                             <column-sorter :column="'attachments.id'"></column-sorter>
                         </th>
+                        <td></td>
                         <th>
                             Name
                             <column-sorter :column="'attachments.name'"></column-sorter>
+                        </th>
+                        <th>
+                            Title
+                            <column-sorter :column="'attachments.title'"></column-sorter>
                         </th>
                         <th class="text-right">Actions</th>
                     </tr>
@@ -36,7 +41,9 @@
                 <tbody>
                     <tr v-for="item in table.items">
                         <td>{{ item.id }}</td>
+                        <td><img class="img-thumbnail pull-left" :src="item.src" style="max-height: 100px" /></td>
                         <td>{{ item.name }}</td>
+                        <td>{{ item.title }}</td>
                         <td class="text-right">
                             <router-link :to="{ name: 'attachments.edit', params: { id: item.id } }" :class="'btn btn-xs btn-warning'">
                                 <i class="fa fa-edit"></i>

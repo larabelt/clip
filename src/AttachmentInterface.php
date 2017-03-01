@@ -33,6 +33,11 @@ interface AttachmentInterface
     public function getRelPathAttribute();
 
     /**
+     * @return boolean
+     */
+    public function getIsImageAttribute();
+
+    /**
      * @param $value
      * @return mixed
      */

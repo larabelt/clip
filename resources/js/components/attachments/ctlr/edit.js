@@ -9,21 +9,23 @@ import form_html from '../templates/form.html';
 
 export default {
     data() {
-
+        return {
+            form: new Form(),
+        }
     },
     components: {
         heading: {template: heading_html},
         edit: {
             data() {
                 return {
-                    form: new Form(),
+                    form: this.$parent.form,
                 }
-            },
-            mounted() {
-                this.form.show(this.$route.params.id);
             },
             template: form_html,
         },
+    },
+    mounted() {
+        this.form.show(this.$route.params.id);
     },
     template: edit_html,
 }
