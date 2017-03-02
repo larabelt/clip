@@ -64,7 +64,23 @@ abstract class BaseAdapter
      */
     public function randomFilename($fileInfo)
     {
-        return sprintf('%s.%s', uniqid(), $fileInfo->guessExtension());
+
+        try {
+            $original = $fileInfo->getClientOriginalName();
+        } catch (\Exception $e) {
+
+        }
+
+        if (isset($original)) {
+
+            // remove extension and clean up name
+            $sanitized = preg_replace('/\\.[^.\\s]{3,4}$/', '', $original);
+            $sanitized = str_slug(strtolower($sanitized));
+
+            return sprintf('%s-%s.%s', date('YmdHis'), $sanitized, $fileInfo->guessExtension());
+        }
+
+        return sprintf('%s-%s.%s', date('YmdHis'), uniqid(), $fileInfo->guessExtension());
     }
 
     /**
@@ -122,7 +138,7 @@ abstract class BaseAdapter
         return [
             'driver' => $this->driver,
             'name' => $filename,
-            'original_name' => $uploadedFile->getFilename(),
+            'original_name' => $uploadedFile->getClientOriginalName(),
             'path' => "$path",
             'size' => $uploadedFile->getSize(),
             'mimetype' => $uploadedFile->getMimeType(),
