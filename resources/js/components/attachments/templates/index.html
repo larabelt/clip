@@ -29,7 +29,7 @@
                         <td></td>
                         <th>
                             Name
-                            <column-sorter :column="'attachments.name'"></column-sorter>
+                            <column-sorter :column="'attachments.original_name'"></column-sorter>
                         </th>
                         <th>
                             Title
@@ -42,7 +42,7 @@
                     <tr v-for="item in table.items">
                         <td>{{ item.id }}</td>
                         <td><img class="img-thumbnail pull-left" :src="item.src" style="max-height: 100px" /></td>
-                        <td>{{ item.name }}</td>
+                        <td>{{ item.original_name }}</td>
                         <td>{{ item.title }}</td>
                         <td class="text-right">
                             <router-link :to="{ name: 'attachments.edit', params: { id: item.id } }" :class="'btn btn-xs btn-warning'">

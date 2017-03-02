@@ -11,6 +11,8 @@
                 <div class="row">
                     <div class="col-md-4">
                         <p v-if="form.is_image"><img class="img-responsive" :src="form.src"/></p>
+                        <p><strong>original name</strong></p>
+                        <p>{{ form.original_name }}</p>
                         <p><strong>name</strong></p>
                         <p>{{ form.name }}</p>
                         <p><strong>mimetype</strong></p>

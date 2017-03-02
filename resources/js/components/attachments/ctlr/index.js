@@ -16,7 +16,7 @@ export default {
         index: {
             data() {
                 return {
-                    table: new Table({router: this.$router}),
+                    table: new Table({router: this.$router, query: {sortBy: 'desc'}}),
                 }
             },
             components: {
