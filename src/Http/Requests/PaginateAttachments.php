@@ -31,6 +31,7 @@ class PaginateAttachments extends PaginateRequest
      * @var array
      */
     public $searchable = [
+        'attachments.id',
         'attachments.name',
         'attachments.original_name',
         'attachments.title',
