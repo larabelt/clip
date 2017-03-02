@@ -27,5 +27,16 @@ Route::group([
             Route::post('', Api\ClippablesController::class . '@store');
         });
 
+        # attachable
+        Route::group([
+            'prefix' => '{attachable_type}/{attachable_id}/attachment',
+            'middleware' => 'request.injections:attachable_type,attachable_id'
+        ], function () {
+            Route::get('{id}', Api\AttachablesController::class . '@show');
+            Route::put('{id}', Api\AttachablesController::class . '@update');
+            Route::delete('{id}', Api\AttachablesController::class . '@destroy');
+            Route::post('', Api\AttachablesController::class . '@store');
+        });
+
     }
 );

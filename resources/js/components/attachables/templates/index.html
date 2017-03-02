@@ -1,0 +1,17 @@
+<div>
+    <div class="box-body">
+        <div class="pull-left">
+            <div class="btn-group" role="group" aria-label="...">
+                <acd  class="btn btn-default" :class="{ 'btn-primary': tabs.show('search') }" @click="tabs.set('search')" title="search"><i class="fa fa-search"></i></acd>
+            </div>
+        </div>
+        <div class="pull-right">
+            <uploader :driver=driver :path=path :multiple=multiple></uploader>
+        </div>
+    </div>
+    <div class="box-body">
+        <div v-show="tabs.show('search')">
+            <search></search>
+        </div>
+    </div>
+</div>
