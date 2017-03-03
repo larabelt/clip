@@ -40,7 +40,6 @@ class AttachablesController extends ApiController
 
     /**
      * @param $id
-     * @param null $clippable
      */
     public function attachment($id)
     {
@@ -71,8 +70,9 @@ class AttachablesController extends ApiController
      */
     public function store(Requests\AttachAttachment $request, $attachable_type, $attachable_id)
     {
-        $id = $request->get('id');
-        return $this->update($request, $attachable_type, $attachable_id, $id);
+        $attachment = $this->associate($attachable_type, $attachable_id, $request->get('id'));
+
+        return response()->json($attachment, 201);
     }
 
     /**
@@ -85,9 +85,17 @@ class AttachablesController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\AttachAttachment $request,$attachable_type, $attachable_id, $id)
+    public function update(Requests\AttachAttachment $request, $attachable_type, $attachable_id, $id = null)
     {
+        $id = $request->get('id') ?: $id;
 
+        $attachment = $this->associate($attachable_type, $attachable_id, $id);
+
+        return response()->json($attachment);
+    }
+
+    private function associate($attachable_type, $attachable_id, $id)
+    {
         $owner = $this->attachable($attachable_type, $attachable_id);
 
         $this->authorize('update', $owner);
@@ -95,25 +103,24 @@ class AttachablesController extends ApiController
         $attachment = $this->attachment($id);
 
         $owner->attachment()->associate($attachment);
+
         $owner->save();
 
-        return response()->json($attachment);
+        return $attachment;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     *
      * @return \Illuminate\Http\Response
      */
-    public function show($attachable_type, $attachable_id, $id)
+    public function show($attachable_type, $attachable_id)
     {
         $owner = $this->attachable($attachable_type, $attachable_id);
 
         $this->authorize('view', $owner);
 
-        $attachment = $this->attachment($id);
+        $attachment = $this->attachment($owner->attachment_id);
 
         return response()->json($attachment);
     }
@@ -121,21 +128,20 @@ class AttachablesController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($attachable_type, $attachable_id, $id)
+    public function destroy($attachable_type, $attachable_id)
     {
         $owner = $this->attachable($attachable_type, $attachable_id);
 
         $this->authorize('update', $owner);
 
-        if (!$owner->attachments->contains($id)) {
-            $this->abort(422, ['id' => ['attachment not attached']]);
+        if (!$owner->attachment_id) {
+            $this->abort(422, ['id' => ['no attachment to delete']]);
         }
 
-        $owner->attachments()->dissociate();
+        $owner->attachment_id = null;
+        $owner->save();
 
         return response()->json(null, 204);
     }

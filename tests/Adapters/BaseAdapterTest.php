@@ -69,6 +69,9 @@ class BaseAdapterTest extends BeltTestCase
         $randomFilename = explode('.', $randomFilename);
         $this->assertEquals(2, count($randomFilename));
         $this->assertTrue(in_array($randomFilename[1], ['jpg', 'jpeg']));
+        $fileInfo = m::mock(UploadedFile::class);
+        $fileInfo->shouldReceive('guessExtension')->once()->andReturn('jpg');
+        $this->assertTrue(str_contains($adapter->randomFilename($fileInfo), ['.jpg', date('Ymd')]));
 
         # normalizePath
         $this->assertEquals('test', $adapter->normalizePath('test'));
