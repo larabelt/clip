@@ -9,4 +9,6 @@
         @include('belt-clip::attachments.web.show')
         @include('belt-content::sections.sections._after')
     </div>
+@else
+    <p>section with empty attachment</p>
 @endif
