@@ -1,7 +1,16 @@
 <div>
     <div class="file-group">
         <label for="file">
-            <input type="file" name="file" id="file-uploader" accept="image/*" @click="onFileClick" @change="onFileChange" :multiple="multiple">
+            <label class="btn btn-default" for="my-file-selector" @click="onFileClick">
+                <input :ref="'fileinput'" type="file" name="file" id="file-uploader" style="display:none;" accept="image/*" @change="onFileChange"
+                       :multiple="multiple">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+            </label>
+            <template v-if="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" v-model.trim="table.query.q" @keyup="table.index()" placeholder="search">
+                </div>
+            </template>
             <slot></slot>
         </label>
         <button class="btn btn-default hide" type="button" @click="uploadFiles">upload</button>
@@ -13,12 +22,20 @@
                 <td>{{ file.progress }}</td>
                 <td>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" :aria-valuenow=progress[i] aria-valuemin="0" aria-valuemax="100" :style="'width: ' + progress[i] + '%;'">
+                        <div class="progress-bar" role="progressbar" :aria-valuenow=progress[i] aria-valuemin="0" aria-valuemax="100"
+                             :style="'width: ' + progress[i] + '%;'">
                             {{ progress[i] }}%
                         </div>
                     </div>
                 </td>
             </tr>
         </table>
+    </div>
+    <div v-if="table.query.q" class="clearfix">
+        <div v-for="attachment in table.items">
+            <span class="pull-left">
+                <img class="img-thumbnail" :src="attachment.src" style="max-height: 100px" @click="attachFile(attachment.id)"/>
+            </span>
+        </div>
     </div>
 </div>

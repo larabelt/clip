@@ -1,0 +1,58 @@
+<div>
+    <form role="form" class="form-inline" zstyle="margin-bottom: 20px;">
+        <div class="form-group">
+            <label>Image</label>
+        </div>
+        <uploader :driver=driver :path=path :multiple=false :search=true></uploader>
+    </form>
+    <div class="row">
+        <div class="col-md-3">
+            <img class="img-responsive" :src="attachment.src"/>
+        </div>
+        <div class="col-md-6">
+            <table v-if="attachment.id" class="table table-bordered table-condensed">
+                <tbody>
+                <tr>
+                    <td><strong>ID</strong></td>
+                    <td>{{ attachment.id }}
+                        <span class="pull-right"><a class="btn btn-default btn-xs" @click="detach()"><i class="fa fa-trash" aria-hidden="true"></i></a></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Driver</strong></td>
+                    <td>{{ attachment.driver }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Mimetype</strong></td>
+                    <td>{{ attachment.mimetype }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Size</strong></td>
+                    <td>{{ attachment.readable_size }}</td>
+                </tr>
+                <tr v-if=attachment.width>
+                    <td><strong>W x H</strong></td>
+                    <td>{{ attachment.width }} x {{ attachment.height }}</td>
+                </tr>
+                <tr v-if="attachment.resizes.length > 0">
+                    <td><strong>Attachments</strong></td>
+                    <td>
+                        <div v-for="resize in attachment.resizes">
+                            <a :href=resize.secure>{{ resize.preset }}</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+<!--        <div class="col-md-12">-->
+<!--            <div v-if="detached.query.q" class="clearfix">-->
+<!--                <div v-for="attachment in detached.items">-->
+<!--                <span class="pull-left">-->
+<!--                    <img class="img-thumbnail" :src="attachment.src" style="max-height: 100px" @click="attach(attachment.id)"/>-->
+<!--                </span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div>

@@ -1,5 +1,6 @@
 // helpers
 import Form from './form';
+import Table from 'belt/clip/js/components/attachments/table';
 
 // templates
 import html from './template.html';
@@ -9,6 +10,7 @@ export default {
         path: {default: ''},
         driver: {default: ''},
         multiple: {default: true},
+        search: {default: false},
     },
     data() {
         return {
@@ -16,11 +18,12 @@ export default {
             uploaded: [],
             progress: [],
             form: new Form({hasFile: true}),
+            table: new Table(),
         }
     },
     methods: {
         onFileClick: function () {
-            // click actually triggers after the file dialog opens
+            this.$refs.fileinput.click();
         },
         onFileChange(e) {
 
@@ -83,7 +86,15 @@ export default {
             // this.saving = false;
         },
         onUploadSuccess(attachment) {
-
+            // empty to be overwritten
+        },
+        attachFile(id) {
+            this.table.query.q = '';
+            this.table.query.items = [];
+            this.attach(id);
+        },
+        attach(id) {
+            // empty to be overwritten
         },
     },
     template: html
