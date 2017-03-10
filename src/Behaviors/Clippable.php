@@ -35,6 +35,16 @@ trait Clippable
     }
 
     /**
+     * @todo need 2 classes for single attachments vs collections
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function attachment()
+    {
+        return $this->belongsTo(Attachment::class);
+    }
+
+    /**
      * @return \Rutorika\Sortable\BelongsToSortedMany
      */
     public function attachments()
