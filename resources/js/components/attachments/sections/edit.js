@@ -12,7 +12,7 @@ export default {
     mixins: [shared],
     data() {
         return {
-            table: new Table({query: {perPage: 5}}),
+            table: new Table({query: {perPage: 20}}),
             attachment: new Form(),
         }
     },
