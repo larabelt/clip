@@ -41,7 +41,8 @@
                 <tbody>
                     <tr v-for="item in table.items">
                         <td>{{ item.id }}</td>
-                        <td><img class="img-thumbnail pull-left" :src="item.src" style="max-height: 100px" /></td>
+                        <td v-if="item.is_image"><img class="img-thumbnail pull-left" :src="item.src" style="max-height: 100px" /></td>
+                        <td v-else>{{ item.mimetype }}</td>
                         <td>{{ item.original_name }}</td>
                         <td>{{ item.title }}</td>
                         <td class="text-right">
