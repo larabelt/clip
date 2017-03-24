@@ -7,6 +7,7 @@ import html from './template.html';
 
 export default {
     props: {
+        accept: {default: 'image/*,application/pdf'},
         path: {default: ''},
         driver: {default: ''},
         multiple: {default: true},

@@ -30,7 +30,7 @@ class BeltCreateAttachmentsTable extends Migration
             $table->string('original_name')->nullable();
             // image only data
             $table->integer('width')->nullable();
-            $table->string('height')->nullable();
+            $table->integer('height')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

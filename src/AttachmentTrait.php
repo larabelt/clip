@@ -167,8 +167,8 @@ trait AttachmentTrait
             'path' => array_get($attributes, 'path', null),
             'size' => array_get($attributes, 'size', null),
             'mimetype' => array_get($attributes, 'mimetype', null),
-            'width' => array_get($attributes, 'width', null),
-            'height' => array_get($attributes, 'height', null),
+            'width' => array_get($attributes, 'width') ?: 0,
+            'height' => array_get($attributes, 'height') ?: 0,
         ];
 
         return static::create($attributes2);
