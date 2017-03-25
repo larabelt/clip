@@ -43,6 +43,7 @@ class ClippableTest extends BeltTestCase
 
 class ClippableTestStub extends Model
 {
+    use Belt\Core\Behaviors\HasSortableTrait;
     use Clippable;
 
     public static $presets = [

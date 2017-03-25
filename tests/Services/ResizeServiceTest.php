@@ -173,6 +173,7 @@ class ResizeServiceTestStub1 extends Model
         [300, 300, 'resize'],
     ];
 
+    use Belt\Core\Behaviors\HasSortableTrait;
     use Clippable;
 
 }
@@ -185,5 +186,6 @@ class ResizeServiceTestStub2 extends Model
         [500, 500],
     ];
 
+    use Belt\Core\Behaviors\HasSortableTrait;
     use Clippable;
 }
