@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Clip\Adapters;
 
 use Belt\Clip\AttachmentInterface;
@@ -58,6 +59,28 @@ class LocalAdapter extends BaseAdapter implements AdapterInterface
         $path = $this->prefixedPath($path);
 
         if ($this->disk->putFileAs($path, $fileInfo, $filename)) {
+            return $this->__create($path, $fileInfo, $filename);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get attributes of existing file
+     *
+     * @param $path
+     * @return array|null
+     */
+    public function getFromPath($path, $filename = null)
+    {
+
+        $filename = $filename ?: basename($path);
+        $path = str_replace("/$filename", '', $path);
+        $root = config('filesystems.disks.img.root');
+
+        $fileInfo = new UploadedFile("$root/$path/$filename", $filename);
+
+        if ($this->disk->exists("$path/$filename")) {
             return $this->__create($path, $fileInfo, $filename);
         }
 
