@@ -76,11 +76,10 @@ class LocalAdapter extends BaseAdapter implements AdapterInterface
 
         $filename = $filename ?: basename($path);
         $path = str_replace("/$filename", '', $path);
-        $root = config('filesystems.disks.img.root');
-
-        $fileInfo = new UploadedFile("$root/$path/$filename", $filename);
+        $root = config("filesystems.disks.$this->driver.root");
 
         if ($this->disk->exists("$path/$filename")) {
+            $fileInfo = new UploadedFile("$root/$path/$filename", $filename);
             return $this->__create($path, $fileInfo, $filename);
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Clip\Behaviors;
 
 use DB;
@@ -37,6 +38,9 @@ trait Clippable
         return $this->morphToSortedMany(Attachment::class, 'clippable')->withPivot('position');
     }
 
+    /**
+     * purge related items in clippables table
+     */
     public function purgeAttachments()
     {
         DB::connection($this->getConnectionName())

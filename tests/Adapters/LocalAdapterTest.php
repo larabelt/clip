@@ -22,6 +22,7 @@ class LocalAdapterTest extends BeltTestCase
      * @covers \Belt\Clip\Adapters\LocalAdapter::contents
      * @covers \Belt\Clip\Adapters\LocalAdapter::upload
      * @covers \Belt\Clip\Adapters\LocalAdapter::__create
+     * @covers \Belt\Clip\Adapters\LocalAdapter::getFromPath
      */
     public function test()
     {
@@ -83,6 +84,15 @@ class LocalAdapterTest extends BeltTestCase
         $this->assertEquals($sizes[0], $data['width']);
         $this->assertEquals($sizes[1], $data['height']);
 
+        # getFromPath
+        $disk = m::mock(FilesystemAdapter::class);
+        $disk->shouldReceive('exists')->once()->with('testing/test.jpg')->andReturn(true);
+        $disk->shouldReceive('exists')->once()->with('testing/invalid.jpg')->andReturn(false);
+        $adapter->disk = $disk;
+        $result = $adapter->getFromPath('testing', 'test.jpg');
+        $this->assertNotEmpty($result);
+        $result = $adapter->getFromPath('testing', 'invalid.jpg');
+        $this->assertEmpty($result);
     }
 
 }
