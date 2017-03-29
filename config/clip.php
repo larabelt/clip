@@ -18,6 +18,7 @@ return [
         'local_driver' => 'default',
         'image_driver' => 'imagick',
         'models' => [
+            \Belt\Clip\Album::class,
             \Belt\Spot\Place::class,
         ],
     ],

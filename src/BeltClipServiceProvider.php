@@ -21,6 +21,7 @@ class BeltClipServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        Belt\Clip\Album::class => Belt\Clip\Policies\AlbumPolicy::class,
         Belt\Clip\Attachment::class => Belt\Clip\Policies\AttachmentPolicy::class,
     ];
 
@@ -55,6 +56,7 @@ class BeltClipServiceProvider extends ServiceProvider
 
         // morphMap
         Relation::morphMap([
+            'albums' => Belt\Clip\Album::class,
             'attachments' => Belt\Clip\Attachment::class,
         ]);
 

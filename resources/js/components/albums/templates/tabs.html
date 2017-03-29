@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs pull-right">
+    <li :class="{active: $router.currentRoute.name == 'albums.edit'}">
+        <router-link :to="{ name: 'albums.edit', params: {id: $route.params.id}}">Main</router-link>
+    </li>
+    <li :class="{active: $router.currentRoute.name == 'albums.attachments'}">
+        <router-link :to="{ name: 'albums.attachments', params: {id: $route.params.id}}">Attachments</router-link>
+    </li>
+</ul>

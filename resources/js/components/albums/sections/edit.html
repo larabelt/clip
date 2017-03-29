@@ -1,0 +1,49 @@
+<div>
+    <form role="form" @submit.prevent="panel.form.submit()" @keydown="panel.form.errors.clear($event.target.name)">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group" :class="{ 'has-error': panel.form.error('sectionable_id') }">
+                    <div class="input-group">
+                        <input
+                                type="text"
+                                class="form-control"
+                                v-model="table.query.q"
+                                placeholder="Search"
+                                @keydown="table.index()"
+                        >
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    </div>
+                    <span v-for="error in panel.form.error('sectionable_id')" class="contents-danger">{{ error }}</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <p><img class="img-responsive" :src="album.src"/></p>
+            </div>
+            <div class="col-md-5">
+                <div class="clearfix">
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-sm btn-default" href="/admin/belt/clip/albums/create" target="_blank"><i class="fa fa-plus"></i></a>
+                        <a v-if="album.id" class="btn btn-sm btn-default" :href="'/admin/belt/clip/albums/edit/' + album.id"
+                           target="_blank">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+                <template v-if="album.id">
+                    <p>{{ album.id }}. {{ album.name }}</p>
+                </template>
+            </div>
+        </div>
+    </form>
+
+    <div v-if="table.items.length">
+        <table class="table">
+            <tr v-for="album in table.items">
+                <td>{{ album.id }}. <strong>{{ album.name }}:</strong> {{ album.slug }}</td>
+                <td class="text-right">
+                    <button class="btn btn-default" @click="update(album.id)"><i class="fa fa-link"></i></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
