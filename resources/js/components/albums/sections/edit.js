@@ -1,5 +1,5 @@
 // components
-import shared from 'belt/content/js/components/sectionables/ctlr/panel-shared';
+import shared from 'belt/content/js/components/sectionables/ctlr/shared';
 
 // helpers
 import Form from '../form';
@@ -24,7 +24,7 @@ export default {
     methods: {
         update(id)
         {
-            let form = this.panel.form;
+            let form = this.active;
             let album = this.album;
             let table = this.table;
 

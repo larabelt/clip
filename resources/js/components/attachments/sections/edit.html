@@ -1,8 +1,8 @@
 <div>
-    <form role="form" @submit.prevent="panel.form.submit()" @keydown="panel.form.errors.clear($event.target.name)">
+    <form role="form" @submit.prevent="active.submit()" @keydown="active.errors.clear($event.target.name)">
         <div class="row">
             <div class="col-md-4">
-                <div class="form-group" :class="{ 'has-error': panel.form.error('sectionable_id') }">
+                <div class="form-group" :class="{ 'has-error': active.error('sectionable_id') }">
                     <div class="input-group">
                         <input
                                 type="text"
@@ -13,7 +13,7 @@
                         >
                         <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     </div>
-                    <span v-for="error in panel.form.error('sectionable_id')" class="contents-danger">{{ error }}</span>
+                    <span v-for="error in active.error('sectionable_id')" class="contents-danger">{{ error }}</span>
                 </div>
             </div>
             <div class="col-md-3">
@@ -22,7 +22,7 @@
             <div class="col-md-5">
                 <div class="clearfix">
                     <div class="btn-group pull-right">
-                        <a class="btn btn-sm btn-default" href="/admin/belt/clip/attachments/create" target="_blank"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-sm btn-default" href="/admin/belt/clip/attachments" target="_blank"><i class="fa fa-plus"></i></a>
                         <a v-if="attachment.id" class="btn btn-sm btn-default" :href="'/admin/belt/clip/attachments/edit/' + attachment.id"
                            target="_blank">
                             <i class="fa fa-edit"></i>
