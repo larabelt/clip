@@ -50,4 +50,8 @@ trait Clippable
             ->delete();
     }
 
+    public function image()
+    {
+        return $this->morphOne(Attachment::class, 'clippable')->where('mimetype', 'LIKE', 'image%')->orderBy('position');
+    }
 }
