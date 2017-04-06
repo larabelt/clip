@@ -50,7 +50,7 @@ trait Clippable
             ->delete();
     }
 
-    public function image()
+    public function getImageAttribute()
     {
         return $this->morphToSortedMany(Attachment::class, 'clippable')
             ->withPivot('position')
