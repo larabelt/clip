@@ -21,7 +21,7 @@ trait AttachmentTrait
      */
     public function adapter()
     {
-        return $this->adapter ?: AdapterFactory::up($this->driver);
+        return $this->adapter ?: AdapterFactory::up($this->driver?: 'default');
     }
 
     /**

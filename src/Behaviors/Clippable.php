@@ -52,8 +52,12 @@ trait Clippable
 
     public function getImageAttribute()
     {
-        return $this->morphToSortedMany(Attachment::class, 'clippable')
-            ->withPivot('position')
-            ->first();
+        foreach($this->attachments as $attachment) {
+            if ($attachment->isImage) {
+                return $attachment;
+            }
+        }
+
+        return new Attachment();
     }
 }
