@@ -12,7 +12,7 @@ class PaginateClippables extends PaginateAttachments
     /**
      * @var int
      */
-    public $perPage = 5;
+    public $perPage = 20;
 
     /**
      * @var string
