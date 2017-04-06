@@ -135,7 +135,7 @@ class ClippablesController extends ApiController
 
         $attachment = $this->attachment($id, $owner);
 
-        $this->repositionEntity($request, $id, $owner->attachments, $owner->attachments());
+        $this->repositionHasManyThrough($request, $id, $owner->attachments, $owner->attachments());
 
         return response()->json($attachment);
     }
