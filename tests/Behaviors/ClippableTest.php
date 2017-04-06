@@ -22,12 +22,10 @@ class ClippableTest extends BeltTestCase
      * @covers \Belt\Clip\Behaviors\Clippable::attachments
      * @covers \Belt\Clip\Behaviors\Clippable::getResizePresets
      * @covers \Belt\Clip\Behaviors\Clippable::purgeAttachments
+     * @covers \Belt\Clip\Behaviors\Clippable::getImageAttribute
      */
     public function test()
     {
-
-
-
         # attachments
         $morphMany = m::mock(Relation::class);
         $morphMany->shouldReceive('orderBy')->withArgs(['position']);
@@ -51,6 +49,18 @@ class ClippableTest extends BeltTestCase
 
         # attachment
         $this->assertInstanceOf(BelongsTo::class, $clippable->attachment());
+
+        # getImageAttribute
+        Attachment::unguard();
+        $clippable = new ClippableTestStub2();
+        $clippable->attachments = new \Illuminate\Support\Collection();
+        $this->assertInstanceOf(Attachment::class, $clippable->getImageAttribute());
+        $clippable->attachments->push(new Attachment(['mimetype'=>'application/pdf']));
+        $this->assertNull($clippable->getImageAttribute()->id);
+        $clippable->attachments->push(new Attachment(['mimetype'=>'image/gif', 'id' => 1]));
+        $this->assertEquals(1, $clippable->getImageAttribute()->id);
+
+
     }
 
 }
@@ -58,6 +68,20 @@ class ClippableTest extends BeltTestCase
 class ClippableTestStub extends Model
 {
     use Belt\Core\Behaviors\HasSortableTrait;
+    use Clippable;
+
+    public static $presets = [
+        100, 100
+    ];
+
+    public function getMorphClass()
+    {
+        return 'clippableTestStub';
+    }
+}
+
+class ClippableTestStub2
+{
     use Clippable;
 
     public static $presets = [
