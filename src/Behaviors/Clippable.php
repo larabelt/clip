@@ -50,9 +50,12 @@ trait Clippable
             ->delete();
     }
 
+    /**
+     * @return Attachment
+     */
     public function getImageAttribute()
     {
-        foreach($this->attachments as $attachment) {
+        foreach ($this->attachments as $attachment) {
             if ($attachment->isImage) {
                 return $attachment;
             }
