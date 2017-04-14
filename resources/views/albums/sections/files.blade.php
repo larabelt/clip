@@ -6,7 +6,7 @@
     <div class="section section-album {{ $section->param('class') }}">
         @include('belt-content::sections.sections._heading')
         @include('belt-content::sections.sections._before')
-        @include('belt-clip::albums.web.images')
+        @include('belt-clip::albums.web.files')
         @include('belt-content::sections.sections._after')
     </div>
 @else

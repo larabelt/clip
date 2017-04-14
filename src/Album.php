@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Clip;
 
 use Belt;
@@ -10,13 +11,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Album extends Model implements
     Belt\Core\Behaviors\SluggableInterface,
+    Belt\Clip\Behaviors\ClippableInterface,
     Belt\Content\Behaviors\IncludesContentInterface,
-    Belt\Clip\Behaviors\ClippableInterface
+    Belt\Content\Behaviors\SectionableInterface
 {
     use Belt\Core\Behaviors\HasSortableTrait;
     use Belt\Core\Behaviors\Sluggable;
-    use Belt\Content\Behaviors\IncludesContent;
     use Belt\Clip\Behaviors\Clippable;
+    use Belt\Content\Behaviors\IncludesContent;
+    use Belt\Content\Behaviors\Sectionable;
 
     /**
      * @var string
