@@ -1,3 +1,5 @@
+import thumb from './thumb';
+
 // helpers
 import Form from '../form';
 import positionable from 'belt/core/js/mixins/base/positionable';
@@ -18,5 +20,6 @@ export default {
             }),
         }
     },
+    components: {thumb},
     template: sort_html
 }

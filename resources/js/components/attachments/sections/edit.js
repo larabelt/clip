@@ -1,3 +1,5 @@
+import thumb from 'belt/clip/js/components/clippables/ctlr/thumb';
+
 // components
 import shared from 'belt/content/js/components/sectionables/ctlr/shared';
 
@@ -38,5 +40,6 @@ export default {
                 });
         }
     },
+    components: {thumb},
     template: edit_html
 }

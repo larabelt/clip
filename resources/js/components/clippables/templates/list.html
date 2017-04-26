@@ -1,7 +1,7 @@
 <div>
     <div class="row" v-for="attachment, index in table.items">
         <div class="col-sm-2">
-            <img class="img-thumbnail" :src="attachment.src" style="max-height: 140px;" />
+            <thumb :attachment="attachment"></thumb>
         </div>
         <div class="col-sm-9">
             <div v-if="form.id == attachment.id">

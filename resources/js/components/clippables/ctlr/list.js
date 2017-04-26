@@ -1,3 +1,5 @@
+import thumb from './thumb';
+
 // helpers
 import Form from 'belt/clip/js/components/attachments/form';
 
@@ -20,6 +22,7 @@ export default {
         }
     },
     components: {
+        thumb,
         edit: {
             data() {
                 return {

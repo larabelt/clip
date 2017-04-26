@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <p><img class="img-responsive" :src="attachment.src"/></p>
+                <thumb :attachment="attachment"></thumb>
             </div>
             <div class="col-md-5">
                 <div class="clearfix">
@@ -41,7 +41,16 @@
         <div class="row">
             <div class="col-md-12">
                 <template v-for="attachment in table.items">
-                    <img class="img-thumbnail pull-left" :src="attachment.src" style="max-height: 100px" @click="update(attachment.id)"/>
+                    <span class="pull-left">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <thumb :attachment="attachment"></thumb>
+                            </div>
+                            <div class="panel-footer clearfix">
+                                <span class="pull-right"><button class="btn btn-xs btn-primary" @click="update(attachment.id)"><i class="fa fa-link"></i></button></span>
+                            </div>
+                        </div>
+                    </span>
                 </template>
             </div>
         </div>
