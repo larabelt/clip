@@ -1,0 +1,11 @@
+<span>
+    <template v-if="attachment.is_image">
+        <img class="img-thumbnail pull-left" :src="attachment.src" style="max-height: 100px"/>
+    </template>
+    <template v-else>
+        <h5>{{ attachment.title }}</h5>
+        <br/>
+        <i class="fa fa-file"></i>
+        {{ attachment.mimetype }}
+    </template>
+</span>

@@ -1,3 +1,5 @@
+import thumb from './thumb';
+
 // helpers
 import Form from '../form';
 
@@ -15,11 +17,12 @@ export default {
             }),
         }
     },
+    components: {thumb},
     methods: {
         attach(id) {
             this.form.setData({id: id});
             this.form.store()
-                .then(response => {
+                .then(() => {
                     this.table.index();
                     this.detached.index();
                 })
