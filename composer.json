@@ -13,7 +13,6 @@
   ],
   "minimum-stability": "dev",
   "require": {
-    "larabelt/core": "dev-handles",
     "intervention/image": "2.3.*"
   },
   "autoload": {
