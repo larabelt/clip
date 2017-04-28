@@ -1,6 +1,7 @@
 <?php
 namespace Belt\Clip\Http\Requests;
 
+use Belt;
 use Belt\Core\Http\Requests\PaginateRequest;
 
 class PaginateAlbums extends PaginateRequest
@@ -16,6 +17,13 @@ class PaginateAlbums extends PaginateRequest
 
     public $searchable = [
         'albums.name',
+    ];
+
+    /**
+     * @var Belt\Core\Pagination\PaginationQueryModifier[]
+     */
+    public $queryModifiers = [
+        Belt\Glue\Pagination\TaggableQueryModifier::class,
     ];
 
 }
