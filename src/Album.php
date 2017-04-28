@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Album extends Model implements
     Belt\Core\Behaviors\SluggableInterface,
+    Belt\Core\Behaviors\TypeInterface,
     Belt\Clip\Behaviors\ClippableInterface,
     Belt\Content\Behaviors\IncludesContentInterface,
     Belt\Content\Behaviors\SectionableInterface,
@@ -18,6 +19,7 @@ class Album extends Model implements
 {
     use Belt\Core\Behaviors\HasSortableTrait;
     use Belt\Core\Behaviors\Sluggable;
+    use Belt\Core\Behaviors\TypeTrait;
     use Belt\Clip\Behaviors\Clippable;
     use Belt\Content\Behaviors\IncludesContent;
     use Belt\Content\Behaviors\Sectionable;
@@ -41,7 +43,7 @@ class Album extends Model implements
     /**
      * @var array
      */
-    protected $appends = ['image'];
+    protected $appends = ['image', 'morph_class'];
 
     /**
      * @var array
