@@ -64,5 +64,16 @@ export default {
     mounted() {
         this.table.index();
     },
+    methods: {
+        setTab(tab)
+        {
+            this.tabs.set(tab);
+            this.table.query.perPage = 10;
+            if (tab == 'sort') {
+                this.table.query.perPage = 9999;
+            }
+            this.table.index();
+        }
+    },
     template: index_html
 }

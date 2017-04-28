@@ -24,18 +24,21 @@
     </div>
     <div class="col-md-12" style="margin:20px 0; padding: 20px 0; border-top:2px solid #ccc;">
         <div v-if="table.items.length" class="clearfix">
-            <template v-for="attachment, index in table.items">
-                <span class="pull-left">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <thumb :attachment="attachment"></thumb>
-                        </div>
-                        <div class="panel-footer clearfix">
+            <div class="clearfix">
+                <template v-for="attachment, index in table.items" class="clearfix">
+                    <span class="pull-left">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <thumb :attachment="attachment"></thumb>
+                            </div>
+                            <div class="panel-footer clearfix">
 
+                            </div>
                         </div>
-                    </div>
-                </span>
-            </template>
+                    </span>
+                </template>
+            </div>
+            <pagination></pagination>
         </div>
         <div v-else>
             <p><strong>This item has no attachments</strong></p>
