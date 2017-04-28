@@ -13,13 +13,15 @@ class Album extends Model implements
     Belt\Core\Behaviors\SluggableInterface,
     Belt\Clip\Behaviors\ClippableInterface,
     Belt\Content\Behaviors\IncludesContentInterface,
-    Belt\Content\Behaviors\SectionableInterface
+    Belt\Content\Behaviors\SectionableInterface,
+    Belt\Glue\Behaviors\TaggableInterface
 {
     use Belt\Core\Behaviors\HasSortableTrait;
     use Belt\Core\Behaviors\Sluggable;
     use Belt\Clip\Behaviors\Clippable;
     use Belt\Content\Behaviors\IncludesContent;
     use Belt\Content\Behaviors\Sectionable;
+    use Belt\Glue\Behaviors\Taggable;
 
     /**
      * @var string
