@@ -1,6 +1,7 @@
 <?php
 namespace Belt\Clip\Http\Requests;
 
+use Belt;
 use Belt\Core\Http\Requests\PaginateRequest;
 
 /**
@@ -38,6 +39,13 @@ class PaginateAttachments extends PaginateRequest
         'attachments.note',
         'attachments.credits',
         'attachments.alt',
+    ];
+
+    /**
+     * @var Belt\Core\Pagination\PaginationQueryModifier[]
+     */
+    public $queryModifiers = [
+        Belt\Glue\Pagination\TaggableQueryModifier::class,
     ];
 
 }
