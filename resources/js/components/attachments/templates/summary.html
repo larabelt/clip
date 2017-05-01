@@ -1,0 +1,17 @@
+<div>
+    <p v-if="form.is_image"><img class="img-responsive" :src="form.src"/></p>
+    <p><strong>original name</strong></p>
+    <p>{{ form.original_name }}</p>
+    <p><strong>name</strong></p>
+    <p>{{ form.name }}</p>
+    <p><strong>mimetype</strong></p>
+    <p>{{ form.mimetype }}</p>
+    <p><strong>size</strong></p>
+    <p>{{ form.size }}</p>
+    <template v-if="form.is_image">
+        <p><strong>w x h</strong></p>
+        <p>{{ form.width }} x {{ form.height }}</p>
+    </template>
+    <p><strong>source path</strong></p>
+    <p>{{ form.src }}</p>
+</div>

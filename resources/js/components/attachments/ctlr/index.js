@@ -1,10 +1,5 @@
-// components
 import uploader from '../../base/uploader/ctlr';
-
-// helpers
 import Table from '../table';
-
-// templates make a change
 import heading_html from 'belt/core/js/templates/heading.html';
 import index_html from '../templates/index.html';
 import uploader_html from '../../base/uploader/template.html';
@@ -16,8 +11,12 @@ export default {
         index: {
             data() {
                 return {
-                    table: new Table({router: this.$router, query: {sortBy: 'desc'}}),
+                    table: new Table({router: this.$router}),
                 }
+            },
+            mounted() {
+                this.table.updateQueryFromRouter();
+                this.table.index();
             },
             components: {
                 uploader: {
@@ -29,10 +28,6 @@ export default {
                     },
                     template: uploader_html
                 },
-            },
-            mounted() {
-                this.table.updateQueryFromRouter();
-                this.table.index();
             },
             template: index_html,
         },

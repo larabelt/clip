@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Clip;
 
 use Belt;
@@ -10,10 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Attachment extends Model
     implements AttachmentInterface,
-    Belt\Content\Behaviors\SectionableInterface
+    Belt\Content\Behaviors\SectionableInterface,
+    Belt\Glue\Behaviors\TaggableInterface
 {
     use AttachmentTrait;
     use Belt\Content\Behaviors\Sectionable;
+    use Belt\Glue\Behaviors\Taggable;
 
     /**
      * @var string
