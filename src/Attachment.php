@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Attachment extends Model
     implements AttachmentInterface,
+    Belt\Core\Behaviors\TypeInterface,
     Belt\Content\Behaviors\SectionableInterface,
     Belt\Glue\Behaviors\TaggableInterface
 {
     use AttachmentTrait;
+    use Belt\Core\Behaviors\TypeTrait;
     use Belt\Content\Behaviors\Sectionable;
     use Belt\Glue\Behaviors\Taggable;
 
@@ -36,7 +38,7 @@ class Attachment extends Model
     /**
      * @var array
      */
-    protected $appends = ['src', 'secure', 'rel_path', 'readable_size', 'is_image'];
+    protected $appends = ['src', 'secure', 'rel_path', 'readable_size', 'is_image', 'morph_class'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
