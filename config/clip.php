@@ -18,8 +18,13 @@ return [
         'local_driver' => 'default',
         'image_driver' => 'imagick',
         'models' => [
-            \Belt\Clip\Album::class,
-            \Belt\Spot\Place::class,
+            \Belt\Clip\Album::class => [
+                [100, 100, 'fit'],
+                [800, 800, 'fit'],
+//                [222, 222, 'resize'],
+//                [333, 333, 'resize'],
+//                [500, 500, 'resize'],
+            ],
         ],
     ],
 ];

@@ -175,7 +175,9 @@ class ResizeService
 
             $attachmentInfo = new UploadedFile('/tmp/tmp', $attachment->original_name);
 
-            $data = $adapter->upload('resizes', $attachmentInfo);
+            $filename = $adapter->randomFilename($attachmentInfo, true);
+
+            $data = $adapter->upload('resizes', $attachmentInfo, $filename);
 
             $this->resizeRepo()->unguard();
             $this->resizeRepo()->create(array_merge($data, [

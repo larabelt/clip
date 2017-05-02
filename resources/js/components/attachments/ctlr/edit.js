@@ -22,7 +22,7 @@ export default {
             template: `
 <div class="row">
     <div class="col-md-4">
-        <attachment-summary></attachment-summary>
+        <attachment-summary :attachment="form"></attachment-summary>
     </div>
     <div class="col-md-8">
         <edit></edit>

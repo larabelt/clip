@@ -1,17 +1,49 @@
 <div>
-    <p v-if="form.is_image"><img class="img-responsive" :src="form.src"/></p>
-    <p><strong>original name</strong></p>
-    <p>{{ form.original_name }}</p>
-    <p><strong>name</strong></p>
-    <p>{{ form.name }}</p>
-    <p><strong>mimetype</strong></p>
-    <p>{{ form.mimetype }}</p>
-    <p><strong>size</strong></p>
-    <p>{{ form.size }}</p>
-    <template v-if="form.is_image">
-        <p><strong>w x h</strong></p>
-        <p>{{ form.width }} x {{ form.height }}</p>
+    <p v-if="attachment.is_image"><img class="img-responsive" :src="attachment.src"/></p>
+
+    <div class="clearfix">
+        <span class="pull-right"><a :href="attachment.src" target="_blank" class="btn btn-xs btn-primary">Open <i
+                        class="fa fa-external-link-square"></i></a></span>
+    </div>
+    <hr/>
+
+    <div class="clearfix">
+        <span class="pull-left"><strong>original name</strong></span>
+        <span class="pull-right">{{ attachment.original_name }}</span>
+    </div>
+    <hr/>
+
+    <div class="clearfix">
+        <span class="pull-left"><strong>mimetype</strong></span>
+        <span class="pull-right">{{ attachment.mimetype }}</span>
+    </div>
+    <hr/>
+
+    <div class="clearfix">
+        <span class="pull-left"><strong>size</strong></span>
+        <span class="pull-right">{{ attachment.size }}</span>
+    </div>
+    <hr/>
+
+    <template v-if="attachment.is_image">
+        <div class="clearfix">
+            <span class="pull-left"><strong>w x h</strong></span>
+            <span class="pull-right">{{ attachment.width }} x {{ attachment.height }}</span>
+        </div>
+        <hr/>
     </template>
-    <p><strong>source path</strong></p>
-    <p>{{ form.src }}</p>
+
+    <template v-if="attachment.is_image && attachment.resizes.length">
+        <div class="clearfix">
+            <span class="pull-left"><strong>resizes</strong></span>
+            <span class="pull-right">
+                <ul>
+                    <template v-for="resize in attachment.resizes">
+                        <li><a :href="resize.src" target="_blank">{{ resize.preset }}</a></li>
+                    </template>
+                </ul>
+            </span>
+        </div>
+        <hr/>
+    </template>
 </div>

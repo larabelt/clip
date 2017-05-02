@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Clip\Adapters;
 
 use Storage;
@@ -60,24 +61,27 @@ abstract class BaseAdapter
 
     /**
      * @param $fileInfo
+     * @param boolean $force
      * @return string
      */
-    public function randomFilename($fileInfo)
+    public function randomFilename($fileInfo, $force = false)
     {
 
-        try {
-            $original = $fileInfo->getClientOriginalName();
-        } catch (\Exception $e) {
+        if (!$force) {
+            try {
+                $original = $fileInfo->getClientOriginalName();
+            } catch (\Exception $e) {
 
-        }
+            }
 
-        if (isset($original)) {
+            if (isset($original)) {
 
-            // remove extension and clean up name
-            $sanitized = preg_replace('/\\.[^.\\s]{3,4}$/', '', $original);
-            $sanitized = str_slug(strtolower($sanitized));
+                // remove extension and clean up name
+                $sanitized = preg_replace('/\\.[^.\\s]{3,4}$/', '', $original);
+                $sanitized = str_slug(strtolower($sanitized));
 
-            return sprintf('%s-%s.%s', date('YmdHis'), $sanitized, $fileInfo->guessExtension());
+                return sprintf('%s-%s.%s', date('YmdHis'), $sanitized, $fileInfo->guessExtension());
+            }
         }
 
         return sprintf('%s-%s.%s', date('YmdHis'), uniqid(), $fileInfo->guessExtension());
