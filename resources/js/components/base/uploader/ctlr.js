@@ -1,8 +1,5 @@
-// helpers
 import Form from './form';
 import Table from 'belt/clip/js/components/attachments/table';
-
-// templates
 import html from './template.html';
 
 export default {
@@ -67,24 +64,6 @@ export default {
                     this.onUploadSuccess(response);
                     //self.progress.splice(i, 1);
                 });
-
-            // this.$http.post('/api/v1/attachments', formData, {
-            //     progress(e) {
-            //         if (e.lengthComputable) {
-            //             self.progress[i] = Math.ceil(e.loaded / e.total * 100);
-            //             file.progress = Math.ceil(e.loaded / e.total * 100);
-            //         }
-            //     }
-            // }).then((response) => {
-            //     this.attach(response.data.id);
-            //     self.pending.splice(i, 1);
-            //
-            // }, (response) => {
-            //     if (response.status == 422) {
-            //         //this.errors = response.data.message;
-            //     }
-            // });
-            // this.saving = false;
         },
         onUploadSuccess(attachment) {
             // empty to be overwritten

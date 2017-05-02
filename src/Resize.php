@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Clip;
 
 use Illuminate\Database\Eloquent\Model;
@@ -45,6 +46,14 @@ class Resize extends Model implements AttachmentInterface
     public function getPresetAttribute()
     {
         return sprintf('%s:%s', $this->width, $this->height);
+    }
+
+    /**
+     * @return string
+     */
+    public function getNicknameAttribute($value)
+    {
+        return $value ?: $this->preset;
     }
 
 }

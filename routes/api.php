@@ -15,6 +15,17 @@ Route::group([
         Route::get('albums', Api\AlbumsController::class . '@index');
         Route::post('albums', Api\AlbumsController::class . '@store');
 
+        # attachment resizes
+        Route::group([
+            'prefix' => 'attachments/{attachment}/resizes',
+        ], function () {
+            Route::get('{resize}', Api\ResizesController::class . '@show');
+            Route::put('{resize}', Api\ResizesController::class . '@update');
+            Route::delete('{resize}', Api\ResizesController::class . '@destroy');
+            Route::post('', Api\ResizesController::class . '@store');
+            Route::get('', Api\ResizesController::class . '@index');
+        });
+
         # attachments
         Route::get('attachments/{id}', Api\AttachmentsController::class . '@show');
         Route::put('attachments/{id}', Api\AttachmentsController::class . '@update');

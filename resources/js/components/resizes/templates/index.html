@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <div class="btn-group">
+                <uploader accept="image/*"></uploader>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div v-if="table.items.length">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Preset</th>
+                        <th>Nickname</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <template v-for="resize in table.items">
+                        <edit :resize="resize"></edit>
+                    </template>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div v-else>
+            <p>There are no resizes for this item.</p>
+        </div>
+    </div>
+</div>

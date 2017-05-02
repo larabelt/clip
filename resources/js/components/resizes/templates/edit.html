@@ -1,0 +1,19 @@
+<tr>
+    <td><img class="img-thumbnail pull-left" :src="resize.src" style="max-height: 100px" /></td>
+    <td><a :href="resize.src" target="_blank">{{ resize.preset }}</a></td>
+    <td>
+        <div class="form-group" :class="{ 'has-error': form.error('nickname') }">
+            <input
+                    type="text"
+                    class="form-control"
+                    v-model="form.nickname"
+                    placeholder="nickname"
+                    @change="form.submit()"
+            >
+            <span v-for="error in form.error('nickname')" class="text-danger">{{ error }}</span>
+        </div>
+    </td>
+    <td class="text-right">
+        <modal-delete :item-id="resize.id" _class="''" :callingObject="table"></modal-delete>
+    </td>
+</tr>

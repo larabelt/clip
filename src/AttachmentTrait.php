@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Clip;
 
 use Belt\Clip\Adapters\BaseAdapter;
@@ -21,7 +22,7 @@ trait AttachmentTrait
      */
     public function adapter()
     {
-        return $this->adapter ?: AdapterFactory::up($this->driver?: 'default');
+        return $this->adapter ?: AdapterFactory::up($this->driver ?: 'default');
     }
 
     /**
@@ -153,25 +154,36 @@ trait AttachmentTrait
     }
 
     /**
-     * @param array $attributes
+     * @param array $data
      * @return mixed
      */
-    public static function createFromUpload(array $attributes = [])
+    public static function setAttributesFromUpload(array $data = [])
+    {
+        $attributes = [
+            'driver' => array_get($data, 'driver', null),
+            'name' => array_get($data, 'name', null),
+            'original_name' => array_get($data, 'original_name', null),
+            'path' => array_get($data, 'path', null),
+            'size' => array_get($data, 'size', null),
+            'mimetype' => array_get($data, 'mimetype', null),
+            'width' => array_get($data, 'width') ?: 0,
+            'height' => array_get($data, 'height') ?: 0,
+        ];
+
+        return $attributes;
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public static function createFromUpload(array $data = [])
     {
         static::unguard();
 
-        $attributes2 = [
-            'driver' => array_get($attributes, 'driver', null),
-            'name' => array_get($attributes, 'name', null),
-            'original_name' => array_get($attributes, 'original_name', null),
-            'path' => array_get($attributes, 'path', null),
-            'size' => array_get($attributes, 'size', null),
-            'mimetype' => array_get($attributes, 'mimetype', null),
-            'width' => array_get($attributes, 'width') ?: 0,
-            'height' => array_get($attributes, 'height') ?: 0,
-        ];
+        $attributes = static::setAttributesFromUpload($data);
 
-        return static::create($attributes2);
+        return static::create($attributes);
     }
 
 }

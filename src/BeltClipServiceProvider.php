@@ -60,6 +60,11 @@ class BeltClipServiceProvider extends ServiceProvider
             'attachments' => Belt\Clip\Attachment::class,
         ]);
 
+        // route model binding
+        $router->model('album', Belt\Clip\Album::class);
+        $router->model('attachment', Belt\Clip\Attachment::class);
+        $router->model('resize', Belt\Clip\Resize::class);
+
         // commands
         $this->commands(Belt\Clip\Commands\FakerCommand::class);
         $this->commands(Belt\Clip\Commands\PublishCommand::class);
