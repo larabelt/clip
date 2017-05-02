@@ -17,6 +17,12 @@ trait Clippable
      */
     public static function getResizePresets()
     {
+        $presets = config('belt.clip.resize.models.' . static::class);
+
+        if ($presets) {
+            return $presets;
+        }
+
         return isset(static::$presets) ? static::$presets : [];
     }
 

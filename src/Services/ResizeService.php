@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Clip\Services;
 
 use Belt\Clip\Adapters;
@@ -101,9 +102,7 @@ class ResizeService
     {
         $models = $this->config('models');
 
-        foreach ($models as $model) {
-
-            $presets = $model::getResizePresets();
+        foreach ($models as $model => $presets) {
 
             $attachments = $this->query($model, $presets);
 
@@ -111,7 +110,6 @@ class ResizeService
                 $attachment = $this->attachments->find($attachment->id);
                 $this->resize($attachment, $presets);
             }
-
         }
     }
 
