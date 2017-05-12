@@ -71,6 +71,11 @@ class ResizeServiceTest extends BeltTestCase
         $presets1 = ResizeServiceTestStub1::getResizePresets();
         $presets2 = ResizeServiceTestStub2::getResizePresets();
 
+        app()['config']->set('belt.clip.resize.models', [
+            ResizeServiceTestStub1::class => $presets1,
+            ResizeServiceTestStub2::class => $presets2,
+        ]);
+
         $service = m::mock(ResizeService::class . '[query,resize]');
 
         $service->attachments = m::mock(Attachment::class);
