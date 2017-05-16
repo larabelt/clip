@@ -128,12 +128,12 @@ class ResizesController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  Requests\UpdateResize $request
+     * @param Request $request
      * @param Attachment $attachment
      * @param Resize $resize
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\UpdateResize $request, Attachment $attachment, Resize $resize)
+    public function update(Request $request, Attachment $attachment, Resize $resize)
     {
         $this->authorize('update', $attachment);
 

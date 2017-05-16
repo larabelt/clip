@@ -108,16 +108,38 @@ class ResizeServiceTest extends BeltTestCase
         $attachments1 = $this->attachments([1, 2, 3]);
         $presets1 = ResizeServiceTestStub1::getResizePresets();
 
-        $qbMock = m::mock(Builder::class);
-        $qbMock->shouldReceive('select')->andReturnSelf();
-        $qbMock->shouldReceive('take')->andReturnSelf();
-        $qbMock->shouldReceive('join')->andReturnSelf();
-        $qbMock->shouldReceive('leftJoin')->times(count($presets1))->andReturnSelf();
-        $qbMock->shouldReceive('orWhereNull')->times(count($presets1))->andReturnSelf();
-        $qbMock->shouldReceive('get')->andReturn($attachments1);
+        $qb = m::mock(Builder::class);
+        $qb->shouldReceive('select')->andReturnSelf();
+        $qb->shouldReceive('take')->andReturnSelf();
+        $qb->shouldReceive('join')->with('clippables',
+            m::on(function (\Closure $closure) {
+                $sub1 = m::mock(Builder::class);
+                $sub1->shouldReceive('on')->with('clippables.attachment_id', '=', 'attachments.id');
+                $sub1->shouldReceive('where')->with('clippables.clippable_type', ResizeServiceTestStub1::class);
+                $closure($sub1);
+                return is_callable($closure);
+            })
+        );
+
+        foreach ($presets1 as $n => $preset) {
+            $alias = "preset$n";
+            $qb->shouldReceive('leftJoin')->with("attachment_resizes as $alias",
+                m::on(function (\Closure $closure) use ($alias, $preset) {
+                    $sub1 = m::mock(Builder::class);
+                    $sub1->shouldReceive('on')->with("$alias.attachment_id", '=', 'attachments.id');
+                    $sub1->shouldReceive('where')->with("$alias.width", $preset[0]);
+                    $sub1->shouldReceive('where')->with("$alias.height", $preset[1]);
+                    $closure($sub1);
+                    return is_callable($closure);
+                })
+            );
+        }
+
+        $qb->shouldReceive('orWhereNull')->times(count($presets1))->andReturnSelf();
+        $qb->shouldReceive('get')->andReturn($attachments1);
 
         $attachmentRepo = m::mock(Attachment::class);
-        $attachmentRepo->shouldReceive('query')->andReturn($qbMock);
+        $attachmentRepo->shouldReceive('query')->andReturn($qb);
 
         $service = new ResizeService();
         $service->attachments = $attachmentRepo;

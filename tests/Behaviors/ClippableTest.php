@@ -36,6 +36,12 @@ class ClippableTest extends BeltTestCase
 
         # getResizePresets
         $this->assertNotEmpty(ClippableTestStub::getResizePresets());
+        $this->assertEmpty(ClippableTestStub3::getResizePresets());
+        app()['config']->set('belt.clip.resize.models.' . ClippableTestStub3::class, [
+            [100, 100, 'fit'],
+            [800, 800, 'fit'],
+        ]);
+        $this->assertNotEmpty(ClippableTestStub3::getResizePresets());
 
         # purgeAttachments
         $clippable = new ClippableTestStub();
@@ -55,9 +61,9 @@ class ClippableTest extends BeltTestCase
         $clippable = new ClippableTestStub2();
         $clippable->attachments = new \Illuminate\Support\Collection();
         $this->assertInstanceOf(Attachment::class, $clippable->getImageAttribute());
-        $clippable->attachments->push(new Attachment(['mimetype'=>'application/pdf']));
+        $clippable->attachments->push(new Attachment(['mimetype' => 'application/pdf']));
         $this->assertNull($clippable->getImageAttribute()->id);
-        $clippable->attachments->push(new Attachment(['mimetype'=>'image/gif', 'id' => 1]));
+        $clippable->attachments->push(new Attachment(['mimetype' => 'image/gif', 'id' => 1]));
         $this->assertEquals(1, $clippable->getImageAttribute()->id);
 
 
@@ -71,7 +77,8 @@ class ClippableTestStub extends Model
     use Clippable;
 
     public static $presets = [
-        100, 100
+        100,
+        100
     ];
 
     public function getMorphClass()
@@ -85,8 +92,19 @@ class ClippableTestStub2
     use Clippable;
 
     public static $presets = [
-        100, 100
+        100,
+        100
     ];
+
+    public function getMorphClass()
+    {
+        return 'clippableTestStub';
+    }
+}
+
+class ClippableTestStub3
+{
+    use Clippable;
 
     public function getMorphClass()
     {

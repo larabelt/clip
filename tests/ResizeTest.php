@@ -18,6 +18,7 @@ class ResizeTest extends BeltTestCase
     /**
      * @covers \Belt\Clip\Resize::attachment
      * @covers \Belt\Clip\Resize::getPresetAttribute
+     * @covers \Belt\Clip\Resize::getNicknameAttribute
      */
     public function test()
     {
@@ -29,6 +30,11 @@ class ResizeTest extends BeltTestCase
 
         # preset
         $this->assertEquals('100:100', $resize->preset);
+
+        # nickname
+        $this->assertEquals('100:100', $resize->nickname);
+        $resize->setAttribute('nickname', 'test');
+        $this->assertEquals('test', $resize->nickname);
     }
 
 }
