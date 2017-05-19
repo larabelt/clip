@@ -13,6 +13,7 @@
   ],
   "minimum-stability": "dev",
   "require": {
+    "cloudinary/cloudinary_php": "^1.8",
     "intervention/image": "2.3.*"
   },
   "autoload": {
