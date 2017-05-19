@@ -73,8 +73,9 @@ class AttachmentsController extends ApiController
     {
         $this->authorize('create', Attachment::class);
 
-        $driver = $request->get('driver') ?: 'default';
         $path = $request->get('path') ?: '';
+
+        $driver = $request->get('driver', null);
 
         $adapter = $this->adapter($driver);
 

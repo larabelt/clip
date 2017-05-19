@@ -73,6 +73,9 @@ class BeltClipServiceProvider extends ServiceProvider
         # beltable values for global belt command
         $this->app['belt']->publish('belt-clip:publish');
         $this->app['belt']->seeders('BeltClipSeeder');
+
+        # additional providers
+        $this->app->register(Belt\Clip\Services\Cloudinary\CloudinaryServiceProvider::class);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Clip\Adapters;
 
 /**
@@ -24,6 +25,8 @@ class AdapterFactory
             return static::$adapters[$driver];
         }
 
+        $driver = $driver ?: static::getDefaultDriver();
+
         $adapterClass = config("belt.clip.drivers.$driver.adapter");
 
         if (!$adapterClass || !class_exists($adapterClass)) {
@@ -31,6 +34,28 @@ class AdapterFactory
         }
 
         return static::$adapters[$driver] = new $adapterClass($driver);
+    }
+
+    /**
+     * Get default attachment driver
+     *
+     * @return string
+     */
+    public static function getDefaultDriver()
+    {
+        if ($driver = config("belt.clip.default_driver")) {
+            return $driver;
+        }
+
+        if ($driver = config("belt.clip.drivers.default")) {
+            return 'default';
+        }
+
+        foreach (config("belt.clip.drivers", []) as $key => $driver) {
+            return $key;
+        }
+
+        return 'default';
     }
 
 }

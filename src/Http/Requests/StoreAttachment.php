@@ -20,7 +20,7 @@ class StoreAttachment extends FormRequest
 
         return [
             'file' => 'required|file',
-            'drivers' => 'in:' . implode(',', $drivers),
+            'driver' => 'in:' . implode(',', $drivers),
         ];
     }
 
