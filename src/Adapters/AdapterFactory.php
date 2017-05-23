@@ -19,13 +19,14 @@ class AdapterFactory
      * @return BaseAdapter
      * @throws \Exception
      */
-    public static function up($driver = 'default')
+    public static function up($driver = null)
     {
+
+        $driver = $driver ?: static::getDefaultDriver();
+
         if (isset(static::$adapters[$driver])) {
             return static::$adapters[$driver];
         }
-
-        $driver = $driver ?: static::getDefaultDriver();
 
         $adapterClass = config("belt.clip.drivers.$driver.adapter");
 

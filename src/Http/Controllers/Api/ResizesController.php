@@ -84,7 +84,7 @@ class ResizesController extends ApiController
         $this->authorize('update', $attachment);
 
         # variables
-        $driver = $request->get('driver') ?: 'default';
+        $driver = $request->get('driver', null);
         $path = $request->get('path') ?: '';
         $mode = $request->get('mode') ?: 'default';
 

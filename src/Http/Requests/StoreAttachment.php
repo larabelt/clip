@@ -17,6 +17,7 @@ class StoreAttachment extends FormRequest
     {
 
         $drivers = array_keys(config('belt.clip.drivers'));
+        $drivers[] = null;
 
         return [
             'file' => 'required|file',

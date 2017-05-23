@@ -6,7 +6,7 @@ use Belt\Clip\Adapters\AdapterFactory;
 
 $factory->define(Belt\Clip\Attachment::class, function (Faker\Generator $faker) {
 
-    $adapter = AdapterFactory::up('default');
+    $adapter = AdapterFactory::up();
 
     // build image array if empty
     FactoryHelper::$images = FactoryHelper::$images ?: $adapter->disk->allFiles('belt/database/images');

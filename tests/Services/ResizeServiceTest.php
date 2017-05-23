@@ -24,7 +24,7 @@ class ResizeServiceTest extends BeltTestCase
         parent::setUp();
         app()['config']->set('belt.clip.resize', [
             'foo' => 'bar',
-            'local_driver' => 'default',
+            'local_driver' => 'local',
             'image_driver' => 'imagick',
             'models' => [
                 ResizeServiceTestStub1::class,
