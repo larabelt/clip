@@ -67,6 +67,7 @@ class BeltClipServiceProvider extends ServiceProvider
 
         // commands
         $this->commands(Belt\Clip\Commands\FakerCommand::class);
+        $this->commands(Belt\Clip\Commands\MoveCommand::class);
         $this->commands(Belt\Clip\Commands\PublishCommand::class);
         $this->commands(Belt\Clip\Commands\ResizeCommand::class);
 

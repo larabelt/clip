@@ -6,7 +6,6 @@ use Belt\Core\Http\Controllers\ApiController;
 use Belt\Clip\Adapters\AdapterFactory;
 use Belt\Clip\Attachment;
 use Belt\Clip\Http\Requests;
-use Belt\Clip\Adapters\Ad;
 use Belt\Clip\Adapters\BaseAdapter;
 
 /**
