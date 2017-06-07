@@ -23,7 +23,11 @@ class LocalAdapter extends BaseAdapter implements AdapterInterface
      */
     public function src(AttachmentInterface $file)
     {
-        return sprintf('%s/%s', $this->config('src.root'), $file->rel_path);
+        if ($rel_path = $file->rel_path) {
+            return sprintf('%s/%s', $this->config('src.root'), $rel_path);
+        }
+
+        return null;
     }
 
     /**
@@ -32,7 +36,12 @@ class LocalAdapter extends BaseAdapter implements AdapterInterface
      */
     public function secure(AttachmentInterface $file)
     {
-        return sprintf('%s/%s', $this->config('secure.root'), $file->rel_path);
+
+        if ($rel_path = $file->rel_path) {
+            return sprintf('%s/%s', $this->config('secure.root'), $rel_path);
+        }
+
+        return null;
     }
 
     /**
