@@ -25,10 +25,16 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
      */
     public $response;
 
-    public function __construct($root)
+    /**
+     * @var array
+     */
+    public $config = [];
+
+    public function __construct($config)
     {
+        $this->config = $config;
         $this->uploader = new Cloudinary\Uploader();
-        $this->setPathPrefix($root);
+        $this->setPathPrefix(array_get($config, 'root'));
     }
 
     /**
@@ -265,9 +271,12 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
         if ($url) {
 
             $filename = basename($url);
-            $rel_path = parse_url(str_replace($filename, '', $url), PHP_URL_PATH);
+            $base_path = sprintf( '%s/image/upload', array_get($this->config, 'cloud_name') );
+            $rel_path_full = parse_url(str_replace($filename, '', $url), PHP_URL_PATH);
+            $rel_path = str_replace($base_path, '', $rel_path_full);
 
             $info = Util::pathinfo($url);
+
             array_set($info, 'scheme', parse_url($url, PHP_URL_SCHEME));
             array_set($info, 'host', parse_url($url, PHP_URL_HOST));
             array_set($info, 'rel_path', Util::normalizeRelativePath($rel_path));

@@ -38,9 +38,7 @@ class CloudinaryServiceProvider extends BaseServiceProvider
                 "api_secret" => array_get($config, 'api_secret'),
             ]);
 
-            return new Filesystem(new CloudinaryFlysystemAdapter(
-                array_get($config, 'root')
-            ));
+            return new Filesystem(new CloudinaryFlysystemAdapter($config));
         });
     }
 
