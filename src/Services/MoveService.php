@@ -96,11 +96,15 @@ class MoveService
 
                 $data = $adapter->upload($options['path'] ?? $attachment->path, $file);
 
-                $attachment->update($data);
+                if ($data) {
+                    $attachment->update($data);
+                    $this->log('target: ' . $attachment->src);
+                } else {
+                    throw new \Exception();
+                }
 
                 fclose($tmp); // this removes the file
 
-                $this->log('target: ' . $attachment->src);
             } catch (\Exception $e) {
                 $this->log('target: failed', 'warn');
                 $attachment->touch();
