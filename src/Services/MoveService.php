@@ -18,9 +18,9 @@ class MoveService
     use HasDisk;
 
     /**
-     * @var Adapters\BaseAdapter
+     * @var Adapters\BaseAdapter[]
      */
-    public $adapter;
+    public $adapters;
 
     /**
      * @var Attachment
@@ -42,9 +42,13 @@ class MoveService
      */
     public function adapter($driver)
     {
-        return Adapters\AdapterFactory::up($driver);
+        return $this->adapters[$driver] ?? $this->adapters[$driver] = Adapters\AdapterFactory::up($driver);
     }
 
+    /**
+     * @param $message
+     * @param string $type
+     */
     public function log($message, $type = 'info')
     {
         $path = sprintf('storage/logs/moved-files/%s.log', date('Y-m-d'));
@@ -79,7 +83,6 @@ class MoveService
         foreach ($attachments as $attachment) {
 
             $this->log(sprintf('source: (#%s) %s', $attachment->id, $attachment->src));
-            //$this->log('target: ' . $attachment->src, 'warn');
 
             $adapter = $this->adapter($target);
 
@@ -90,7 +93,8 @@ class MoveService
                  */
                 $tmp = tmpfile();
                 $tmp_uri = array_get(stream_get_meta_data($tmp), 'uri');
-                fwrite($tmp, file_get_contents($attachment->src));
+                //fwrite($tmp, file_get_contents($attachment->src));
+                fwrite($tmp, $attachment->contents);
 
                 $file = new UploadedFile($tmp_uri, $attachment->name);
 

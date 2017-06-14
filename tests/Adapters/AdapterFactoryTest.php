@@ -10,6 +10,7 @@ class AdapterFactoryTest extends BeltTestCase
 
     /**
      * @covers \Belt\Clip\Adapters\AdapterFactory::up
+     * @covers \Belt\Clip\Adapters\AdapterFactory::getDefaultDriver
      */
     public function test()
     {
@@ -37,6 +38,17 @@ class AdapterFactoryTest extends BeltTestCase
             $exception = true;
         }
         $this->assertTrue($exception);
+
+        # default
+        app()['config']->set('belt.clip', []);
+        $this->assertEquals('default', AdapterFactory::getDefaultDriver());
+        app()['config']->set('belt.clip.drivers', ['foo' => ['stuff']]);
+        $this->assertEquals('foo', AdapterFactory::getDefaultDriver());
+        app()['config']->set('belt.clip.drivers', ['default' => ['stuff']]);
+        $this->assertEquals('default', AdapterFactory::getDefaultDriver());
+        app()['config']->set('belt.clip.default_driver', 'bar');
+        $this->assertEquals('bar', AdapterFactory::getDefaultDriver());
+
     }
 
 }

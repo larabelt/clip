@@ -54,14 +54,11 @@ trait AttachmentTrait
      */
     public function getRelPathAttribute()
     {
-        if ($this->name) {
-            if ($this->path) {
-                return sprintf('%s/%s', $this->path, $this->name);
-            }
-            return $this->name;
+        if ($this->name && $this->path) {
+            return sprintf('%s/%s', $this->path, $this->name);
         }
 
-        return null;
+        return $this->name ?: null;
     }
 
     /**

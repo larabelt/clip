@@ -29,6 +29,8 @@ class AttachmentTraitTest extends BeltTestCase
      * @covers \Belt\Clip\AttachmentTrait::setHeightAttribute
      * @covers \Belt\Clip\AttachmentTrait::createFromUpload
      * @covers \Belt\Clip\AttachmentTrait::getReadableSizeAttribute
+     * @covers \Belt\Clip\AttachmentTrait::getIsImageAttribute
+     * @covers \Belt\Clip\AttachmentTrait::setAttributesFromUpload
      */
     public function test()
     {
@@ -55,8 +57,8 @@ class AttachmentTraitTest extends BeltTestCase
         $this->assertEquals('test', $attachment->driver);
 
         # name
-        $attachment->setNameAttribute('test');
-        $this->assertEquals('test', $attachment->name);
+        $attachment->setNameAttribute('test.jpg');
+        $this->assertEquals('test.jpg', $attachment->name);
 
         # original name
         $attachment->setOriginalNameAttribute('test');
@@ -67,11 +69,21 @@ class AttachmentTraitTest extends BeltTestCase
         $this->assertEquals('test', $attachment->path);
 
         # rel path
-        $this->assertEquals('test/test', $attachment->rel_path);
+        $this->assertEquals('test/test.jpg', $attachment->rel_path);
+        $attachment2 = clone $attachment;
+        $attachment2->path = null;
+        $this->assertEquals('test.jpg', $attachment2->rel_path);
+        $attachment2->name = null;
+        $this->assertNull($attachment2->rel_path);
 
         # mimetype
         $attachment->setMimetypeAttribute('test');
         $this->assertEquals('test', $attachment->mimetype);
+
+        # is_image
+        $this->assertFalse($attachment->is_image);
+        $attachment->setMimetypeAttribute('image/jpeg');
+        $this->assertTrue($attachment->is_image);
 
         # size
         $attachment->setSizeAttribute('test');
