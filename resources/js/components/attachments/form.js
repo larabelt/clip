@@ -19,6 +19,7 @@ class AttachmentForm extends BaseForm {
             mimetype: '',
             size: '',
             readable_size: '',
+            nickname: '',
         })
     }
 

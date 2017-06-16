@@ -91,6 +91,7 @@ class AttachmentsController extends ApiController
             'credits',
             'alt',
             'target_url',
+            'nickname',
         ]);
 
         $attachment->save();
@@ -137,6 +138,7 @@ class AttachmentsController extends ApiController
             'credits',
             'alt',
             'target_url',
+            'nickname',
         ]);
 
         $attachment->save();
