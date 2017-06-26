@@ -3,6 +3,7 @@
 namespace Belt\Clip\Services\Cloudinary;
 
 use Cloudinary;
+use Cloudinary\Uploader;
 use League\Flysystem\Config;
 use League\Flysystem\Adapter\AbstractAdapter;
 use League\Flysystem\Adapter\CanOverwriteFiles;
@@ -17,8 +18,15 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
 {
     use NotSupportingVisibilityTrait;
 
-    /** @var Cloudinary\Uploader */
-    protected $uploader;
+    /**
+     * @var Cloudinary
+     */
+    public $client;
+
+    /**
+     * @var Uploader
+     */
+    public $uploader;
 
     /**
      * @var array
@@ -32,8 +40,9 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
 
     public function __construct($config)
     {
+        $this->client = new Cloudinary();
         $this->config = $config;
-        $this->uploader = new Cloudinary\Uploader();
+        $this->uploader = new Uploader();
         $this->setPathPrefix(array_get($config, 'root'));
     }
 
@@ -77,12 +86,6 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
         $path = $this->applyPathPrefix($path);
         $newPath = $this->applyPathPrefix($newPath);
 
-        try {
-
-        } catch (\Exception $e) {
-            return false;
-        }
-
         return true;
     }
 
@@ -94,12 +97,6 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
         $path = $this->applyPathPrefix($path);
         $newpath = $this->applyPathPrefix($newpath);
 
-        try {
-            $this->client->copy($path, $newpath);
-        } catch (\Exception $e) {
-            return false;
-        }
-
         return true;
     }
 
@@ -109,12 +106,6 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
     public function delete($path): bool
     {
         $location = $this->applyPathPrefix($path);
-
-        try {
-
-        } catch (\Exception $e) {
-            return false;
-        }
 
         return true;
     }
@@ -134,13 +125,7 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
     {
         $path = $this->applyPathPrefix($dirname);
 
-        try {
-            $object = $this->client->createFolder($path);
-        } catch (\Exception $e) {
-            return false;
-        }
-
-        return $this->normalizeResponse($object);
+        return [];
     }
 
     /**
@@ -150,7 +135,8 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
     {
         $file_exists = false;
         try {
-            file_get_contents(cloudinary_url($path));
+            //file_get_contents(cloudinary_url($path));
+            file_get_contents($this->client->cloudinary_url($path));
             $file_exists = true;
         } catch (\Exception $e) {
 
@@ -182,12 +168,6 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
     {
         $path = $this->applyPathPrefix($path);
 
-        try {
-
-        } catch (\Exception $e) {
-            return false;
-        }
-
         return compact('stream');
     }
 
@@ -196,7 +176,7 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
      */
     public function listContents($directory = '', $recursive = false): array
     {
-
+        return [];
     }
 
     /**
@@ -204,13 +184,6 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
      */
     public function getMetadata($path)
     {
-
-        try {
-
-        } catch (\Exception $e) {
-            return false;
-        }
-
         return $this->normalizeResponse([]);
     }
 
@@ -245,7 +218,7 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
      *
      * @return array|false file metadata
      */
-    protected function upload(string $path, $contents, string $mode)
+    public function upload(string $path, $contents, string $mode)
     {
         $this->response = [];
 
@@ -265,13 +238,18 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
         return $this->normalizeResponse($response);
     }
 
-    protected function normalizeResponse(array $response = [])
+    /**
+     * @param array $response
+     * @return array
+     */
+    public function normalizeResponse(array $response = [])
     {
+        $info = [];
+
         $url = array_get($response, 'url');
         if ($url) {
-
             $filename = basename($url);
-            $base_path = sprintf( '%s/image/upload', array_get($this->config, 'cloud_name') );
+            $base_path = sprintf('%s/image/upload', array_get($this->config, 'cloud_name'));
             $rel_path_full = parse_url(str_replace($filename, '', $url), PHP_URL_PATH);
             $rel_path = str_replace($base_path, '', $rel_path_full);
 
@@ -287,6 +265,9 @@ class CloudinaryFlysystemAdapter extends AbstractAdapter implements CanOverwrite
         return $response;
     }
 
+    /**
+     * @return array
+     */
     public function getResponse()
     {
         return $this->response;
