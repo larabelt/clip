@@ -7,6 +7,7 @@ use Belt\Clip\Adapters\AdapterFactory;
 use Belt\Clip\Attachment;
 use Belt\Clip\Http\Requests;
 use Belt\Clip\Adapters\BaseAdapter;
+use Illuminate\Http\Request;
 
 /**
  * Class AttachmentsController
@@ -39,7 +40,27 @@ class AttachmentsController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @return array
+     */
+    private function upload(Request $request)
+    {
+        $path = $request->get('path') ?: '';
+
+        $driver = $request->get('driver', null);
+
+        $adapter = $this->adapter($driver);
+
+        $data = $adapter->upload($path, $request->file('file'));
+
+        $data = array_merge($request->all(), $data);
+
+        return $data;
+    }
+
+    /**
      * @param $id
+     * @return Attachment
      */
     public function get($id)
     {
@@ -72,15 +93,17 @@ class AttachmentsController extends ApiController
     {
         $this->authorize('create', Attachment::class);
 
-        $path = $request->get('path') ?: '';
+//        $path = $request->get('path') ?: '';
+//
+//        $driver = $request->get('driver', null);
+//
+//        $adapter = $this->adapter($driver);
+//
+//        $data = $adapter->upload($path, $request->file('file'));
+//
+//        $input = array_merge($request->all(), $data);
 
-        $driver = $request->get('driver', null);
-
-        $adapter = $this->adapter($driver);
-
-        $data = $adapter->upload($path, $request->file('file'));
-
-        $input = array_merge($request->all(), $data);
+        $input = $this->upload($request);
 
         $attachment = $this->attachments->createFromUpload($input);
 
@@ -129,7 +152,13 @@ class AttachmentsController extends ApiController
 
         $this->authorize('update', $attachment);
 
-        $input = $request->all();
+        if ($request->file('file')) {
+            $input = $this->upload($request);
+            $attachment->unguard();
+            $attachment->update($attachment->setAttributesFromUpload($input));
+        } else {
+            $input = $request->all();
+        }
 
         $this->set($attachment, $input, [
             'is_public',

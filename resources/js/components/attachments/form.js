@@ -20,6 +20,8 @@ class AttachmentForm extends BaseForm {
             size: '',
             readable_size: '',
             nickname: '',
+            file: '',
+            hasFile: true,
         })
     }
 

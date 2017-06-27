@@ -9,6 +9,7 @@ export default {
         driver: {default: ''},
         multiple: {default: true},
         search: {default: false},
+        id: {default: ''},
     },
     data() {
         return {
@@ -58,10 +59,15 @@ export default {
             this.form.driver = this.driver;
             this.form.path = this.path;
 
+            if (this.id) {
+                this.form.id = this.id;
+            }
+
             this.form.submit()
                 .then((response) => {
                     self.pending.splice(i, 1);
-                    this.onUploadSuccess(response);
+                    self.$emit('attachment-uploaded', this.form.data());
+                    self.onUploadSuccess(response);
                     //self.progress.splice(i, 1);
                 });
         },

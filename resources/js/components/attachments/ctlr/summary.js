@@ -1,8 +1,15 @@
-import shared from './shared';
-
 import html from '../templates/summary.html';
 
 export default {
-    props: ['attachment'],
+    data() {
+        return {
+            attachment: this.$parent.form,
+        }
+    },
+    methods: {
+        test() {
+            console.log('test2');
+        }
+    },
     template: html,
 }

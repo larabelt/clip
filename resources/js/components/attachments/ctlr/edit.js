@@ -1,6 +1,6 @@
 import shared from './shared';
 import attachmentSummary from './summary';
-
+import uploader from '../../base/uploader/ctlr';
 import form_html from '../templates/form.html';
 
 export default {
@@ -14,20 +14,16 @@ export default {
             },
             components: {
                 attachmentSummary,
-                edit: {
-                    mixins: [shared],
-                    template: form_html,
+                uploader: {
+                    mixins: [uploader],
+                    methods: {
+                        onUploadSuccess(attachment) {
+                            this.$parent.form.show(attachment.id);
+                        },
+                    },
                 },
             },
-            template: `
-<div class="row">
-    <div class="col-md-4">
-        <attachment-summary :attachment="form"></attachment-summary>
-    </div>
-    <div class="col-md-8">
-        <edit></edit>
-    </div>
-</div>`,
+            template: form_html,
         },
     },
 }
