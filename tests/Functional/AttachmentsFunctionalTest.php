@@ -34,6 +34,12 @@ class AttachmentsFunctionalTest extends Testing\BeltTestCase
         $response = $this->json('GET', "/api/v1/attachments/$attachmentID");
         $response->assertJson(['note' => 'updated']);
 
+        # update with new upload
+        $new_upload = $this->getUploadFile(__DIR__ . '/../testing/test.png', 'test.png', 'image/png');
+        $this->json('PUT', "/api/v1/attachments/$attachmentID", ['file' => $new_upload]);
+        $response = $this->json('GET', "/api/v1/attachments/$attachmentID");
+        $response->assertJson(['original_name' => 'test.png']);
+
         # delete
         $response = $this->json('DELETE', "/api/v1/attachments/$attachmentID");
         $response->assertStatus(204);
