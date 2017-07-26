@@ -1,8 +1,8 @@
-import index from './ctlr/index';
-import create from './ctlr/create';
-import edit  from './ctlr/edit';
-import attachments  from './ctlr/attachments';
-import tags  from './ctlr/tags';
+import index from 'belt/clip/js/components/albums/ctlr/index';
+import create from 'belt/clip/js/components/albums/ctlr/create';
+import edit  from 'belt/clip/js/components/albums/ctlr/edit';
+import attachments  from 'belt/clip/js/components/albums/ctlr/attachments';
+import tags  from 'belt/clip/js/components/albums/ctlr/tags';
 
 export default [
     {path: '/albums', component: index, canReuse: false, name: 'albums'},

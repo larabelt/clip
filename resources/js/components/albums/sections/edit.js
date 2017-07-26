@@ -2,11 +2,11 @@
 import shared from 'belt/content/js/components/sectionables/ctlr/shared';
 
 // helpers
-import Form from '../form';
-import Table from '../table';
+import Form from 'belt/clip/js/components/albums/form';
+import Table from 'belt/clip/js/components/albums/table';
 
 // templates
-import edit_html from './edit.html';
+import edit_html from 'belt/clip/js/components/albums/sections/edit.html';
 
 export default {
     mixins: [shared],

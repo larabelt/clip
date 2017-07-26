@@ -1,16 +1,16 @@
-import shared from './shared';
+import shared from 'belt/clip/js/components/albums/ctlr/shared';
 
 // components
 import attachment from 'belt/clip/js/components/clippables/ctlr/attachment';
 
 // helpers
-import Form from '../form';
+import Form from 'belt/clip/js/components/albums/form';
 
 // templates make a change
 import heading_html from 'belt/core/js/templates/heading.html';
-import tabs_html from '../templates/tabs.html';
-import edit_html from '../templates/edit.html';
-import form_html from '../templates/form.html';
+import tabs_html from 'belt/clip/js/components/albums/templates/tabs.html';
+import edit_html from 'belt/clip/js/components/albums/templates/edit.html';
+import form_html from 'belt/clip/js/components/albums/templates/form.html';
 
 export default {
     data() {

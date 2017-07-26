@@ -1,15 +1,15 @@
 // components
-import search from './search';
-import uploader from '../../base/uploader/ctlr';
+import search from 'belt/clip/js/components/attachables/ctlr/search';
+import uploader from 'belt/clip/js/components/base/uploader/ctlr';
 
 // helpers
 import Tabs from 'belt/core/js/helpers/tabs';
-import Table from '../table';
-import Form from '../form';
+import Table from 'belt/clip/js/components/attachables/table';
+import Form from 'belt/clip/js/components/attachables/form';
 
 // templates
-import index_html from '../templates/index.html';
-import uploader_html from '../../base/uploader/template.html';
+import index_html from 'belt/clip/js/components/attachables/templates/index.html';
+import uploader_html from 'belt/clip/js/components/base/uploader/template.html';
 
 export default {
     props: {

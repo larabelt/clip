@@ -1,8 +1,8 @@
-import uploader from '../../base/uploader/ctlr';
-import Table from '../table';
+import uploader from 'belt/clip/js/components/base/uploader/ctlr';
+import Table from 'belt/clip/js/components/attachments/table';
 import heading_html from 'belt/core/js/templates/heading.html';
-import index_html from '../templates/index.html';
-import uploader_html from '../../base/uploader/template.html';
+import index_html from 'belt/clip/js/components/attachments/templates/index.html';
+import uploader_html from 'belt/clip/js/components/base/uploader/template.html';
 
 export default {
 

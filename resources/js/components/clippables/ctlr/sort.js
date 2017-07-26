@@ -1,11 +1,11 @@
-import thumb from './thumb';
+import thumb from 'belt/clip/js/components/clippables/ctlr/thumb';
 
 // helpers
-import Form from '../form';
+import Form from 'belt/clip/js/components/clippables/form';
 import positionable from 'belt/core/js/mixins/base/positionable';
 
 // templates
-import sort_html from '../templates/sort.html';
+import sort_html from 'belt/clip/js/components/clippables/templates/sort.html';
 
 export default {
     mixins: [positionable],

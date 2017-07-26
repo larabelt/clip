@@ -1,8 +1,8 @@
 // helpers
-import Form from '../form';
+import Form from 'belt/clip/js/components/attachables/form';
 
 // templates
-import search_html from '../templates/search.html';
+import search_html from 'belt/clip/js/components/attachables/templates/search.html';
 
 export default {
     data() {

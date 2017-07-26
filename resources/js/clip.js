@@ -1,5 +1,5 @@
-import albums  from './components/albums/routes';
-import attachments  from './components/attachments/routes';
+import albums  from 'belt/clip/js/components/albums/routes';
+import attachments  from 'belt/clip/js/components/attachments/routes';
 
 export default class BeltClip {
 

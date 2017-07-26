@@ -4,11 +4,11 @@ import thumb from 'belt/clip/js/components/clippables/ctlr/thumb';
 import shared from 'belt/content/js/components/sectionables/ctlr/shared';
 
 // helpers
-import Form from '../form';
-import Table from '../table';
+import Form from 'belt/clip/js/components/attachments/form';
+import Table from 'belt/clip/js/components/attachments/table';
 
 // templates
-import edit_html from './edit.html';
+import edit_html from 'belt/clip/js/components/attachments/sections/edit.html';
 
 export default {
     mixins: [shared],

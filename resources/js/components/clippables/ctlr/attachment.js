@@ -1,12 +1,12 @@
 // components
-import uploader from '../../base/uploader/ctlr';
+import uploader from 'belt/clip/js/components/base/uploader/ctlr';
 
 // helpers
 import Form from 'belt/clip/js/components/attachments/form';
 
 // templates
-import attachment_html from '../templates/attachment.html';
-import uploader_html from '../../base/uploader/template.html';
+import attachment_html from 'belt/clip/js/components/clippables/templates/attachment.html';
+import uploader_html from 'belt/clip/js/components/base/uploader/template.html';
 
 export default {
     props: {

@@ -1,10 +1,10 @@
-import thumb from './thumb';
+import thumb from 'belt/clip/js/components/clippables/ctlr/thumb';
 
 // helpers
-import Form from '../form';
+import Form from 'belt/clip/js/components/clippables/form';
 
 // templates
-import search_html from '../templates/search.html';
+import search_html from 'belt/clip/js/components/clippables/templates/search.html';
 
 export default {
     data() {

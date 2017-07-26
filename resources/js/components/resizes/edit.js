@@ -1,5 +1,5 @@
-import Form from './form';
-import html from './templates/edit.html';
+import Form from 'belt/clip/js/components/resizes/form';
+import html from 'belt/clip/js/components/resizes/templates/edit.html';
 
 export default {
     props: ['resize'],

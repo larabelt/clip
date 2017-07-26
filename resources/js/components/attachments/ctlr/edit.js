@@ -1,7 +1,7 @@
-import shared from './shared';
-import attachmentSummary from './summary';
-import uploader from '../../base/uploader/ctlr';
-import form_html from '../templates/form.html';
+import shared from 'belt/clip/js/components/attachments/ctlr/shared';
+import attachmentSummary from 'belt/clip/js/components/attachments/ctlr/summary';
+import uploader from 'belt/clip/js/components/base/uploader/ctlr';
+import form_html from 'belt/clip/js/components/attachments/templates/form.html';
 
 export default {
     mixins: [shared],

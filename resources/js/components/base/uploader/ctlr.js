@@ -1,6 +1,6 @@
-import Form from './form';
+import Form from 'belt/clip/js/components/base/uploader/form';
 import Table from 'belt/clip/js/components/attachments/table';
-import html from './template.html';
+import html from 'belt/clip/js/components/base/uploader/template.html';
 
 export default {
     props: {

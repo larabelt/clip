@@ -1,7 +1,7 @@
-import index from './ctlr/index';
-import edit  from './ctlr/edit';
-import resizes  from './ctlr/resizes';
-import tags  from './ctlr/tags';
+import index from 'belt/clip/js/components/attachments/ctlr/index';
+import edit  from 'belt/clip/js/components/attachments/ctlr/edit';
+import resizes  from 'belt/clip/js/components/attachments/ctlr/resizes';
+import tags  from 'belt/clip/js/components/attachments/ctlr/tags';
 
 export default [
     {path: '/attachments', component: index, canReuse: false, name: 'attachments'},

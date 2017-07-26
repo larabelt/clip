@@ -1,4 +1,4 @@
-import html from '../templates/summary.html';
+import html from 'belt/clip/js/components/attachments/templates/summary.html';
 
 export default {
     data() {

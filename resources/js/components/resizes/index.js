@@ -1,10 +1,10 @@
 import uploader from 'belt/clip/js/components/base/uploader/ctlr';
 import uploader_html from 'belt/clip/js/components/base/uploader/template.html';
-import Form from './form';
-import UploadForm from './form-upload';
-import Table from './table';
-import edit from './edit';
-import html from './templates/index.html';
+import Form from 'belt/clip/js/components/resizes/form';
+import UploadForm from 'belt/clip/js/components/resizes/form-upload';
+import Table from 'belt/clip/js/components/resizes/table';
+import edit from 'belt/clip/js/components/resizes/edit';
+import html from 'belt/clip/js/components/resizes/templates/index.html';
 
 export default {
     data() {
