@@ -7,6 +7,7 @@ use Belt\Core\Http\Controllers\Behaviors\Positionable;
 use Belt\Clip\Attachment;
 use Belt\Clip\Http\Requests;
 use Belt\Core\Helpers\MorphHelper;
+use Illuminate\Http\Request;
 
 /**
  * Class ClippablesController
@@ -69,13 +70,13 @@ class ClippablesController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateClippables $request, $clippable_type, $clippable_id)
+    public function index(Request $request, $clippable_type, $clippable_id)
     {
 
-        $request->reCapture();
+        $request = Requests\PaginateClippables::extend($request);
 
         $owner = $this->clippable($clippable_type, $clippable_id);
 

@@ -108,6 +108,7 @@ class AttachmentsController extends ApiController
         $attachment = $this->attachments->createFromUpload($input);
 
         $this->set($attachment, $input, [
+            'team_id',
             'is_public',
             'title',
             'note',
@@ -161,6 +162,7 @@ class AttachmentsController extends ApiController
         }
 
         $this->set($attachment, $input, [
+            'team_id',
             'is_public',
             'title',
             'note',

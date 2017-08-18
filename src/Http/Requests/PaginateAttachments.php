@@ -46,6 +46,7 @@ class PaginateAttachments extends PaginateRequest
      */
     public $queryModifiers = [
         Belt\Glue\Pagination\TaggableQueryModifier::class,
+        Belt\Core\Pagination\TeamableQueryModifier::class
     ];
 
 }

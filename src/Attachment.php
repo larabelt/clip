@@ -12,11 +12,13 @@ use Illuminate\Database\Eloquent\Model;
 class Attachment extends Model
     implements AttachmentInterface,
     Belt\Core\Behaviors\TypeInterface,
+    Belt\Core\Behaviors\TeamableInterface,
     Belt\Content\Behaviors\SectionableInterface,
     Belt\Glue\Behaviors\TaggableInterface
 {
     use AttachmentTrait;
     use Belt\Core\Behaviors\TypeTrait;
+    use Belt\Core\Behaviors\Teamable;
     use Belt\Content\Behaviors\Sectionable;
     use Belt\Glue\Behaviors\Taggable;
 
