@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Album extends Model implements
     Belt\Core\Behaviors\SluggableInterface,
+    Belt\Core\Behaviors\TeamableInterface,
     Belt\Core\Behaviors\TypeInterface,
     Belt\Clip\Behaviors\ClippableInterface,
     Belt\Content\Behaviors\IncludesContentInterface,
@@ -19,6 +20,7 @@ class Album extends Model implements
 {
     use Belt\Core\Behaviors\HasSortableTrait;
     use Belt\Core\Behaviors\Sluggable;
+    use Belt\Core\Behaviors\Teamable;
     use Belt\Core\Behaviors\TypeTrait;
     use Belt\Clip\Behaviors\Clippable;
     use Belt\Content\Behaviors\IncludesContent;
