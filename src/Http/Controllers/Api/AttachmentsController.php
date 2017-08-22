@@ -70,14 +70,16 @@ class AttachmentsController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateAttachments $request)
+    public function index(Request $request)
     {
         $this->authorize('index', Attachment::class);
 
-        $paginator = $this->paginator($this->attachments->query(), $request->reCapture());
+        $request = Requests\PaginateAttachments::extend($request);
+
+        $paginator = $this->paginator($this->attachments->query(), $request);
 
         return response()->json($paginator->toArray());
     }

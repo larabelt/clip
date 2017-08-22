@@ -5,6 +5,7 @@ namespace Belt\Clip\Http\Controllers\Api;
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Clip\Http\Requests;
 use Belt\Clip\Album;
+use Illuminate\Http\Request;
 
 class AlbumsController extends ApiController
 {
@@ -31,15 +32,17 @@ class AlbumsController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateAlbums $request)
+    public function index(Request $request)
     {
 
         $this->authorize('index', Album::class);
 
-        $paginator = $this->paginator($this->albums->query(), $request->reCapture());
+        $request = Requests\PaginateAlbums::extend($request);
+
+        $paginator = $this->paginator($this->albums->query(), $request);
 
         return response()->json($paginator->toArray());
     }
