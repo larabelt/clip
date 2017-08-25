@@ -46,10 +46,18 @@
                     <td>{{ item.original_name }}</td>
                     <td>{{ item.title }}</td>
                     <td class="text-right">
-                        <router-link :to="{ name: 'attachments.edit', params: { id: item.id } }" :class="'btn btn-xs btn-warning'">
-                            <i class="fa fa-edit"></i>
-                        </router-link>
-                        <modal-delete :item-id="item.id" _class="''" :callingObject="table"></modal-delete>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-xs btn-default dropdown-toggle text-muted" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-gear"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><modal-delete :item-id="item.id" _class="''" :callingObject="table"><i class="fa fa-trash"></i> Remove</modal-delete></li>
+                            </ul>
+                            <router-link :to="{ name: 'attachments.edit', params: { id: item.id } }" :class="'btn btn-xs btn-default'">
+                                <i class="fa fa-edit"></i>
+                            </router-link>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
