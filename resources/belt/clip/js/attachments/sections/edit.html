@@ -22,9 +22,20 @@
             <div class="col-md-5">
                 <div class="clearfix">
                     <div class="btn-group pull-right">
-                        <a class="btn btn-sm btn-default" href="/admin/belt/clip/attachments" target="_blank"><i class="fa fa-plus"></i></a>
-                        <a v-if="attachment.id" class="btn btn-sm btn-default" :href="'/admin/belt/clip/attachments/edit/' + attachment.id"
-                           target="_blank">
+                        <a
+                                title="go to attachments"
+                                class="btn btn-sm btn-default"
+                                href="/admin/belt/clip/attachments"
+                                target="_blank"
+                        >
+                            <i class="fa fa-external-link"></i>
+                        </a>
+                        <a v-if="attachment.id"
+                           title="edit attachment"
+                           class="btn btn-sm btn-default"
+                           :href="'/admin/belt/clip/attachments/edit/' + attachment.id"
+                           target="_blank"
+                        >
                             <i class="fa fa-edit"></i>
                         </a>
                     </div>
