@@ -1,15 +1,17 @@
 <div>
-    <div class="box-body">
+    <div class="row">
+    <div class="col-md-12">
         <div class="pull-left">
             <div class="btn-group" role="group" aria-label="...">
-                <a class="btn btn-default" :class="{ 'btn-primary': tabs.show('list') }"   @click="setTab('list')"   title="upload/edit"><i class="fa fa-bars"></i></a>
+                <a class="btn btn-default" :class="{ 'btn-primary': tabs.show('list') }"   @click="setTab('list')"   title="edit attachments"><i class="fa fa-bars"></i></a>
                 <a class="btn btn-default" :class="{ 'btn-primary': tabs.show('search') }" @click="setTab('search')" title="search"><i class="fa fa-search"></i></a>
-                <a class="btn btn-default" :class="{ 'btn-primary': tabs.show('sort') }"   @click="setTab('sort')"   title="sort"><i class="fa fa-random"></i></a>
+                <a class="btn btn-default" :class="{ 'btn-primary': tabs.show('sort') }"   @click="setTab('sort')"   title="sort attachments"><i class="fa fa-random"></i></a>
             </div>
         </div>
         <div class="pull-right">
             <uploader :driver=driver :path=path :multiple=multiple></uploader>
         </div>
+    </div>
     </div>
     <div class="box-body">
         <div v-show="tabs.show('list')">

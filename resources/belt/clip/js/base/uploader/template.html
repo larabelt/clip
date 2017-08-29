@@ -1,10 +1,10 @@
 <div>
     <div class="file-group">
         <label for="file">
-            <label class="btn btn-default" for="my-file-selector" @click="onFileClick">
+            <label class="btn btn-default" for="my-file-selector" @click="onFileClick" title="upload file">
                 <input :ref="'fileinput'" type="file" name="file" id="file-uploader" style="display:none;" :accept="accept" @change="onFileChange"
                        :multiple="multiple">
-                <i class="fa fa-upload" aria-hidden="true"></i>
+                <i class="fa fa-upload"></i>
             </label>
             <template v-if="search">
                 <div class="form-group">
@@ -15,7 +15,7 @@
         </label>
         <button class="btn btn-default hide" type="button" @click="uploadFiles">upload</button>
     </div>
-    <div v-if="pending">
+    <div v-if="pending.length">
         <table class="table">
             <tr v-for="file, i in pending">
                 <td>{{ file.name }}</td>

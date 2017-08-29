@@ -26,7 +26,10 @@ export default {
                     this.table.index();
                     this.detached.index();
                 })
-        }
+        },
+        clear() {
+            this.detached.query.q = '';
+        },
     },
     template: search_html
 }

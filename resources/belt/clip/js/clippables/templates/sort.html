@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-md-12">
+        <h4>Sort Attachments</h4>
         <div v-if="table.items.length">
+            <p class="help-block">Drag and drop the thumbnails below to rearrange the order of the linked attachments</p>
             <div v-for="attachment, index in table.items">
                 <div @dragover.prevent @drop="drop">
                     <img class="img-thumbnail pull-left" :src="attachment.src" :data-index=index style="max-height: 100px"
@@ -9,7 +11,7 @@
             </div>
         </div>
         <div v-else>
-            <p><strong>This item has no attachments</strong></p>
+            <p style="font-style: italic;">No attachments are currently linked to this item.</p>
         </div>
     </div>
 </div>
