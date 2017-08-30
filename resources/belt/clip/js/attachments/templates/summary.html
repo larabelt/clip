@@ -2,8 +2,11 @@
     <p v-if="attachment.is_image"><img class="img-responsive" :src="attachment.src"/></p>
 
     <div class="clearfix">
-        <span class="pull-right"><a :href="attachment.src" target="_blank" class="btn btn-xs btn-primary">Open <i
-                        class="fa fa-external-link-square"></i></a></span>
+        <span class="pull-right">
+            <a :href="attachment.src" target="_blank" class="btn btn-xs btn-primary">
+                Open <i class="fa fa-external-link-square"></i>
+            </a>
+        </span>
     </div>
     <hr/>
 

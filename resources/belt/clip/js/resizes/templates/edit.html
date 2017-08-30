@@ -1,19 +1,49 @@
 <tr>
-    <td><img class="img-thumbnail pull-left" :src="resize.src" style="max-height: 100px" /></td>
-    <td><a :href="resize.src" target="_blank">{{ resize.preset }}</a></td>
+    <td>
+        <img class="img-thumbnail pull-left" :src="resize.src" style="max-height: 100px" />
+        <span class="pull-right">
+            <a :href="resize.src" target="_blank" class="btn btn-xs btn-primary">
+                Open <i class="fa fa-external-link-square"></i>
+            </a>
+        </span>
+    </td>
+    <td>{{ resize.preset }}</td>
     <td>
         <div class="form-group" :class="{ 'has-error': form.error('nickname') }">
-            <input
-                    type="text"
-                    class="form-control"
-                    v-model="form.nickname"
-                    placeholder="nickname"
-                    @change="form.submit()"
-            >
+            <div class="input-group">
+                <div class="form-group" :class="{ 'has-error': form.error('nickname') }">
+                    <input class="form-control" v-model="form.nickname" placeholder="nickname">
+                </div>
+                <span class="input-group-btn">
+                    <button v-if="form.dirty('nickname')"
+                            class="btn btn-primary"
+                            :disabled="form.errors.any()"
+                            @click.prevent="form.submit()"
+                            title="save update"
+                    >
+                        <span v-if="form.saving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                        <span v-else><i class="fa fa-save"></i></span>
+                    </button>
+                    <button v-else class="btn btn-default" disabled><i class="fa fa-save"></i></button>
+                </span>
+            </div>
             <span v-for="error in form.error('nickname')" class="text-danger">{{ error }}</span>
         </div>
     </td>
     <td class="text-right">
-        <modal-delete :item-id="resize.id" _class="''" :callingObject="table"></modal-delete>
+        <div class="btn-group">
+            <button
+                    type="button"
+                    class="btn btn-xs btn-default dropdown-toggle text-muted"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    title="options"
+            >
+                <i class="fa fa-gear"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><modal-delete :item-id="resize.id" _class="''" :callingObject="table"><i class="fa fa-trash"></i> Remove</modal-delete></li>
+            </ul>
+        </div>
     </td>
 </tr>

@@ -9,6 +9,7 @@ export default {
         driver: {default: ''},
         multiple: {default: true},
         search: {default: false},
+        title: {default: 'upload file'},
         id: {default: ''},
     },
     data() {

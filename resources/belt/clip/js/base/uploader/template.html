@@ -1,7 +1,7 @@
 <div>
     <div class="file-group">
         <label for="file">
-            <label class="btn btn-default" for="my-file-selector" @click="onFileClick" title="upload file">
+            <label class="btn btn-default" for="my-file-selector" @click="onFileClick" :title="title">
                 <input :ref="'fileinput'" type="file" name="file" id="file-uploader" style="display:none;" :accept="accept" @change="onFileChange"
                        :multiple="multiple">
                 <i class="fa fa-upload"></i>
