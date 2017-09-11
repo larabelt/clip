@@ -11,6 +11,11 @@ use Belt\Core\Http\Requests\PaginateRequest;
 class PaginateAttachments extends PaginateRequest
 {
     /**
+     * @var \Illuminate\Database\Eloquent\Model
+     */
+    public $modelClass = Belt\Clip\Attachment::class;
+
+    /**
      * @var int
      */
     public $perPage = 10;
@@ -45,8 +50,9 @@ class PaginateAttachments extends PaginateRequest
      * @var Belt\Core\Pagination\PaginationQueryModifier[]
      */
     public $queryModifiers = [
+        Belt\Core\Pagination\InQueryModifier::class,
+        Belt\Core\Pagination\TeamableQueryModifier::class,
         Belt\Glue\Pagination\TaggableQueryModifier::class,
-        Belt\Core\Pagination\TeamableQueryModifier::class
     ];
 
 }

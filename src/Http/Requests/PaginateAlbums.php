@@ -6,6 +6,11 @@ use Belt\Core\Http\Requests\PaginateRequest;
 
 class PaginateAlbums extends PaginateRequest
 {
+    /**
+     * @var \Illuminate\Database\Eloquent\Model
+     */
+    public $modelClass = Belt\Clip\Album::class;
+
     public $perAlbum = 10;
 
     public $orderBy = 'albums.id';
@@ -23,6 +28,7 @@ class PaginateAlbums extends PaginateRequest
      * @var Belt\Core\Pagination\PaginationQueryModifier[]
      */
     public $queryModifiers = [
+        Belt\Core\Pagination\InQueryModifier::class,
         Belt\Glue\Pagination\TaggableQueryModifier::class,
     ];
 

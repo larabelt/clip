@@ -1,6 +1,7 @@
 <?php
 namespace Belt\Clip\Http\Requests;
 
+use Belt;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -18,6 +19,11 @@ class PaginateClippables extends PaginateAttachments
      * @var string
      */
     public $orderBy = 'clippables.position';
+
+    /**
+     * @var Belt\Core\Pagination\PaginationQueryModifier[]
+     */
+    public $queryModifiers = [];
 
     /**
      * @inheritdoc
