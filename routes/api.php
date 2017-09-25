@@ -45,6 +45,7 @@ Route::group([
         });
 
         # clippable
+        Route::pattern('clippable_id', '[0-9]+');
         Route::group([
             'prefix' => '{clippable_type}/{clippable_id}/attachments',
             'middleware' => 'request.injections:clippable_type,clippable_id'
