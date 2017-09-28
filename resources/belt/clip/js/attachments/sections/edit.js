@@ -1,4 +1,4 @@
-import thumb from 'belt/clip/js/clippables/ctlr/thumb';
+import thumb from 'belt/clip/js/attachments/thumb';
 
 // components
 import shared from 'belt/content/js/sectionables/ctlr/shared';

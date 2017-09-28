@@ -1,5 +1,6 @@
 import shared from 'belt/clip/js/attachments/ctlr/shared';
-import attachmentSummary from 'belt/clip/js/attachments/ctlr/summary';
+import thumb from 'belt/clip/js/attachments/thumb';
+import attachmentSummary from 'belt/clip/js/attachments/summary';
 import uploader from 'belt/clip/js/base/uploader/ctlr';
 import form_html from 'belt/clip/js/attachments/templates/form.html';
 
@@ -14,6 +15,7 @@ export default {
             },
             components: {
                 attachmentSummary,
+                thumb,
                 uploader: {
                     mixins: [uploader],
                     methods: {

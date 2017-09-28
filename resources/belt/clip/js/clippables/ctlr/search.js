@@ -1,4 +1,4 @@
-import thumb from 'belt/clip/js/clippables/ctlr/thumb';
+import thumb from 'belt/clip/js/attachments/thumb';
 
 // helpers
 import Form from 'belt/clip/js/clippables/form';

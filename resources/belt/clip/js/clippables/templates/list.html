@@ -13,38 +13,7 @@
                 <div v-else>
                     <div class="row">
                         <div class="col-md-3">
-                            <table class="table table-bordered table-condensed">
-                                <tbody>
-                                <tr>
-                                    <td><strong>ID</strong></td>
-                                    <td>{{ attachment.id }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Driver</strong></td>
-                                    <td>{{ attachment.driver }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Mimetype</strong></td>
-                                    <td>{{ attachment.mimetype }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Size</strong></td>
-                                    <td>{{ attachment.readable_size }}</td>
-                                </tr>
-                                <tr v-if=attachment.width>
-                                    <td><strong>W x H</strong></td>
-                                    <td>{{ attachment.width }} x {{ attachment.height }}</td>
-                                </tr>
-                                <tr v-if="attachment.resizes.length > 0">
-                                    <td><strong>Attachments</strong></td>
-                                    <td>
-                                        <div v-for="resize in attachment.resizes">
-                                            <a :href=resize.secure>{{ resize.preset }}</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <attachment-summary :attachment="attachment"></attachment-summary>
                         </div>
                         <div class="col-md-9">
                             <table>

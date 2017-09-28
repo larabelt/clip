@@ -17,7 +17,9 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <thumb :attachment="attachment"></thumb>
+                <template v-if="attachment.id">
+                    <thumb :attachment="attachment"></thumb>
+                </template>
             </div>
             <div class="col-md-5">
                 <div class="clearfix">
@@ -50,18 +52,18 @@
 
     <div v-if="table.query.q && table.items.length">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 no-gutter">
                 <template v-for="attachment in table.items">
-                    <span class="pull-left">
+                    <div class="col-md-1">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <thumb :attachment="attachment"></thumb>
+                                <thumb :attachment="attachment" :open_btn="false"></thumb>
                             </div>
                             <div class="panel-footer clearfix">
                                 <span class="pull-right"><button class="btn btn-xs btn-primary" @click="update(attachment.id)"><i class="fa fa-link"></i></button></span>
                             </div>
                         </div>
-                    </span>
+                    </div>
                 </template>
             </div>
         </div>

@@ -1,9 +1,6 @@
-import thumb from 'belt/clip/js/clippables/ctlr/thumb';
-
-// helpers
+import attachmentSummary from 'belt/clip/js/attachments/summary';
+import thumb from 'belt/clip/js/attachments/thumb';
 import Form from 'belt/clip/js/attachments/form';
-
-// templates
 import list_html from 'belt/clip/js/clippables/templates/list.html';
 import edit_html from 'belt/clip/js/attachments/templates/form.html';
 
@@ -22,6 +19,7 @@ export default {
         }
     },
     components: {
+        attachmentSummary,
         thumb,
         edit: {
             data() {

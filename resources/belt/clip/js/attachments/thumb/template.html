@@ -1,0 +1,16 @@
+<div>
+    <template v-if="attachment.is_image">
+        <img class="img-responsive" :src="attachment.src"/>
+    </template>
+    <template v-else>
+        <i class="fa fa-file"></i>
+        {{ attachment.mimetype }}
+    </template>
+    <div v-if="open_btn" class="clearfix">
+        <span class="pull-right">
+            <a :href="attachment.src" target="_blank" class="btn btn-xs btn-primary">
+                Open <i class="fa fa-external-link-square"></i>
+            </a>
+        </span>
+    </div>
+</div>

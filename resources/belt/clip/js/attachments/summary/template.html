@@ -1,12 +1,7 @@
 <div>
-    <p v-if="attachment.is_image"><img class="img-responsive" :src="attachment.src"/></p>
-
     <div class="clearfix">
-        <span class="pull-right">
-            <a :href="attachment.src" target="_blank" class="btn btn-xs btn-primary">
-                Open <i class="fa fa-external-link-square"></i>
-            </a>
-        </span>
+        <span class="pull-left"><strong>id</strong></span>
+        <span class="pull-right">{{ attachment.id }}</span>
     </div>
     <hr/>
 
@@ -24,7 +19,7 @@
 
     <div class="clearfix">
         <span class="pull-left"><strong>size</strong></span>
-        <span class="pull-right">{{ attachment.size }}</span>
+        <span class="pull-right">{{ attachment.readable_size }}</span>
     </div>
     <hr/>
 
