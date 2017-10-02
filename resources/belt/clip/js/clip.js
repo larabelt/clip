@@ -1,5 +1,6 @@
 import albums  from 'belt/clip/js/albums/routes';
 import attachments  from 'belt/clip/js/attachments/routes';
+import store from 'belt/core/js/store/index';
 
 export default class BeltClip {
 
@@ -16,7 +17,7 @@ export default class BeltClip {
             router.addRoutes(albums);
             router.addRoutes(attachments);
 
-            const app = new Vue({router}).$mount('#belt-clip');
+            const app = new Vue({router, store}).$mount('#belt-clip');
         }
     }
 
