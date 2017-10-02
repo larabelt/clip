@@ -88,6 +88,7 @@ abstract class BaseAdapter
     }
 
     /**
+     * @todo move to UrlHelper
      * @param $path
      * @return string
      */
