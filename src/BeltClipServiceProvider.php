@@ -26,6 +26,13 @@ class BeltClipServiceProvider extends ServiceProvider
     ];
 
     /**
+     * The elastic modifiers for this application
+     *
+     * @var array
+     */
+    protected $modifiers = [];
+
+    /**
      * Register the application services.
      *
      * @return void
@@ -35,6 +42,11 @@ class BeltClipServiceProvider extends ServiceProvider
         include __DIR__ . '/../routes/admin.php';
         include __DIR__ . '/../routes/api.php';
         include __DIR__ . '/../routes/web.php';
+
+        # elastic
+        foreach ($this->modifiers as $type => $classes) {
+            Belt\Content\Search\Elastic\ElasticEngine::addModifiers($type, $classes);
+        }
     }
 
     /**
@@ -44,9 +56,6 @@ class BeltClipServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate, Router $router)
     {
-
-        // set view paths
-        // $this->loadViewsFrom(resource_path('belt/clip/views'), 'belt-clip');
 
         // set backup view paths
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'belt-clip');
