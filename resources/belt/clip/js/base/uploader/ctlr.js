@@ -4,7 +4,12 @@ import html from 'belt/clip/js/base/uploader/template.html';
 
 export default {
     props: {
-        accept: {default: 'image/*,application/pdf'},
+        accept: {
+            default: function () {
+                let accept = _.get(window, 'larabelt.clip.accept');
+                return accept ? accept : 'image/*,application/pdf';
+            }
+        },
         path: {default: ''},
         driver: {default: ''},
         multiple: {default: true},

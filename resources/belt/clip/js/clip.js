@@ -1,6 +1,8 @@
-import albums  from 'belt/clip/js/albums/routes';
-import attachments  from 'belt/clip/js/attachments/routes';
+import albums from 'belt/clip/js/albums/routes';
+import attachments from 'belt/clip/js/attachments/routes';
 import store from 'belt/core/js/store/index';
+
+window.larabelt.clip = _.get(window, 'larabelt.clip', {});
 
 export default class BeltClip {
 
