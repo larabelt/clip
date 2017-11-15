@@ -31,6 +31,17 @@ class AlbumsFunctionalTest extends Testing\BeltTestCase
         $response = $this->json('GET', "/api/v1/albums/$albumID");
         $response->assertJson(['name' => 'updated']);
 
+        # copy
+        Album::unguard();
+        $old = Album::find($albumID);
+        $old->attachments()->attach(1);
+        $old->tags()->attach(1);
+        $response = $this->json('POST', '/api/v1/albums', ['source' => $albumID]);
+        $response->assertStatus(201);
+        $copiedAlbumID = array_get($response->json(), 'id');
+        $response = $this->json('GET', "/api/v1/albums/$copiedAlbumID");
+        $response->assertStatus(200);
+
         # delete
         $response = $this->json('DELETE', "/api/v1/albums/$albumID");
         $response->assertStatus(204);

@@ -57,4 +57,27 @@ class Album extends Model implements
         [500, 500, 'resize'],
     ];
 
+    /**
+     * @param $album
+     * @return Model
+     */
+    public static function copy($album)
+    {
+        $album = $album instanceof Album ? $album : self::sluggish($album)->first();
+
+        $clone = $album->replicate();
+        $clone->slug .= '-' . strtotime('now');
+        $clone->push();
+
+        foreach ($album->attachments as $attachment) {
+            $clone->attachments()->attach($attachment);
+        }
+
+        foreach ($album->tags as $tag) {
+            $clone->tags()->attach($tag);
+        }
+
+        return $clone;
+    }
+
 }

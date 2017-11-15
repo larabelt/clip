@@ -15,6 +15,12 @@ class StoreAlbum extends FormRequest
      */
     public function rules()
     {
+        if ($this->get('source')) {
+            return [
+                'source' => 'exists:albums,id',
+            ];
+        }
+
         return [
             'name' => 'required',
         ];

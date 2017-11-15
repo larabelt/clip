@@ -60,6 +60,10 @@ class AlbumsController extends ApiController
 
         $input = $request->all();
 
+        if ($source = $request->get('source')) {
+            return response()->json($this->albums->copy($source), 201);
+        }
+
         $album = $this->albums->create([
             'name' => $input['name'],
         ]);

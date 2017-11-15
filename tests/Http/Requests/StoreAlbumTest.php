@@ -12,8 +12,10 @@ class StoreAlbumTest extends \PHPUnit_Framework_TestCase
     {
 
         $request = new StoreAlbum();
-
         $this->assertNotEmpty($request->rules());
+
+        $request = new StoreAlbum(['source' => 1]);
+        $this->assertArrayHasKey('source', $request->rules());
     }
 
 }

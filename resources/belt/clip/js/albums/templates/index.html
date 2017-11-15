@@ -49,6 +49,8 @@
                                     <i class="fa fa-gear"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#" @click.prevent="copy(item.id)"><i class="fa fa-clone"></i> Copy</i></a></li>
+                                    <li role="separator" class="divider"></li>
                                     <li><modal-delete :item-id="item.id" _class="''" :callingObject="table"><i class="fa fa-trash"></i> Remove</modal-delete></li>
                                 </ul>
                                 <router-link :to="{ name: 'albums.edit', params: { id: item.id } }" :class="'btn btn-xs btn-default'" title="edit album">
