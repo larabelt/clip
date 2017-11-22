@@ -5,6 +5,10 @@
         <div class="row" v-for="attachment, index in table.items">
             <div class="col-sm-2">
                 <thumb :attachment="attachment"></thumb>
+                <div v-if="form.id == attachment.id">
+                    <br/>
+                    <attachment-summary :attachment="attachment"></attachment-summary>
+                </div>
             </div>
             <div class="col-sm-9">
                 <div v-if="form.id == attachment.id">
@@ -22,6 +26,10 @@
                                 </tr>
                                 <tr v-if=attachment.note>
                                     <td colspan="100%">{{ attachment.note }}</td>
+                                </tr>
+                                <tr v-if=attachment.nickname>
+                                    <td><em>Nickname:</em> </td>
+                                    <td>{{ attachment.nickname }}</td>
                                 </tr>
                                 <tr v-if=attachment.credits>
                                     <td><em>Credits:</em> </td>
