@@ -1,6 +1,7 @@
 <?php
 
 use Belt\Core\Testing;
+use Belt\Clip\Album;
 
 class AlbumsFunctionalTest extends Testing\BeltTestCase
 {
