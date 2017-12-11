@@ -4,7 +4,7 @@
         <div v-if="table.items.length">
             <p class="help-block">Drag and drop the thumbnails below to rearrange the order of the linked attachments</p>
             <div v-for="attachment, index in table.items">
-                <div @dragover.prevent @drop="drop">
+                <div v-if="attachment.is_image" @dragover.prevent @drop="drop">
                     <img class="img-thumbnail pull-left" :src="attachment.src" :data-index=index style="max-height: 100px"
                          draggable="true" @drag="drag"/>
                 </div>

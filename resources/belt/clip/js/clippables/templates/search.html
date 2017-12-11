@@ -13,13 +13,11 @@
         </form>
         <template v-if="detached.query.q">
             <h5><strong>Attachment Search Results</strong></h5>
-            <div class="no-gutter clearfix">
+            <div class="row thumbnail-panels">
                 <template v-for="attachment in detached.items">
-                    <div class="col-md-1">
+                    <div class="col col-lg-2 col-md-3 col-sm-4">
                         <div class="panel panel-default">
-                            <div class="panel-body">
-                                <thumb :attachment="attachment" :open_btn="false"></thumb>
-                            </div>
+                            <thumb :attachment="attachment" :open_btn="false"></thumb>
                             <div class="panel-footer clearfix">
                                 <span class="pull-right">
                                     <button
@@ -40,14 +38,10 @@
         <h4>Attachment List</h4>
         <div v-if="table.items.length">
             <p class="help-block">The following attachments are linked to this item.</p>
-            <div class="no-gutter clearfix">
+            <div class="row thumbnail-panels">
                 <template v-for="attachment, index in table.items" class="clearfix">
-                    <div class="col-md-1">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <thumb :attachment="attachment" :open_btn="false"></thumb>
-                            </div>
-                        </div>
+                    <div class="col col-lg-2 col-md-3 col-sm-4">
+                        <thumb :attachment="attachment" :open_btn="false"></thumb>
                     </div>
                 </template>
             </div>

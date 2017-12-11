@@ -3,8 +3,14 @@
         <img class="img-responsive" :src="attachment.src"/>
     </template>
     <template v-else>
-        <i class="fa fa-file"></i>
-        {{ attachment.mimetype }}
+        <div class="non-image-thumb">
+            <div class="non-image-thumb-type">
+                <i class="fa fa-file"></i> {{ type }}
+            </div>
+            <div class="non-image-thumb-content">
+                {{ title }}
+            </div>
+        </div>
     </template>
     <div v-if="open_btn" class="clearfix">
         <span class="pull-right">

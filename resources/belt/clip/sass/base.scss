@@ -1,0 +1,127 @@
+.clippable-panel {
+    .clippable-panel-toolbar {
+        background-color: $gray-lighter;
+        margin-bottom: 10px;
+        label {
+            margin-bottom: 0;
+        }
+    }
+    .alert-clippable {
+        background-color: #f3f5f7;
+    }
+    .clippable-dropzone {
+        border: 2px dashed #ddd;
+        padding: 10px;
+    }
+    h4 {
+        margin-left: 10px;
+    }
+    h5 {
+        margin-top: 0;
+    }
+}
+
+.thumbnail-panels {
+
+    @media (min-width: $screen-sm-min) {
+        .col {
+            padding-left:5px;
+            padding-right:5px;
+        }
+    }
+
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+        .col:nth-child(3n) {
+            padding-right:15px;
+        }
+        .col:nth-child(3n+1) {
+            clear: left;
+            padding-left:15px;
+        }
+    }
+
+    @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+        .col:nth-child(4n) {
+            padding-right:15px;
+        }
+        .col:nth-child(4n+1) {
+            clear: left;
+            padding-left:15px;
+        }
+    }
+
+    @media (min-width: $screen-lg-min) {
+        .col:nth-child(6n) {
+            padding-right:15px;
+        }
+        .col:nth-child(6n+1) {
+            clear: left;
+            padding-left:15px;
+        }
+    }
+}
+
+.thumbnail-panels-heading {
+    text-decoration: underline;
+}
+
+.thumbnail-panel {
+    border: 1px solid #e7e7e7;
+    margin-bottom: 10px;
+    .thumbnail-panel-toolbar {
+        background-color: $gray-lighter;
+        .pull-right {
+            & > i {
+                margin-right: 5px;
+            }
+        }
+    }
+    .thumbnail-panel-checkbox {
+        margin-left: 5px;
+    }
+    &.highlighted {
+        background-color: white;
+        display: inline-block;
+        img {
+            opacity: .5;
+        }
+        .thumbnail-panel-toolbar {
+            background-color: $brand-info;
+        }
+    }
+    img {
+        margin: 0 auto;
+    }
+}
+
+.non-image-thumb {
+    .non-image-thumb-type {
+        margin-bottom: 5px;
+        background-color: $brand-warning;
+        padding: 3px 5px;
+    }
+    .non-image-thumb-content {
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+.clippable-edit {
+    .clippable-toolbar {
+        margin-bottom: 10px;
+    }
+    .help-block {
+        margin:3px 0 !important;
+        font-size: 12px;
+    }
+}
+
+.attachment-summary {
+    * {
+        font-size: 12px;
+    }
+    hr {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
