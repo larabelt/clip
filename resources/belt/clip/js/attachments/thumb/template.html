@@ -1,17 +1,25 @@
 <div>
-    <template v-if="attachment.is_image">
-        <img class="img-responsive" :src="attachment.src"/>
-    </template>
-    <template v-else>
+
+    <template v-if="!attachment.is_image">
         <div class="non-image-thumb">
             <div class="non-image-thumb-type">
-                <i class="fa fa-file"></i> {{ type }}
+                <i class="fa" :class="icon"></i> {{ type }}
             </div>
+        </div>
+    </template>
+
+    <template v-if="previewUrl">
+        <img class="img-responsive" :src="previewUrl"/>
+    </template>
+
+    <template v-else>
+        <div class="non-image-thumb">
             <div class="non-image-thumb-content">
                 {{ title }}
             </div>
         </div>
     </template>
+
     <div v-if="open_btn" class="clearfix">
         <span class="pull-right">
             <a :href="attachment.src" target="_blank" class="btn btn-xs btn-primary">
@@ -19,4 +27,5 @@
             </a>
         </span>
     </div>
+
 </div>

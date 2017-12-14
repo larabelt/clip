@@ -1,25 +1,29 @@
+import shared from 'belt/clip/js/clippables/shared';
 import thumb from 'belt/clip/js/attachments/thumb';
-
-// helpers
+import store from 'belt/clip/js/clippables/store';
 import Form from 'belt/clip/js/clippables/form';
-import positionable from 'belt/core/js/mixins/base/positionable';
-
-// templates
-import sort_html from 'belt/clip/js/clippables/templates/sort.html';
+import listItem from 'belt/clip/js/clippables/list-item';
+import html from 'belt/clip/js/clippables/templates/sort.html';
 
 export default {
-    mixins: [positionable],
+    mixins: [shared],
+    store,
     data() {
         return {
-            table: this.$parent.table,
-            dragged: '',
-            dropped: '',
             form: new Form({
                 morphable_type: this.$parent.morphable_type,
                 morphable_id: this.$parent.morphable_id,
             }),
+            morphable_type: this.$parent.morphable_type,
+            morphable_id: this.$parent.morphable_id,
+            //table: this.$parent.table,
         }
     },
-    components: {thumb},
-    template: sort_html
+    beforeMount() {
+        this.$store.dispatch('clippable/set', {morphableType: this.morphable_type, morphableID: this.morphable_id});
+        this.$store.dispatch('clippable/construct');
+        this.$store.dispatch('clippable/load');
+    },
+    components: {listItem},
+    template: html
 }

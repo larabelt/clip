@@ -1,0 +1,30 @@
+<div class="thumbnail-panel" :class="{highlighted: highlighted}">
+    <div class="thumbnail-panel-toolbar clearfix">
+        <template v-if="mode == 'list'">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button class="btn btn-xs btn-default" @click="setMoving(attachment)"><i class="fa fa-arrows"></i></button>
+                    <a :href="attachment.src" class="btn btn-xs btn-default" target="_blank"><i class="fa fa-external-link"></i></a>
+                </div>
+            </div>
+        </template>
+        <template v-if="mode == 'moving'">
+            <template v-if="active.id == attachment.id">
+                <div class="pull-right">
+                    <button class="btn btn-xs btn-default" @click="cancel()">cancel</button>
+                </div>
+            </template>
+            <template v-else>
+                <div class="pull-left">
+                    <button class="btn btn-xs btn-default" @click="move(attachment, 'before')"><i class="fa fa-caret-left"></i> before</button>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-xs btn-default" @click="move(attachment, 'after')">after <i class="fa fa-caret-right"></i></button>
+                </div>
+            </template>
+        </template>
+    </div>
+    <div @click.prevent="highlight(attachment)">
+        <thumb :attachment="attachment" :open_btn="false"></thumb>
+    </div>
+</div>
