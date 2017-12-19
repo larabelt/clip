@@ -37,6 +37,10 @@ export default {
             }
             return false;
         },
+        src() {
+            let thumb = _.find(this.attachment.resizes, {preset: 'thumb'});
+            return thumb ? thumb.src : this.attachment.src;
+        },
         title() {
             return this.attachment.title ? this.attachment.title : this.attachment.name;
         },
