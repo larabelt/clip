@@ -1,4 +1,15 @@
+import clippable from 'belt/clip/js/clippables/store/clippable';
+import highlighted from 'belt/clip/js/clippables/store/highlighted';
+
 export default {
+    beforeCreate() {
+        if (!this.$store.state['clippable']) {
+            this.$store.registerModule('clippable', clippable);
+        }
+        if (!this.$store.state['highlighted']) {
+            this.$store.registerModule('highlighted', highlighted);
+        }
+    },
     computed: {
         active() {
             return this.$store.getters['clippable/active'];

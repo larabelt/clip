@@ -1,13 +1,10 @@
 import shared from 'belt/clip/js/clippables/shared';
-import thumb from 'belt/clip/js/attachments/thumb';
-import store from 'belt/clip/js/clippables/store';
 import Form from 'belt/clip/js/clippables/form';
 import listItem from 'belt/clip/js/clippables/list-item';
 import html from 'belt/clip/js/clippables/templates/sort.html';
 
 export default {
     mixins: [shared],
-    store,
     data() {
         return {
             form: new Form({

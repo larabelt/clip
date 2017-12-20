@@ -1,8 +1,5 @@
-import Vue from 'vue';
 import Vuex from 'vuex';
 
-import Form from 'belt/clip/js/clippables/form';
-import Table from 'belt/clip/js/clippables/table';
 import clippable from 'belt/clip/js/clippables/store/clippable';
 import highlighted from 'belt/clip/js/clippables/store/highlighted';
 
