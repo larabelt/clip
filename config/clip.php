@@ -28,7 +28,7 @@ return [
     ],
     'resize' => [
         'local_driver' => 'local',
-        'image_driver' => 'imagick',
+        'image_driver' => 'gd',
         'models' => [
             \Belt\Clip\Album::class => [
                 [100, 100, 'fit'],
