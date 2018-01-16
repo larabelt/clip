@@ -1,7 +1,7 @@
 {
   "name": "larabelt/clip",
   "description": "Clip package for LaraBelt.",
-  "keywords": ["cms", "laravel"],
+  "keywords": ["cms", "laravel", "larabelt"],
   "license": "MIT",
   "authors": [
     {
