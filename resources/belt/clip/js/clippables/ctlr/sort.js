@@ -16,11 +16,7 @@ export default {
             //table: this.$parent.table,
         }
     },
-    beforeMount() {
-        this.$store.dispatch('clippable/set', {morphableType: this.morphable_type, morphableID: this.morphable_id});
-        this.$store.dispatch('clippable/construct');
-        this.$store.dispatch('clippable/load');
-    },
+
     components: {listItem},
     template: html
 }
