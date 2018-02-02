@@ -75,7 +75,7 @@ class AttachmentsController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('index', Attachment::class);
+        $this->authorize('view', Attachment::class);
 
         $request = Requests\PaginateAttachments::extend($request);
 
