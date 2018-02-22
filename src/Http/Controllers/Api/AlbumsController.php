@@ -88,6 +88,8 @@ class AlbumsController extends ApiController
 
         $album->save();
 
+        $this->itemEvent('created', $album);
+
         return response()->json($album, 201);
     }
 
@@ -144,6 +146,8 @@ class AlbumsController extends ApiController
 
         $album->save();
 
+        $this->itemEvent('updated', $album);
+
         return response()->json($album);
     }
 
@@ -160,6 +164,8 @@ class AlbumsController extends ApiController
         $album = $this->get($id);
 
         $this->authorize('delete', $album);
+
+        $this->itemEvent('deleted', $album);
 
         $album->delete();
 

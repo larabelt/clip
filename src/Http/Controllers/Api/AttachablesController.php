@@ -106,6 +106,8 @@ class AttachablesController extends ApiController
 
         $owner->save();
 
+        $this->itemEvent('updated', $owner);
+
         return $attachment;
     }
 
@@ -142,6 +144,8 @@ class AttachablesController extends ApiController
 
         $owner->attachment_id = null;
         $owner->save();
+
+        $this->itemEvent('updated', $owner);
 
         return response()->json(null, 204);
     }

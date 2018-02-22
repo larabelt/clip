@@ -122,6 +122,8 @@ class AttachmentsController extends ApiController
 
         $attachment->save();
 
+        $this->itemEvent('created', $attachment);
+
         return response()->json($attachment, 201);
     }
 
@@ -176,6 +178,8 @@ class AttachmentsController extends ApiController
 
         $attachment->save();
 
+        $this->itemEvent('updated', $attachment);
+
         return response()->json($attachment);
     }
 
@@ -192,6 +196,8 @@ class AttachmentsController extends ApiController
         $attachment = $this->get($id);
 
         $this->authorize('delete', $attachment);
+
+        $this->itemEvent('deleted', $attachment);
 
         $attachment->delete();
 
