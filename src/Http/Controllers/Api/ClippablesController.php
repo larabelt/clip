@@ -115,7 +115,7 @@ class ClippablesController extends ApiController
 
         $owner->attachments()->attach($id);
 
-        $this->itemEvent('updated', $owner);
+        $this->itemEvent('attachments.attached', $owner);
 
         return response()->json($attachment, 201);
     }
@@ -139,6 +139,8 @@ class ClippablesController extends ApiController
         $attachment = $this->attachment($id, $owner);
 
         $this->repositionHasManyThrough($request, $id, $owner->attachments, $owner->attachments());
+
+        $this->itemEvent('attachments.updated', $owner);
 
         return response()->json($attachment);
     }
@@ -180,7 +182,7 @@ class ClippablesController extends ApiController
 
         $owner->attachments()->detach($id);
 
-        $this->itemEvent('updated', $owner);
+        $this->itemEvent('attachments.detached', $owner);
 
         return response()->json(null, 204);
     }
