@@ -3,6 +3,9 @@
 namespace Belt\Clip\Adapters;
 
 use Storage;
+use Belt\Core\Behaviors\HasConfig;
+use Belt\Clip\AttachmentInterface;
+use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 use Illuminate\Http\UploadedFile;
 
 /**
@@ -12,19 +15,15 @@ use Illuminate\Http\UploadedFile;
 abstract class BaseAdapter
 {
 
+    use HasConfig;
+
     /**
      * @var
      */
     public $driver;
 
     /**
-     * @var array
-     */
-    public $config = [];
-
-
-    /**
-     * @var \Illuminate\Filesystem\FilesystemAdapter
+     * @var FilesystemContract
      */
     public $disk;
 
@@ -38,25 +37,11 @@ abstract class BaseAdapter
 
         $this->driver = $driver;
 
-        $this->config = config("belt.clip.drivers.$driver");
+        $this->setConfig(config("belt.clip.drivers.$driver"));
 
         if (!$this->config('disk') || !$this->disk = Storage::disk($this->config('disk'))) {
             throw new \Exception('disk for adapter not specified or available');
         }
-    }
-
-    /**
-     * @param null $key
-     * @param bool $default
-     * @return array|mixed
-     */
-    public function config($key = null, $default = false)
-    {
-        if ($key) {
-            return array_get($this->config, $key, $default);
-        }
-
-        return $this->config;
     }
 
     /**
@@ -126,6 +111,63 @@ abstract class BaseAdapter
     }
 
     /**
+     * @param AttachmentInterface $file
+     * @return string
+     */
+    public function src(AttachmentInterface $file)
+    {
+        if ($rel_path = $file->rel_path) {
+            return sprintf('%s/%s', $this->config('src.root'), $rel_path);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param AttachmentInterface $file
+     * @return string
+     */
+    public function secure(AttachmentInterface $file)
+    {
+
+        if ($rel_path = $file->rel_path) {
+            return sprintf('%s/%s', $this->config('secure.root'), $rel_path);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param AttachmentInterface $file
+     * @return string
+     */
+    public function contents(AttachmentInterface $file)
+    {
+        return $this->disk->get($file->rel_path);
+    }
+
+    /**
+     * @param $path
+     * @param UploadedFile $fileInfo
+     * @param null $filename
+     * @return array|null
+     */
+
+    public function upload($path, UploadedFile $fileInfo, $filename = null)
+    {
+
+        $filename = $filename ?: $this->randomFilename($fileInfo);
+
+        $path = $this->prefixedPath($path);
+
+        if ($this->disk->putFileAs($path, $fileInfo, $filename)) {
+            return $this->__create($path, $fileInfo, $filename);
+        }
+
+        return null;
+    }
+
+    /**
      * @param $path
      * @param UploadedFile $uploadedFile
      * @param null $filename
@@ -150,6 +192,27 @@ abstract class BaseAdapter
             'width' => $sizes ? $sizes[0] : null,
             'height' => $sizes ? $sizes[1] : null,
         ];
+    }
+
+    /**
+     * Get attributes of existing file
+     *
+     * @param $path
+     * @return array|null
+     */
+    public function getFromPath($path, $filename = null)
+    {
+
+        $filename = $filename ?: basename($path);
+        $path = str_replace("/$filename", '', $path);
+        $root = config("filesystems.disks.$this->driver.root");
+
+        if ($this->disk->exists("$path/$filename")) {
+            $fileInfo = new UploadedFile("$root/$path/$filename", $filename);
+            return $this->__create($path, $fileInfo, $filename);
+        }
+
+        return null;
     }
 
 }

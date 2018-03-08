@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default_driver' => 'local',
+    'default_driver' => env('DEFAULT_CLIP_DRIVER', 'local'),
     'drivers' => [
         'local' => [
             'disk' => 'public',
@@ -23,6 +23,17 @@ return [
             ],
             'secure' => [
                 'root' => env('CLOUDINARY_SECURE'),
+            ],
+        ],
+        's3' => [
+            'disk' => 's3',
+            'adapter' => \Belt\Clip\Adapters\S3Adapter::class,
+            'prefix' => env('APP_ENV'),
+            'src' => [
+                'root' => sprintf('http://%s.s3-website-%s.amazonaws.com', env('AWS_BUCKET'), env('AWS_REGION')),
+            ],
+            'secure' => [
+                'root' => sprintf('https://%s.s3-website-%s.amazonaws.com', env('AWS_BUCKET'), env('AWS_REGION')),
             ],
         ]
     ],
