@@ -1,15 +1,10 @@
 <?php
 
-use Belt\Core\Helpers\DebugHelper;
-use Belt\Core\Helpers\BeltHelper;
-use Belt\Core\Helpers\UrlHelper;
+use Belt\Clip\Helpers\ClipHelper;
 
 if (!function_exists('clip')) {
-    /**
-     * @codeCoverageIgnore
-     */
     function clip()
     {
-        return 'hello';
+        return new ClipHelper();
     }
 }

@@ -65,6 +65,16 @@ class Attachment extends Model implements
     /**
      * @param $w
      * @param $h
+     * @return Attachment
+     */
+    public function format($params = [])
+    {
+        return $this->adapter()->format($this, $params);
+    }
+
+    /**
+     * @param $w
+     * @param $h
      * @return mixed
      */
     public function __sized($w, $h)

@@ -34,7 +34,6 @@ abstract class BaseAdapter
      */
     public function __construct($driver)
     {
-
         $this->driver = $driver;
 
         $this->setConfig(config("belt.clip.drivers.$driver"));
