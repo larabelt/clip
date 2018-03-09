@@ -55,6 +55,7 @@ class BeltClipServiceProvider extends ServiceProvider
         Relation::morphMap([
             'albums' => Belt\Clip\Album::class,
             'attachments' => Belt\Clip\Attachment::class,
+            'attachment_resizes' => Belt\Clip\Resize::class,
         ]);
 
         // route model binding

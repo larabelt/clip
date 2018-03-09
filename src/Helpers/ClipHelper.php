@@ -2,8 +2,8 @@
 
 namespace Belt\Clip\Helpers;
 
-use Belt\Clip\AttachmentInterface;
-use Illuminate\Support\Traits\Macroable;
+use Belt\Clip\Attachment;
+use Belt\Clip\Helpers\SrcHelper;
 
 /**
  * Class ClipHelper
@@ -11,12 +11,43 @@ use Illuminate\Support\Traits\Macroable;
  */
 class ClipHelper
 {
-    use Macroable;
+
+    /**
+     * @var Attachment
+     */
+    private $attachment;
 
     /**
      * @var array
      */
     public $params = [];
+
+    /**
+     * ClipHelper constructor.
+     * @param Attachment $attachment
+     */
+    public function __construct(Attachment $attachment)
+    {
+        $this->setAttachment($attachment);
+    }
+
+    /**
+     * @param Attachment $attachment
+     */
+    public function setAttachment(Attachment $attachment)
+    {
+        $this->attachment = $attachment;
+    }
+
+    /**
+     * @return Attachment
+     */
+    public function getAttachment()
+    {
+        $this->attachment->adapter();
+
+        return $this->attachment;
+    }
 
     /**
      * @param $options
@@ -27,9 +58,6 @@ class ClipHelper
         $this->params = $params = [];
 
         foreach ($options as $option) {
-            if ($option instanceof AttachmentInterface) {
-                $params['attachment'] = $option;
-            }
             if (is_numeric($option) || (!$option && !is_array($option))) {
                 $key = isset($params['width']) ? 'height' : 'width';
                 $params[$key] = $option ?: false;
@@ -40,7 +68,7 @@ class ClipHelper
         }
 
         if (array_get($params, 'proportionallyResize')) {
-            $attachment = array_get($params, 'attachment');
+            $attachment = $this->getAttachment();
             $w = array_get($params, 'width');
             $h = array_get($params, 'height');
             if ($attachment && ($w || $h) && (!$w || !$h)) {
@@ -75,63 +103,59 @@ class ClipHelper
      */
     public static function proportionallyResize($old_width, $old_height, $new_width = false, $new_height = false)
     {
-        $old_aspect_ratio = $old_width / $old_height;
+        $old_ratio = $old_width / $old_height;
 
         if (!$new_width && !$new_height) {
             return false;
-        } elseif (!$new_width) {
-            $new_width = $new_height * $old_aspect_ratio;
-        } elseif (!$new_height) {
-            $new_height = $new_width / $old_aspect_ratio;
         }
 
-        $new_aspect_ratio = $new_width / $new_height;
+        $new_width = $new_width ?: $new_height * $old_ratio;
+        $new_height = $new_height ?: $new_width / $old_ratio;
 
-        if ($new_aspect_ratio == $old_aspect_ratio) {
-
-        } elseif ($new_aspect_ratio < $old_aspect_ratio) {
-            $new_height = $new_width / $old_aspect_ratio;
-        } elseif ($new_aspect_ratio > $old_aspect_ratio) {
-            $new_width = $new_height * $old_aspect_ratio;
+        $new_ratio = $new_width / $new_height;
+        if ($new_ratio < $old_ratio) {
+            $new_height = $new_width / $old_ratio;
+        }
+        if ($new_ratio > $old_ratio) {
+            $new_width = $new_height * $old_ratio;
         }
 
         return [
-            round($new_width),
-            round($new_height)
+            (int) round($new_width),
+            (int) round($new_height),
         ];
     }
 
-    public function src(AttachmentInterface $attachment, $w = null, $h = null, $params = [])
+    /**
+     * @param null $w
+     * @param null $h
+     * @param array $params
+     * @return mixed
+     */
+    public function src($w = null, $h = null, $params = [])
     {
+        $this->setParams([$w, $h, $params, ['proportionallyResize' => true]]);
 
+        $attachment = $this->getAttachment();
+        $w = $this->param('width');
+        $h = $this->param('height');
 
-        $params = $this->setParams([$attachment, $w, $h, $params, ['proportionallyResize' => true]]);
+        $src = null;
 
-        $driver = $attachment->driver;
-
-
-//        static::macro($driver, function ($helper) {
-//
-//            $params = $helper->params;
-//
-//            $attachment = array_get($params, 'attachment');
-//            $adapter = $attachment->adapter();
-//            $w = array_get($params, 'width');
-//            $h = array_get($params, 'height');
-//
-//            $src = sprintf('%s/%sx%s/%s?v=1', $adapter->config('src.root'), $w, $h, $attachment->rel_path);
-//
-//            return $src;
-//        });
-
-
-
-
-        if ($this->hasMacro($driver)) {
-            return $this->__call($driver, [$this]);
+        if ($resized = $attachment->__sized($w, $h)) {
+            $src = $resized->src;
         }
 
-        return $attachment->format($params);
+        if (!$src) {
+            $driver = $attachment->driver;
+            if (SrcHelper::hasMacro($driver)) {
+                $src = SrcHelper::$driver($this);
+            }
+        }
+
+        return $src ?: $attachment->src;
+//        $src = $src ?: $attachment->src;
+//        $src = str_replace(['http://', 'https://', 'http:/', 'https:/'], '//', $src);
     }
 
 }

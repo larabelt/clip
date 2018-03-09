@@ -5,6 +5,7 @@ use Belt\Core\Testing\BeltTestCase;
 use Belt\Clip\Attachment;
 use Belt\Clip\Adapters\BaseAdapter;
 use Belt\Clip\Adapters\LocalAdapter;
+use Belt\Clip\Helpers\SrcHelper;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Filesystem\FilesystemAdapter;
 
@@ -23,13 +24,12 @@ class BaseAdapterTest extends BeltTestCase
      * @covers \Belt\Clip\Adapters\BaseAdapter::normalizePath
      * @covers \Belt\Clip\Adapters\BaseAdapter::prefixedPath
      * @covers \Belt\Clip\Adapters\BaseAdapter::__create
+     * @covers \Belt\Clip\Adapters\BaseAdapter::loadMacros
      *
-     *  \Belt\Clip\Adapters\BaseAdapter::__construct
      * @covers \Belt\Clip\Adapters\BaseAdapter::src
      * @covers \Belt\Clip\Adapters\BaseAdapter::secure
      * @covers \Belt\Clip\Adapters\BaseAdapter::contents
      * @covers \Belt\Clip\Adapters\BaseAdapter::upload
-     *  \Belt\Clip\Adapters\BaseAdapter::__create
      * @covers \Belt\Clip\Adapters\BaseAdapter::getFromPath
      */
     public function test()
@@ -67,6 +67,9 @@ class BaseAdapterTest extends BeltTestCase
         $this->assertNotNull($adapter->driver);
         $this->assertNotNull($adapter->disk);
         $this->assertNotEmpty($adapter->config);
+
+        # loadMacros
+        $this->assertEquals('test', SrcHelper::baseAdapterTestStub());
 
         # config
         $adapter->config = array_merge($adapter->config, ['foo' => 'bar']);
@@ -175,11 +178,17 @@ class BaseAdapterTest extends BeltTestCase
         $this->assertNotEmpty($result);
         $result = $adapter->getFromPath('testing', 'invalid.jpg');
         $this->assertEmpty($result);
+
     }
 
 }
 
 class BaseAdapterTestStub extends BaseAdapter
 {
-
+    public static function loadMacros($driver)
+    {
+        SrcHelper::macro('baseAdapterTestStub', function () {
+            return 'test';
+        });
+    }
 }

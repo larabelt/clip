@@ -41,6 +41,16 @@ abstract class BaseAdapter
         if (!$this->config('disk') || !$this->disk = Storage::disk($this->config('disk'))) {
             throw new \Exception('disk for adapter not specified or available');
         }
+
+        static::loadMacros($driver);
+    }
+
+    /**
+     * @param $driver
+     */
+    public static function loadMacros($driver)
+    {
+
     }
 
     /**
@@ -76,7 +86,7 @@ abstract class BaseAdapter
      * @param $path
      * @return string
      */
-    public function normalizePath($path)
+    public static function normalizePath($path)
     {
 
         $ds = DIRECTORY_SEPARATOR;
@@ -115,11 +125,7 @@ abstract class BaseAdapter
      */
     public function src(AttachmentInterface $file)
     {
-        if ($rel_path = $file->rel_path) {
-            return sprintf('%s/%s', $this->config('src.root'), $rel_path);
-        }
-
-        return null;
+        return sprintf('%s/%s', $this->config('src.root'), $file->rel_path);
     }
 
     /**
@@ -128,12 +134,7 @@ abstract class BaseAdapter
      */
     public function secure(AttachmentInterface $file)
     {
-
-        if ($rel_path = $file->rel_path) {
-            return sprintf('%s/%s', $this->config('secure.root'), $rel_path);
-        }
-
-        return null;
+        return sprintf('%s/%s', $this->config('secure.root'), $file->rel_path);
     }
 
     /**

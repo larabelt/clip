@@ -27,7 +27,7 @@ return [
         ],
         's3' => [
             'disk' => 's3',
-            'adapter' => \Belt\Clip\Adapters\S3Adapter::class,
+            'adapter' => \Belt\Clip\Adapters\S3LambdaAdapter::class,
             'prefix' => env('APP_ENV'),
             'src' => [
                 'root' => sprintf('http://%s.s3-website-%s.amazonaws.com', env('AWS_BUCKET'), env('AWS_REGION')),
