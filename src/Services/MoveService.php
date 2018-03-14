@@ -85,6 +85,7 @@ class MoveService
             $this->log(sprintf('source: (#%s) %s', $attachment->id, $attachment->src));
 
             $adapter = $this->adapter($target);
+            $adapter->mergeConfig(['prefix' => '']);
 
             try {
 
@@ -98,7 +99,9 @@ class MoveService
 
                 $file = new UploadedFile($tmp_uri, $attachment->name);
 
-                $data = $adapter->upload($options['path'] ?? $attachment->path, $file);
+                $path = array_get($options, 'path') ?: $attachment->path;
+
+                $data = $adapter->upload($path, $file, $attachment->name);
 
                 if ($data) {
                     $attachment->update($data);
