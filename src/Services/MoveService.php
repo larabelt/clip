@@ -2,10 +2,12 @@
 
 namespace Belt\Clip\Services;
 
+use Belt, Morph;
 use Belt\Core\Behaviors\HasDisk;
 use Belt\Core\Behaviors\HasConsole;
 use Belt\Clip\Adapters;
 use Belt\Clip\Attachment;
+use Belt\Clip\Jobs\MoveAttachment;
 use Illuminate\Http\UploadedFile;
 
 /**
@@ -14,18 +16,12 @@ use Illuminate\Http\UploadedFile;
  */
 class MoveService
 {
-    use HasConsole;
-    use HasDisk;
+    use HasConsole, HasDisk;
 
     /**
-     * @var Adapters\BaseAdapter[]
+     * @var resource|bool a file handle
      */
-    public $adapters;
-
-    /**
-     * @var Attachment
-     */
-    public $attachments;
+    public $tmpFile;
 
     /**
      * MoveService constructor.
@@ -33,16 +29,15 @@ class MoveService
      */
     public function __construct($options = [])
     {
-        $this->attachments = new Attachment();
         $this->console = array_get($options, 'console');
     }
 
     /**
-     * @return Adapters\BaseAdapter
+     * MoveService destructor.
      */
-    public function adapter($driver)
+    function __destruct()
     {
-        return $this->adapters[$driver] ?? $this->adapters[$driver] = Adapters\AdapterFactory::up($driver);
+        $this->destroyTmpFile();
     }
 
     /**
@@ -62,10 +57,12 @@ class MoveService
      * @param $source
      * @param $target
      * @param array $options
+     * @throws \Exception
      */
-    public function move($source, $target, $options = [])
+    public function run($source, $target, $options = [])
     {
-        $qb = $this->attachments->where('driver', $source)
+        $qb = Morph::type2QB('attachments')
+            ->where('driver', $source)
             ->orderBy('updated_at');
 
         if ($ids = array_get($options, 'ids')) {
@@ -76,48 +73,72 @@ class MoveService
             $qb->take($limit);
         }
 
-        $attachments = $qb->get();
+        $queue = array_get($options, 'queue', false);
+        foreach ($qb->get() as $attachment) {
+            if ($queue) {
+                dispatch(new MoveAttachment($attachment, $target, $options));
+                //dispatch(new MoveAttachment($attachment->id, $target, $options));
+            } else {
+                $this->move($attachment, $target, $options);
+            }
+        }
+    }
+
+    /**
+     * @param Attachment $attachment
+     * @param $target
+     * @param $options
+     * @throws \Exception
+     */
+    public function move(Attachment $attachment, $target, $options)
+    {
+        $this->log(sprintf('source: (#%s) %s', $attachment->id, $attachment->src));
+
+        $adapter = Adapters\AdapterFactory::up($target);
+        $adapter->mergeConfig(['prefix' => '']);
 
         Attachment::unguard();
 
-        foreach ($attachments as $attachment) {
+        try {
 
-            $this->log(sprintf('source: (#%s) %s', $attachment->id, $attachment->src));
+            $this->createTmpFile($attachment);
 
-            $adapter = $this->adapter($target);
-            $adapter->mergeConfig(['prefix' => '']);
+            $file = new UploadedFile(array_get(stream_get_meta_data($this->tmpFile), 'uri'), $attachment->name);
 
-            try {
+            $path = is_null(array_get($options, 'path')) ? $attachment->path : array_get($options, 'path');
 
-                /**
-                 * create tmp file from url to instantiate UploadedFile
-                 */
-                $tmp = tmpfile();
-                $tmp_uri = array_get(stream_get_meta_data($tmp), 'uri');
-                //fwrite($tmp, file_get_contents($attachment->src));
-                fwrite($tmp, $attachment->contents);
+            $data = $adapter->upload($path, $file, $attachment->name);
 
-                $file = new UploadedFile($tmp_uri, $attachment->name);
-
-                $path = array_get($options, 'path') ?: $attachment->path;
-
-                $data = $adapter->upload($path, $file, $attachment->name);
-
-                if ($data) {
-                    $attachment->update($data);
-                    $this->log('target: ' . $attachment->src);
-                } else {
-                    throw new \Exception();
-                }
-
-                fclose($tmp); // this removes the file
-
-            } catch (\Exception $e) {
-                $this->log('target: failed', 'warn');
-                $attachment->touch();
-                continue;
+            if ($data) {
+                $attachment->update($data);
+                $this->log('target: ' . $attachment->src);
+            } else {
+                throw new \Exception('move attachment upload failed');
             }
 
+
+        } catch (\Exception $e) {
+            $this->log('target: failed', 'warn');
+            $attachment->touch();
+        }
+    }
+
+    /**
+     * @param Attachment $attachment
+     */
+    public function createTmpFile(Attachment $attachment)
+    {
+        $this->destroyTmpFile();
+
+        $this->tmpFile = tmpfile();
+
+        fwrite($this->tmpFile, $attachment->contents);
+    }
+
+    public function destroyTmpFile()
+    {
+        if ($this->tmpFile) {
+            fclose($this->tmpFile); // this removes the file
         }
     }
 
