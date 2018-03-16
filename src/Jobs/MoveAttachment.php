@@ -18,17 +18,17 @@ class MoveAttachment implements ShouldQueue
     /**
      * @var Attachment
      */
-    protected $attachment;
+    public $attachment;
 
     /**
      * @var string
      */
-    protected $target;
+    public $target;
 
     /**
      * @var array
      */
-    protected $options = [];
+    public $options = [];
 
     /**
      * @var MoveService

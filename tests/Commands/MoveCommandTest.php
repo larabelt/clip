@@ -33,10 +33,12 @@ class MoveCommandTest extends BeltTestCase
             'ids' => '1,2,3',
             'limit' => '100',
             'path' => '',
+            'queue' => null,
         ];
 
         $service = m::mock(MoveService::class);
-        $service->shouldReceive('move')->with($arguments['source'], $arguments['target'], $options)->andReturn(true);
+        $service->shouldReceive('run')->with($arguments['source'], $arguments['target'], $options)->andReturn(true);
+        $service->shouldReceive('destroyTmpFile')->andReturnSelf();
 
         $cmd = m::mock(MoveCommand::class . '[service,argument,option]');
         $cmd->shouldReceive('service')->andReturn($service);
@@ -45,6 +47,7 @@ class MoveCommandTest extends BeltTestCase
         $cmd->shouldReceive('option')->with('ids')->andReturn($options['ids']);
         $cmd->shouldReceive('option')->with('limit')->andReturn($options['limit']);
         $cmd->shouldReceive('option')->with('path')->andReturn($options['path']);
+        $cmd->shouldReceive('option')->with('queue')->andReturn($options['queue']);
 
         $cmd->handle();
     }

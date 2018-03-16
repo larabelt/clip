@@ -77,7 +77,6 @@ class MoveService
         foreach ($qb->get() as $attachment) {
             if ($queue) {
                 dispatch(new MoveAttachment($attachment, $target, $options));
-                //dispatch(new MoveAttachment($attachment->id, $target, $options));
             } else {
                 $this->move($attachment, $target, $options);
             }

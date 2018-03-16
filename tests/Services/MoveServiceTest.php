@@ -1,14 +1,17 @@
 <?php
 
 use Mockery as m;
+use Belt\Core\Facades\MorphFacade as Morph;
 use Belt\Core\Testing\BeltTestCase;
 use Belt\Clip\Attachment;
 use Belt\Clip\Adapters\BaseAdapter;
 use Belt\Clip\Adapters\LocalAdapter;
+use Belt\Clip\Jobs\MoveAttachment;
 use Belt\Clip\Services\MoveService;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Queue;
 
 class MoveServiceTest extends BeltTestCase
 {
@@ -42,7 +45,6 @@ class MoveServiceTest extends BeltTestCase
 
     /**
      * @covers \Belt\Clip\Services\MoveService::__construct
-     * @covers \Belt\Clip\Services\MoveService::adapter
      * @covers \Belt\Clip\Services\MoveService::log
      */
     public function test()
@@ -50,16 +52,56 @@ class MoveServiceTest extends BeltTestCase
         $service = new MoveService();
 
         # construct
-        $this->assertInstanceOf(Attachment::class, $service->attachments);
+        //$this->assertInstanceOf(Attachment::class, $service->attachments);
 
         # adapter
-        $this->assertInstanceOf(LocalAdapter::class, $service->adapter('foo'));
+        //$this->assertInstanceOf(LocalAdapter::class, $service->adapter('foo'));
 
         # log
         $path = sprintf('storage/logs/moved-files/%s.log', date('Y-m-d'));
         $service->disk = m::mock(Filesystem::class);
         $service->disk->shouldReceive('append')->once()->with($path, 'test')->andReturnSelf();
         $service->log('test');
+    }
+
+    /**
+     * @covers \Belt\Clip\Services\MoveService::run
+     */
+    public function testRun()
+    {
+        $options = [
+            'ids' => '1,2',
+            'limit' => 1,
+            'queue' => false,
+        ];
+
+        $attachment = factory(Attachment::class)->make();
+        $attachments = new Collection();
+        $attachments->add($attachment);
+
+        $qb = m::mock(Builder::class);
+        $qb->shouldReceive('where')->with('driver', 'local')->andReturnSelf();
+        $qb->shouldReceive('orderBy')->with('updated_at')->andReturnSelf();
+        $qb->shouldReceive('whereIn')->with('id', [1, 2])->andReturnSelf();
+        $qb->shouldReceive('take')->with(1)->andReturnSelf();
+        $qb->shouldReceive('get')->andReturn($attachments);
+
+        Morph::shouldReceive('type2QB')->with('attachments')->andReturn($qb);
+
+        # run w/o queue
+        $service = m::mock(MoveService::class . '[move]');
+        $service->shouldReceive('move')->with($attachment, 'foo', $options)->andReturnSelf();
+        $service->run('local', 'foo', $options);
+
+        # run w/queue
+        Queue::fake();
+        $options['queue'] = true;
+        $service = m::mock(MoveService::class . '[move]');
+        $service->run('local', 'foo', $options);
+
+        Queue::assertPushed(MoveAttachment::class, function ($job) use ($attachment) {
+            return $job->attachment == $attachment;
+        });
     }
 
     /**
@@ -79,7 +121,7 @@ class MoveServiceTest extends BeltTestCase
         Attachment::unguard();
         $attachments = new Collection();
 
-        /* @var $attachment, $data Attachment */
+        /* @var $attachment , $data Attachment */
         $data = factory(Attachment::class)->make([
             'driver' => 'foo',
             'path' => __DIR__ . '/../testing/test.jpg',
@@ -122,14 +164,14 @@ class MoveServiceTest extends BeltTestCase
         $adapter->shouldReceive('upload')->andReturn(['path' => 'new/path']);
         $service->adapters['foo'] = $adapter;
         $service->adapters['bar'] = $adapter;
-        $service->move($source_driver, $target_driver, $options);
+        $service->move($attachment, $target_driver, $options);
 
         # bad move
         $adapter = m::mock(BaseAdapter::class);
         $adapter->shouldReceive('upload')->andReturn([]);
         $service->adapters['foo'] = $adapter;
         $service->adapters['bar'] = $adapter;
-        $service->move($source_driver, $target_driver, $options);
+        $service->move($attachment, $target_driver, $options);
     }
 
 }
