@@ -17,7 +17,7 @@ class MoveCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt-clip:move {source} {target} {--limit=100} {--ids=} {--path=}';
+    protected $signature = 'belt-clip:move {source} {target} {--limit=100} {--ids=} {--path=} {--queue}';
 
     /**
      * The console command description.
@@ -43,16 +43,17 @@ class MoveCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @throws \Exception
      */
     public function handle()
     {
         $service = $this->service();
 
-        $service->move($this->argument('source'), $this->argument('target'), [
+        $service->run($this->argument('source'), $this->argument('target'), [
             'ids' => $this->option('ids'),
             'limit' => $this->option('limit'),
             'path' => $this->option('path'),
+            'queue' => $this->option('queue'),
         ]);
     }
 
