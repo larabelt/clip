@@ -91,11 +91,11 @@ class AttachmentTraitTest extends BeltTestCase
 
         # width
         $attachment->setWidthAttribute('test');
-        $this->assertEquals('test', $attachment->width);
+        $this->assertEquals(0, $attachment->width);
 
         # height
         $attachment->setHeightAttribute('test');
-        $this->assertEquals('test', $attachment->height);
+        $this->assertEquals(0, $attachment->height);
 
         # create from upload
         $this->assertNotEmpty(AttachmentTraitTestStub::createFromUpload(['foo' => 'bar']));
