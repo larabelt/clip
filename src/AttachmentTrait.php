@@ -124,7 +124,7 @@ trait AttachmentTrait
      */
     public function setWidthAttribute($value)
     {
-        $this->attributes['width'] = trim($value);
+        $this->attributes['width'] = (integer) trim($value);
     }
 
     /**
@@ -132,7 +132,7 @@ trait AttachmentTrait
      */
     public function setHeightAttribute($value)
     {
-        $this->attributes['height'] = trim($value);
+        $this->attributes['height'] = (integer) trim($value);
     }
 
     /**
