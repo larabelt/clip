@@ -62,7 +62,6 @@ class BaseAdapterTest extends BeltTestCase
         };
         $this->assertTrue($exception);
 
-
         $adapter = new BaseAdapterTestStub('BaseAdapterTest');
         $this->assertNotNull($adapter->driver);
         $this->assertNotNull($adapter->disk);
