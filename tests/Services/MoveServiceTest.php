@@ -4,6 +4,7 @@ use Mockery as m;
 use Belt\Core\Facades\MorphFacade as Morph;
 use Belt\Core\Testing\BeltTestCase;
 use Belt\Clip\Attachment;
+use Belt\Clip\Adapters\AdapterFactory;
 use Belt\Clip\Adapters\BaseAdapter;
 use Belt\Clip\Adapters\LocalAdapter;
 use Belt\Clip\Jobs\MoveAttachment;
@@ -161,17 +162,24 @@ class MoveServiceTest extends BeltTestCase
 
         # good move
         $adapter = m::mock(BaseAdapter::class);
+        $adapter->shouldReceive('mergeConfig')->andReturnSelf();
         $adapter->shouldReceive('upload')->andReturn(['path' => 'new/path']);
-        $service->adapters['foo'] = $adapter;
-        $service->adapters['bar'] = $adapter;
-        $service->move($attachment, $target_driver, $options);
+        AdapterFactory::$adapters['foo'] = $adapter;
+        $service->move($attachment, 'foo', $options);
 
         # bad move
         $adapter = m::mock(BaseAdapter::class);
+        $adapter->shouldReceive('mergeConfig')->andReturnSelf();
         $adapter->shouldReceive('upload')->andReturn([]);
-        $service->adapters['foo'] = $adapter;
-        $service->adapters['bar'] = $adapter;
-        $service->move($attachment, $target_driver, $options);
+        AdapterFactory::$adapters['foo'] = $adapter;
+        $service->move($attachment, 'foo', $options);
+
+        # other bad move
+        $adapter = m::mock(BaseAdapter::class);
+        $adapter->shouldReceive('mergeConfig')->andReturnSelf();
+        $adapter->shouldReceive('upload')->andThrow(new \Exception());
+        AdapterFactory::$adapters['foo'] = $adapter;
+        $service->move($attachment, 'foo', $options);
     }
 
 }
