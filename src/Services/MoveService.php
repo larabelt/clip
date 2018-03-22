@@ -3,6 +3,7 @@
 namespace Belt\Clip\Services;
 
 use Belt, Morph;
+use Belt\Core\Behaviors\TmpFile;
 use Belt\Core\Behaviors\HasDisk;
 use Belt\Core\Behaviors\HasConsole;
 use Belt\Clip\Adapters;
@@ -16,7 +17,7 @@ use Illuminate\Http\UploadedFile;
  */
 class MoveService
 {
-    use HasConsole, HasDisk;
+    use HasConsole, HasDisk, TmpFile;
 
     /**
      * @var resource|bool a file handle
@@ -30,14 +31,6 @@ class MoveService
     public function __construct($options = [])
     {
         $this->console = array_get($options, 'console');
-    }
-
-    /**
-     * MoveService destructor.
-     */
-    function __destruct()
-    {
-        $this->destroyTmpFile();
     }
 
     /**
@@ -119,25 +112,6 @@ class MoveService
         } catch (\Exception $e) {
             $this->log('target: failed', 'warn');
             $attachment->touch();
-        }
-    }
-
-    /**
-     * @param Attachment $attachment
-     */
-    public function createTmpFile(Attachment $attachment)
-    {
-        $this->destroyTmpFile();
-
-        $this->tmpFile = tmpfile();
-
-        fwrite($this->tmpFile, $attachment->contents);
-    }
-
-    public function destroyTmpFile()
-    {
-        if ($this->tmpFile) {
-            fclose($this->tmpFile); // this removes the file
         }
     }
 
