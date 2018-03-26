@@ -35,6 +35,8 @@
                         Title
                         <column-sorter :column="'attachments.title'"></column-sorter>
                     </th>
+                    <th>Created<column-sorter :column="'attachments.created_at'"></column-sorter></th>
+                    <th>Updated<column-sorter :column="'attachments.updated_at'"></column-sorter></th>
                     <th class="text-right">Actions</th>
                 </tr>
                 </thead>
@@ -45,6 +47,8 @@
                     <td v-else>{{ item.mimetype }}</td>
                     <td>{{ item.original_name }}</td>
                     <td>{{ item.title }}</td>
+                    <td>{{ item.created_at }}</td>
+                    <td>{{ item.updated_at }}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button
@@ -70,6 +74,8 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Created</th>
+                    <th>Updated</th>
                     <th class="text-right">Actions</th>
                 </tr>
                 </tfoot>

@@ -18,6 +18,8 @@ class PaginateAlbums extends PaginateRequest
     public $sortable = [
         'albums.id',
         'albums.name',
+        'albums.created_at',
+        'albums.updated_at',
     ];
 
     public $searchable = [
