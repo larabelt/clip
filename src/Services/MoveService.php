@@ -93,7 +93,7 @@ class MoveService
 
         try {
 
-            $this->createTmpFile($attachment);
+            $this->createTmpFile($attachment->contents);
 
             $file = new UploadedFile(array_get(stream_get_meta_data($this->tmpFile), 'uri'), $attachment->name);
 
