@@ -30,6 +30,7 @@ export default {
         },
         update(id) {
             this.form[this.column] = id;
+            this.clear();
             this.emitEvent();
         },
     },
