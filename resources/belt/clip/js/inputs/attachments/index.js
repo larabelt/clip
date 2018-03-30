@@ -2,7 +2,7 @@ import shared from 'belt/core/js/inputs/shared';
 import AttachmentTable from 'belt/clip/js/attachments/table';
 import AttachmentForm from 'belt/clip/js/attachments/form';
 import thumb from 'belt/clip/js/attachments/thumb';
-import html from 'belt/clip/js/inputs/attachment/template.html';
+import html from 'belt/clip/js/inputs/attachments/template.html';
 
 export default {
     mixins: [shared],

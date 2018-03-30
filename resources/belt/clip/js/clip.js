@@ -2,10 +2,10 @@ import albums from 'belt/clip/js/albums/routes';
 import attachments from 'belt/clip/js/attachments/routes';
 import store from 'belt/core/js/store/index';
 
-import inputAlbum from 'belt/clip/js/inputs/album';
-import inputAttachment from 'belt/clip/js/inputs/attachment';
-Vue.component('input-albums', inputAlbum);
-Vue.component('input-attachments', inputAttachment);
+import inputAlbums from 'belt/clip/js/inputs/albums';
+import inputAttachments from 'belt/clip/js/inputs/attachments';
+Vue.component('input-albums', inputAlbums);
+Vue.component('input-attachments', inputAttachments);
 
 window.larabelt.clip = _.get(window, 'larabelt.clip', {});
 

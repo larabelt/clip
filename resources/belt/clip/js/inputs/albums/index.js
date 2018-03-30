@@ -1,7 +1,7 @@
 import shared from 'belt/core/js/inputs/shared';
 import AlbumTable from 'belt/clip/js/albums/table';
 import AlbumForm from 'belt/clip/js/albums/form';
-import html from 'belt/clip/js/inputs/album/template.html';
+import html from 'belt/clip/js/inputs/albums/template.html';
 
 export default {
     mixins: [shared],
