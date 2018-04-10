@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use Belt\Clip\Attachment;
-use Belt\Spot\Place;
+use Belt\Clip\Album;
 
 class BeltClipClippableSeeds extends Seeder
 {
@@ -15,12 +15,12 @@ class BeltClipClippableSeeds extends Seeder
     public function run()
     {
         $attachments = Attachment::all();
-        $places = Place::take(25)->get();
-        foreach ($places as $place) {
+        $albums = Album::take(25)->get();
+        foreach ($albums as $album) {
             $limit = rand(3, 5);
             for ($i = 1; $i <= $limit; $i++) {
                 $attachment = $attachments->random();
-                $place->attachments()->attach($attachment);
+                $album->attachments()->attach($attachment);
             }
         }
     }

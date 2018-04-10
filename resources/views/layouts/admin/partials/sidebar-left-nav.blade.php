@@ -6,7 +6,7 @@
 @if($can['albums'] || $can['attachments'])
     <li id="clip-admin-sidebar-left" class="treeview">
         <a href="#">
-            <i class="fa fa-paperclip"></i> <span>Clip Admin</span> <i class="fa fa-angle-left pull-right"></i>
+            <i class="fa fa-paperclip"></i> <span>Media</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
             @if($can['albums'])

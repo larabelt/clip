@@ -1,5 +1,5 @@
 @php
-    $album = $section->sectionable;
+    $album = $section->morphParam('albums');
 @endphp
 
 @if ($album)

@@ -1,5 +1,5 @@
 @php
-    $attachment = $section->sectionable;
+    $attachment = $attachment ?? $section->morphParam('attachments');
 @endphp
 
 @if ($attachment)
