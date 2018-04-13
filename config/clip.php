@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default_driver' => env('DEFAULT_CLIP_DRIVER', 'local'),
+    'default_driver' => env('CLIP_DEFAULT_DRIVER', 'local'),
     'drivers' => [
         'local' => [
             'disk' => 'public',

@@ -1,6 +1,6 @@
 @php
-    $can['albums'] = Auth::user()->can('edit', Belt\Clip\Album::class);
-    $can['attachments'] = Auth::user()->can('edit', Belt\Clip\Attachment::class);
+    $can['albums'] = $auth->can(['create','update','delete'], Belt\Clip\Album::class);
+    $can['attachments'] = $auth->can(['create','update','delete'], Belt\Clip\Attachment::class);
 @endphp
 
 @if($can['albums'] || $can['attachments'])
