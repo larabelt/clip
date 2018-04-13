@@ -80,7 +80,7 @@ class ClippablesController extends ApiController
 
         $owner = $this->clippable($clippable_type, $clippable_id);
 
-        $this->authorize('view', $owner);
+        $this->authorize(['view', 'create', 'update', 'delete'], $owner);
 
         $request->merge([
             'clippable_id' => $owner->id,
@@ -156,7 +156,7 @@ class ClippablesController extends ApiController
     {
         $owner = $this->clippable($clippable_type, $clippable_id);
 
-        $this->authorize('view', $owner);
+        $this->authorize(['view', 'create', 'update', 'delete'], $owner);
 
         $attachment = $this->attachment($id, $owner);
 

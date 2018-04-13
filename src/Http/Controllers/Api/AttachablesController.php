@@ -130,7 +130,7 @@ class AttachablesController extends ApiController
     {
         $owner = $this->attachable($attachable_type, $attachable_id);
 
-        $this->authorize('view', $owner);
+        $this->authorize(['view', 'create', 'update', 'delete'], $owner);
 
         $attachment = $this->attachment($owner->attachment_id);
 
