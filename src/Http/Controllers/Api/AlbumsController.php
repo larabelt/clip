@@ -38,7 +38,7 @@ class AlbumsController extends ApiController
     public function index(Request $request)
     {
 
-        $this->authorize('view', Album::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Album::class);
 
         $request = Requests\PaginateAlbums::extend($request);
 
@@ -104,7 +104,7 @@ class AlbumsController extends ApiController
     {
         $album = $this->get($id);
 
-        $this->authorize('view', $album);
+        $this->authorize(['view', 'create', 'update', 'delete'], $album);
 
         return response()->json($album);
     }
