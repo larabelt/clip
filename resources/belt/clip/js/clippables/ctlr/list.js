@@ -1,9 +1,7 @@
-import attachmentSummary from 'belt/clip/js/attachments/summary';
-import thumb from 'belt/clip/js/attachments/thumb';
-import Form from 'belt/clip/js/attachments/form';
-import list_html from 'belt/clip/js/clippables/templates/list.html';
-//import edit_html from 'belt/clip/js/attachments/templates/form.html';
-import edit_html from 'belt/clip/js/clippables/templates/edit.html';
+import listItem from 'belt/clip/js/clippables/ctlr/list-item';
+//import Form from 'belt/clip/js/attachments/form';
+import Form from 'belt/clip/js/clippables/form';
+import html from 'belt/clip/js/clippables/templates/list.html';
 
 export default {
     data() {
@@ -20,29 +18,7 @@ export default {
         }
     },
     components: {
-        attachmentSummary,
-        thumb,
-        edit: {
-            data() {
-                return {
-                    form: this.$parent.form,
-                }
-            },
-            components: {
-                attachmentSummary,
-                thumb,
-            },
-            template: edit_html
-        }
+        listItem,
     },
-    methods: {
-        edit(item) {
-            if (this.form.id != item.id) {
-                this.form.setData(item);
-            } else {
-                this.form.reset();
-            }
-        },
-    },
-    template: list_html
+    template: html
 }
