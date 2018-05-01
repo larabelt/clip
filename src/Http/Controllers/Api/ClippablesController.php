@@ -140,7 +140,23 @@ class ClippablesController extends ApiController
 
         $this->repositionHasManyThrough($request, $id, $owner->attachments, $owner->attachments());
 
-        $this->itemEvent('attachments.updated', $owner);
+        try {
+            if ($this->authorize('update', $attachment)) {
+                $input = $request->all();
+                $this->set($attachment, $input, [
+                    'title',
+                    'note',
+                    'credits',
+                    'alt',
+                    'target_url',
+                    'nickname',
+                ]);
+                $attachment->save();
+                $this->itemEvent('attachments.updated', $owner);
+            }
+        } catch (\Exception $e) {
+
+        }
 
         return response()->json($attachment);
     }
