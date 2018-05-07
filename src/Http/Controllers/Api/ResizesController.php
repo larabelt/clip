@@ -62,7 +62,7 @@ class ResizesController extends ApiController
     public function index(Request $request, Attachment $attachment)
     {
 
-        $this->authorize('view', $attachment);
+        $this->authorize(['view', 'create', 'update', 'delete'], $attachment);
 
         $request = PaginateRequest::extend($request);
 
@@ -118,7 +118,7 @@ class ResizesController extends ApiController
      */
     public function show(Attachment $attachment, Resize $resize)
     {
-        $this->authorize('view', $attachment);
+        $this->authorize(['view', 'create', 'update', 'delete'], $attachment);
 
         $this->contains($attachment, $resize);
 

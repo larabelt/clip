@@ -70,7 +70,13 @@ class AttachablesController extends ApiController
      */
     public function store(Requests\AttachAttachment $request, $attachable_type, $attachable_id)
     {
+        $owner = $this->attachable($attachable_type, $attachable_id);
+
+        $this->authorize('update', $owner);
+
         $attachment = $this->associate($attachable_type, $attachable_id, $request->get('id'));
+
+        $this->itemEvent('attachments.attached', $owner);
 
         return response()->json($attachment, 201);
     }
@@ -89,7 +95,11 @@ class AttachablesController extends ApiController
     {
         $id = $request->get('id') ?: $id;
 
+        $owner = $this->attachable($attachable_type, $attachable_id);
+
         $attachment = $this->associate($attachable_type, $attachable_id, $id);
+
+        $this->itemEvent('attachments.updated', $owner);
 
         return response()->json($attachment);
     }
@@ -106,6 +116,8 @@ class AttachablesController extends ApiController
 
         $owner->save();
 
+        $this->itemEvent('updated', $owner);
+
         return $attachment;
     }
 
@@ -118,7 +130,7 @@ class AttachablesController extends ApiController
     {
         $owner = $this->attachable($attachable_type, $attachable_id);
 
-        $this->authorize('view', $owner);
+        $this->authorize(['view', 'create', 'update', 'delete'], $owner);
 
         $attachment = $this->attachment($owner->attachment_id);
 
@@ -142,6 +154,8 @@ class AttachablesController extends ApiController
 
         $owner->attachment_id = null;
         $owner->save();
+
+        $this->itemEvent('attachments.detached', $owner);
 
         return response()->json(null, 204);
     }

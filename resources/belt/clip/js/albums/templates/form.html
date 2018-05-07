@@ -11,7 +11,7 @@
     </div>
     <div class="form-group" :class="{ 'has-error': album.error('body') }">
         <label for="body">Body</label>
-        <textarea class="form-control" rows="10" v-model="album.body" tinymce="'body'"></textarea>
+        <belt-editor v-model="album.body"></belt-editor>
         <span v-for="error in album.error('body')" class="text-danger">{{ error }}</span>
     </div>
     <div class="text-right">

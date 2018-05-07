@@ -9,8 +9,8 @@ class AttachmentPolicyTest extends Testing\BeltTestCase
     use Testing\CommonMocks;
 
     /**
-     * @covers \Belt\Clip\Policies\AttachmentPolicy::index
      * @covers \Belt\Clip\Policies\AttachmentPolicy::view
+     * @covers \Belt\Clip\Policies\AttachmentPolicy::create
      */
     public function test()
     {
@@ -18,8 +18,9 @@ class AttachmentPolicyTest extends Testing\BeltTestCase
 
         $policy = new AttachmentPolicy();
 
-        # index
-        $this->assertTrue($policy->index($user, 1));
+        # create
+        $this->assertNotTrue($policy->create($user));
+        $this->assertNotEmpty($policy->create($this->getUser('team')));
 
         # view
         $this->assertTrue($policy->view($user, 1));

@@ -1,0 +1,64 @@
+<div>
+    <div class="col-sm-2">
+        <thumb :attachment="attachment"></thumb>
+        <div v-if="form.id == attachment.id">
+            <br/>
+            <attachment-summary :attachment="attachment"></attachment-summary>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div v-if="form.id == attachment.id">
+            <edit></edit>
+        </div>
+        <div v-else>
+            <div class="row">
+                <div class="col-md-3">
+                    <attachment-summary :attachment="attachment"></attachment-summary>
+                </div>
+                <div class="col-md-9">
+                    <table>
+                        <tr v-if=attachment.title>
+                            <td colspan="100%"><strong>{{ attachment.title }}</strong></td>
+                        </tr>
+                        <tr v-if=attachment.note>
+                            <td colspan="100%">{{ attachment.note }}</td>
+                        </tr>
+                        <tr v-if=attachment.nickname>
+                            <td><em>Nickname:</em> </td>
+                            <td>{{ attachment.nickname }}</td>
+                        </tr>
+                        <tr v-if=attachment.credits>
+                            <td><em>Credits:</em> </td>
+                            <td>{{ attachment.credits }}</td>
+                        </tr>
+                        <tr v-if=attachment.alt>
+                            <td><em>Alt:</em> </td>
+                            <td>{{ attachment.alt }}</td>
+                        </tr>
+                        <tr v-if=attachment.target_url>
+                            <td><em>Target Url:</em> </td>
+                            <td>{{ attachment.target_url }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-1">
+        <div class="btn-group pull-right">
+            <button
+                    type="button"
+                    class="btn btn-xs btn-default dropdown-toggle text-muted"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    title="options"
+            >
+                <i class="fa fa-gear"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><modal-delete :item-id="attachment.id" _class="''" :callingObject="table"><i class="fa fa-unlink"></i> Unlink</modal-delete></li>
+            </ul>
+            <a v-if="canEdit" class="btn btn-xs btn-default" @click="edit(attachment)" title="edit this attachment"><i class="fa fa-edit"></i></a>
+        </div>
+    </div>
+</div>

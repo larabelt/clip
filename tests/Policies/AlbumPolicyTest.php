@@ -9,8 +9,8 @@ class AlbumPolicyTest extends Testing\BeltTestCase
     use Testing\CommonMocks;
 
     /**
-     * @covers \Belt\Clip\Policies\AlbumPolicy::index
      * @covers \Belt\Clip\Policies\AlbumPolicy::view
+     * @covers \Belt\Clip\Policies\AlbumPolicy::create
      */
     public function test()
     {
@@ -18,8 +18,9 @@ class AlbumPolicyTest extends Testing\BeltTestCase
 
         $policy = new AlbumPolicy();
 
-        # index
-        $this->assertTrue($policy->index($user, 1));
+        # create
+        $this->assertNotTrue($policy->create($user));
+        $this->assertNotEmpty($policy->create($this->getUser('team')));
 
         # view
         $this->assertTrue($policy->view($user, 1));

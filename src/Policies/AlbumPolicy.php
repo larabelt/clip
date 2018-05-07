@@ -13,24 +13,24 @@ use Belt\Clip\Album;
 class AlbumPolicy extends BaseAdminPolicy
 {
     /**
-     * Determine whether the user can view the object.
+     * Determine whether the user can create object.
      *
      * @param  User $auth
      * @return mixed
      */
-    public function index(User $auth)
+    public function create(User $auth, $arguments = null)
     {
-        return true;
+        return $this->teamService()->team();
     }
 
     /**
      * Determine whether the user can view the object.
      *
      * @param  User $auth
-     * @param  Album $object
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function view(User $auth, $object)
+    public function view(User $auth, $arguments = null)
     {
         return true;
     }

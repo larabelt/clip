@@ -80,7 +80,7 @@ class ClippablesController extends ApiController
 
         $owner = $this->clippable($clippable_type, $clippable_id);
 
-        $this->authorize('view', $owner);
+        $this->authorize(['view', 'create', 'update', 'delete'], $owner);
 
         $request->merge([
             'clippable_id' => $owner->id,
@@ -115,6 +115,8 @@ class ClippablesController extends ApiController
 
         $owner->attachments()->attach($id);
 
+        $this->itemEvent('attachments.attached', $owner);
+
         return response()->json($attachment, 201);
     }
 
@@ -138,6 +140,24 @@ class ClippablesController extends ApiController
 
         $this->repositionHasManyThrough($request, $id, $owner->attachments, $owner->attachments());
 
+        try {
+            if ($this->authorize('update', $attachment)) {
+                $input = $request->all();
+                $this->set($attachment, $input, [
+                    'title',
+                    'note',
+                    'credits',
+                    'alt',
+                    'target_url',
+                    'nickname',
+                ]);
+                $attachment->save();
+                $this->itemEvent('attachments.updated', $owner);
+            }
+        } catch (\Exception $e) {
+
+        }
+
         return response()->json($attachment);
     }
 
@@ -152,7 +172,7 @@ class ClippablesController extends ApiController
     {
         $owner = $this->clippable($clippable_type, $clippable_id);
 
-        $this->authorize('view', $owner);
+        $this->authorize(['view', 'create', 'update', 'delete'], $owner);
 
         $attachment = $this->attachment($id, $owner);
 
@@ -177,6 +197,8 @@ class ClippablesController extends ApiController
         }
 
         $owner->attachments()->detach($id);
+
+        $this->itemEvent('attachments.detached', $owner);
 
         return response()->json(null, 204);
     }

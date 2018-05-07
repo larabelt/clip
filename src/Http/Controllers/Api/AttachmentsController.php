@@ -75,7 +75,7 @@ class AttachmentsController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('index', Attachment::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Attachment::class);
 
         $request = Requests\PaginateAttachments::extend($request);
 
@@ -122,6 +122,8 @@ class AttachmentsController extends ApiController
 
         $attachment->save();
 
+        $this->itemEvent('created', $attachment);
+
         return response()->json($attachment, 201);
     }
 
@@ -136,7 +138,7 @@ class AttachmentsController extends ApiController
     {
         $attachment = $this->get($id);
 
-        $this->authorize('view', $attachment);
+        $this->authorize(['view', 'create', 'update', 'delete'], $attachment);
 
         return response()->json($attachment);
     }
@@ -176,6 +178,8 @@ class AttachmentsController extends ApiController
 
         $attachment->save();
 
+        $this->itemEvent('updated', $attachment);
+
         return response()->json($attachment);
     }
 
@@ -192,6 +196,8 @@ class AttachmentsController extends ApiController
         $attachment = $this->get($id);
 
         $this->authorize('delete', $attachment);
+
+        $this->itemEvent('deleted', $attachment);
 
         $attachment->delete();
 
