@@ -27,14 +27,17 @@ class S3LambdaAdapter extends BaseAdapter implements AdapterInterface
                 $w = $helper->param('width');
                 $h = $helper->param('height');
 
-                $resizeDir = sprintf('%sx%s', $w, $h);
+                $src = $attachment->src;
 
-                $src = BaseAdapter::normalizePath([
-                    $adapter->config('src.root'),
-                    $resizeDir,
-                    $attachment->path,
-                    $attachment->name,
-                ]);
+                if ($w || $h) {
+                    $resizeDir = sprintf('%sx%s', $w, $h);
+                    $src = BaseAdapter::normalizePath([
+                        $adapter->config('src.root'),
+                        $resizeDir,
+                        $attachment->path,
+                        $attachment->name,
+                    ]);
+                }
 
                 $src = str_replace(['http://', 'https://', 'http:/', 'https:/'], '//', $src);
 
