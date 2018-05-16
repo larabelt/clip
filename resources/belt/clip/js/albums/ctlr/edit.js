@@ -7,7 +7,7 @@ import attachment from 'belt/clip/js/clippables/ctlr/attachment';
 import Form from 'belt/clip/js/albums/form';
 
 // templates make a change
-import heading_html from 'belt/core/js/templates/heading.html';
+
 import tabs_html from 'belt/clip/js/albums/templates/tabs.html';
 import edit_html from 'belt/clip/js/albums/templates/edit.html';
 import form_html from 'belt/clip/js/albums/templates/form.html';
@@ -24,7 +24,7 @@ export default {
         this.album.show(this.morphable_id);
     },
     components: {
-        heading: {template: heading_html},
+
         tabs: {template: tabs_html},
         tab: {
             mixins: [shared],

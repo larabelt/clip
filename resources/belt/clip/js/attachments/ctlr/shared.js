@@ -2,7 +2,7 @@
 import Form from 'belt/clip/js/attachments/form';
 
 // templates make a change
-import heading_html from 'belt/core/js/templates/heading.html';
+
 import tabs_html from 'belt/clip/js/attachments/templates/tabs.html';
 import edit_html from 'belt/clip/js/attachments/templates/edit.html';
 
@@ -15,7 +15,7 @@ export default {
         }
     },
     components: {
-        heading: {template: heading_html},
+
         tabs: {template: tabs_html},
     },
     mounted() {

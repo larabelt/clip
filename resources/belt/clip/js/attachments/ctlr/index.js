@@ -1,13 +1,13 @@
 import uploader from 'belt/clip/js/base/uploader/ctlr';
 import Table from 'belt/clip/js/attachments/table';
-import heading_html from 'belt/core/js/templates/heading.html';
+
 import index_html from 'belt/clip/js/attachments/templates/index.html';
 import uploader_html from 'belt/clip/js/base/uploader/template.html';
 
 export default {
 
     components: {
-        heading: {template: heading_html},
+
         index: {
             data() {
                 return {
