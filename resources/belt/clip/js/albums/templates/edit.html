@@ -1,7 +1,8 @@
 <div>
     <heading>
         <span slot="title">Album Editor</span>
-        <li><router-link :to="{ name: 'albums' }">Albums</router-link></li>
+        <li><router-link :to="{ name: 'albums' }">Album Manager</router-link></li>
+        <li>{{ album.name }}</li>
     </heading>
     <section class="content">
         <div class="nav-tabs-custom">
