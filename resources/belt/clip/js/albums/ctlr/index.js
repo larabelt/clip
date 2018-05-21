@@ -44,6 +44,7 @@ export default {
         <div>
             <heading>
                 <span slot="title">Album Manager</span>
+                <li><router-link :to="{ name: 'albums' }">Album Manager</router-link></li>
             </heading>
             <section class="content">
                 <index></index>

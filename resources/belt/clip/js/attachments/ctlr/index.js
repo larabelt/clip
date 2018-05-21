@@ -37,6 +37,7 @@ export default {
         <div>
             <heading>
                 <span slot="title">Attachment Manager</span>
+                <li><router-link :to="{ name: 'attachments' }">Attachment Manager</router-link></li>
             </heading>
             <section class="content">
                 <index></index>
