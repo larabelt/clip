@@ -35,6 +35,11 @@ class BeltClipServiceProvider extends ServiceProvider
         include __DIR__ . '/../routes/admin.php';
         include __DIR__ . '/../routes/api.php';
         include __DIR__ . '/../routes/web.php';
+
+        # beltable values for global belt command
+        $this->app['belt']->addPackage('clip', ['dir' => __DIR__ . '/..']);
+        $this->app['belt']->publish('belt-clip:publish');
+        $this->app['belt']->seeders('BeltClipSeeder');
     }
 
     /**
@@ -47,6 +52,9 @@ class BeltClipServiceProvider extends ServiceProvider
 
         // set backup view paths
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'belt-clip');
+
+        // set backup translation paths
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'belt-clip');
 
         // policies
         $this->registerPolicies($gate);
@@ -68,10 +76,6 @@ class BeltClipServiceProvider extends ServiceProvider
         $this->commands(Belt\Clip\Commands\MoveCommand::class);
         $this->commands(Belt\Clip\Commands\PublishCommand::class);
         $this->commands(Belt\Clip\Commands\ResizeCommand::class);
-
-        # beltable values for global belt command
-        $this->app['belt']->publish('belt-clip:publish');
-        $this->app['belt']->seeders('BeltClipSeeder');
 
         # additional providers
         $this->app->register(Belt\Clip\Services\Cloudinary\CloudinaryServiceProvider::class);
