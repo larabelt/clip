@@ -2,7 +2,7 @@
 
 use Belt\Clip\Http\Requests\UpdateAlbum;
 
-class UpdateAlbumTest extends \PHPUnit_Framework_TestCase
+class UpdateAlbumTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

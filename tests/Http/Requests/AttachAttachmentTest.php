@@ -2,7 +2,7 @@
 
 use Belt\Clip\Http\Requests\AttachAttachment;
 
-class AttachAttachmentTest extends \PHPUnit_Framework_TestCase
+class AttachAttachmentTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

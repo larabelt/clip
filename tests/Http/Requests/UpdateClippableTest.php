@@ -2,7 +2,7 @@
 
 use Belt\Clip\Http\Requests\UpdateClippable;
 
-class UpdateClippableTest extends \PHPUnit_Framework_TestCase
+class UpdateClippableTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
