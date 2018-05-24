@@ -59,7 +59,7 @@ class ClippablesController extends ApiController
             return $value;
         }
 
-        return $this->abort(404);
+        return response()->json(null, 404);
     }
 
 }
