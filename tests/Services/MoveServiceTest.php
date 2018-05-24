@@ -143,6 +143,7 @@ class MoveServiceTest extends BeltTestCase
         ]);
         $data->setRelations([]);
         $attachment = m::mock(Attachment::class . '[getContentsAttribute,update,touch,toArray]');
+        $attachment->name = 'foo.jpg';
         $attachment->shouldReceive('getContentsAttribute')->andReturn('contents');
         $attachment->shouldReceive('update')->andReturnSelf();
         $attachment->shouldReceive('touch')->andReturnSelf();
