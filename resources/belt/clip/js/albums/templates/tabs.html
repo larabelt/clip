@@ -5,7 +5,7 @@
     <li :class="{active: $router.currentRoute.name == 'albums.attachments'}">
         <router-link :to="{ name: 'albums.attachments', params: {id: $route.params.id}}">Attachments</router-link>
     </li>
-    <li :class="{active: $router.currentRoute.name == 'albums.tags'}">
-        <router-link :to="{ name: 'albums.tags', params: {id: $route.params.id}}">Tags</router-link>
+    <li :class="{active: $router.currentRoute.name == 'albums.terms'}">
+        <router-link :to="{ name: 'albums.terms', params: {id: $route.params.id}}">Terms</router-link>
     </li>
 </ul>

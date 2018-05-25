@@ -15,8 +15,7 @@ class Album extends Model implements
     Belt\Core\Behaviors\TypeInterface,
     Belt\Clip\Behaviors\ClippableInterface,
     Belt\Content\Behaviors\IncludesContentInterface,
-    Belt\Content\Behaviors\SectionableInterface,
-    Belt\Glue\Behaviors\TaggableInterface
+    Belt\Content\Behaviors\SectionableInterface
 {
     use Belt\Core\Behaviors\HasSortableTrait;
     use Belt\Core\Behaviors\Sluggable;
@@ -25,7 +24,6 @@ class Album extends Model implements
     use Belt\Clip\Behaviors\Clippable;
     use Belt\Content\Behaviors\IncludesContent;
     use Belt\Content\Behaviors\Sectionable;
-    use Belt\Glue\Behaviors\Taggable;
 
     /**
      * @var string

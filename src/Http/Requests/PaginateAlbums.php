@@ -32,7 +32,7 @@ class PaginateAlbums extends PaginateRequest
     public $queryModifiers = [
         Belt\Core\Pagination\InQueryModifier::class,
         Belt\Core\Pagination\TeamableQueryModifier::class,
-        Belt\Glue\Pagination\TaggableQueryModifier::class,
+        Belt\Content\Pagination\TermableQueryModifier::class,
     ];
 
 }

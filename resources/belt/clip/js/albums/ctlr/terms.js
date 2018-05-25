@@ -1,11 +1,11 @@
 import shared from 'belt/clip/js/albums/ctlr/shared';
 
 // components
-import tags from 'belt/glue/js/taggables/ctlr-edit';
+import terms from 'belt/content/js/termables/ctlr-edit';
 
 export default {
     mixins: [shared],
     components: {
-        tab: tags,
+        tab: terms,
     },
 }
