@@ -8,7 +8,7 @@
             <div><h3>{{ $album->name }}</h3></div>
         </div>
         <div class="col-md-7 col-md-offset-1">
-            <div class="row thumbnail-panels">
+            <div class="row tile-panels">
                 @foreach($album->attachments->slice(0, 3) as $attachment)
                     <div class="col col-lg-2 col-md-3 col-sm-4">
                         @include('belt-clip::attachments.previews.thumbnail')
