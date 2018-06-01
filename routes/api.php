@@ -33,17 +33,6 @@ Route::group([
         Route::get('attachments', Api\AttachmentsController::class . '@index');
         Route::post('attachments', Api\AttachmentsController::class . '@store');
 
-        # attachable
-        Route::group([
-            'prefix' => '{attachable_type}/{attachable_id}/attachment',
-            'middleware' => 'request.injections:attachable_type,attachable_id'
-        ], function () {
-            Route::get('{id?}', Api\AttachablesController::class . '@show');
-            Route::put('{id?}', Api\AttachablesController::class . '@update');
-            Route::delete('{id?}', Api\AttachablesController::class . '@destroy');
-            Route::post('', Api\AttachablesController::class . '@store');
-        });
-
         # clippable
         Route::pattern('clippable_id', '[0-9]+');
         Route::group([
