@@ -36,7 +36,7 @@ class AlbumsFunctionalTest extends Testing\BeltTestCase
         Album::unguard();
         $old = Album::find($albumID);
         $old->attachments()->attach(1);
-        $old->tags()->attach(1);
+        $old->terms()->attach(1);
         $response = $this->json('POST', '/api/v1/albums', ['source' => $albumID]);
         $response->assertStatus(201);
         $copiedAlbumID = array_get($response->json(), 'id');

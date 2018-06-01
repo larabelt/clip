@@ -15,7 +15,8 @@ class Album extends Model implements
     Belt\Core\Behaviors\TypeInterface,
     Belt\Clip\Behaviors\ClippableInterface,
     Belt\Content\Behaviors\IncludesContentInterface,
-    Belt\Content\Behaviors\SectionableInterface
+    Belt\Content\Behaviors\SectionableInterface,
+    Belt\Content\Behaviors\TermableInterface
 {
     use Belt\Core\Behaviors\HasSortableTrait;
     use Belt\Core\Behaviors\Sluggable;
@@ -24,6 +25,7 @@ class Album extends Model implements
     use Belt\Clip\Behaviors\Clippable;
     use Belt\Content\Behaviors\IncludesContent;
     use Belt\Content\Behaviors\Sectionable;
+    use Belt\Content\Behaviors\Termable;
 
     /**
      * @var string
@@ -71,8 +73,8 @@ class Album extends Model implements
             $clone->attachments()->attach($attachment);
         }
 
-        foreach ($album->tags as $tag) {
-            $clone->tags()->attach($tag);
+        foreach ($album->terms as $term) {
+            $clone->terms()->attach($term);
         }
 
         return $clone;

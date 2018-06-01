@@ -21,8 +21,7 @@
         <whitelist>
             <directory suffix=".php">../src</directory>
             <exclude>
-                <attachment>../src/Http/routes.php</attachment>
-                <attachment>../src/BeltClipServiceProvider.php</attachment>
+                <file>../src/BeltClipServiceProvider.php</file>
             </exclude>
         </whitelist>
     </filter>
