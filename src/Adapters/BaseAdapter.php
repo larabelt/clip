@@ -5,6 +5,7 @@ namespace Belt\Clip\Adapters;
 use Storage;
 use Belt\Core\Behaviors\HasConfig;
 use Belt\Clip\AttachmentInterface;
+use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 use Illuminate\Http\UploadedFile;
 
@@ -16,6 +17,7 @@ abstract class BaseAdapter
 {
 
     use HasConfig;
+    use Macroable;
 
     /**
      * @var
@@ -40,6 +42,10 @@ abstract class BaseAdapter
 
         if (!$this->config('disk') || !$this->disk = Storage::disk($this->config('disk'))) {
             throw new \Exception('disk for adapter not specified or available');
+        }
+
+        if ($macro = $this->config('macros.contents')) {
+            static::macro('macroContents', $macro);
         }
 
         static::loadMacros($driver);
@@ -143,6 +149,10 @@ abstract class BaseAdapter
      */
     public function contents(AttachmentInterface $file)
     {
+        if (static::hasMacro('macroContents')) {
+            return $this->macroContents($this, $file);
+        }
+
         return $this->disk->get($file->rel_path);
     }
 
