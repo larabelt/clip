@@ -30,10 +30,10 @@ return [
             'adapter' => \Belt\Clip\Adapters\S3LambdaAdapter::class,
             'prefix' => env('APP_ENV'),
             'src' => [
-                'root' => sprintf('http://%s.s3-website-%s.amazonaws.com', env('AWS_BUCKET'), env('AWS_REGION')),
+                'root' => sprintf('http://%s', env('AWS_CLOUDFRONT')),
             ],
             'secure' => [
-                'root' => sprintf('https://%s.s3-website-%s.amazonaws.com', env('AWS_BUCKET'), env('AWS_REGION')),
+                'root' => sprintf('https://%s', env('AWS_CLOUDFRONT')),
             ],
         ]
     ],

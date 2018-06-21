@@ -79,6 +79,10 @@ class BeltClipServiceProvider extends ServiceProvider
 
         # additional providers
         $this->app->register(Belt\Clip\Services\Cloudinary\CloudinaryServiceProvider::class);
+
+        // access map for window config
+        Belt\Core\Services\AccessService::put('*', 'albums');
+        Belt\Core\Services\AccessService::put('*', 'attachments');
     }
 
     /**
