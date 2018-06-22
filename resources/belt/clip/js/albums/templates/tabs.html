@@ -1,11 +1,11 @@
 <ul class="nav nav-tabs">
     <li :class="{active: $router.currentRoute.name == 'albums.edit'}">
-        <router-link :to="{ name: 'albums.edit', params: {id: $route.params.id}}"><span class="hidden-sm">Main</span> <i class="fa fa-home visible-sm"></i></router-link>
+        <router-link :to="{ name: 'albums.edit', params: {id: $route.params.id}}"><span class="hidden-sm hidden-xs">Main</span> <i class="fa fa-home visible-sm visible-xs"></i></router-link>
     </li>
     <li :class="{active: $router.currentRoute.name == 'albums.attachments'}">
-        <router-link :to="{ name: 'albums.attachments', params: {id: $route.params.id}}"><span class="hidden-sm">Attachments</span> <i class="fa fa-file-o visible-sm"></i></router-link>
+        <router-link :to="{ name: 'albums.attachments', params: {id: $route.params.id}}"><span class="hidden-sm hidden-xs">Attachments</span> <i class="fa fa-file-o visible-sm visible-xs"></i></router-link>
     </li>
     <li :class="{active: $router.currentRoute.name == 'albums.terms'}">
-        <router-link :to="{ name: 'albums.terms', params: {id: $route.params.id}}"><span class="hidden-sm">Terms</span> <i class="fa fa-sitemap visible-sm"></i></router-link>
+        <router-link :to="{ name: 'albums.terms', params: {id: $route.params.id}}"><span class="hidden-sm hidden-xs">Terms</span> <i class="fa fa-sitemap visible-sm visible-xs"></i></router-link>
     </li>
 </ul>
