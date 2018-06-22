@@ -57,6 +57,7 @@ trait Clippable
     }
 
     /**
+     * @todo determine if it's okay to return null instead
      * @return Attachment
      */
     public function getImageAttribute()
@@ -67,7 +68,7 @@ trait Clippable
             }
         }
 
-        return new Attachment();
+        //return new Attachment();
     }
 
     /**
