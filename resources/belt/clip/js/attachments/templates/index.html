@@ -14,7 +14,9 @@
             </div>
             <div class="pull-right">
                 <div class="btn-group">
-                    <uploader></uploader>
+                    <uploader button_class="btn-primary">
+                        <template slot="button">add attachment</template>
+                    </uploader>
                 </div>
             </div>
         </div>
@@ -73,7 +75,9 @@
                 <tfoot>
                 <tr>
                     <th>ID</th>
+                    <th></th>
                     <th>Name</th>
+                    <th>Title</th>
                     <th>Created</th>
                     <th>Updated</th>
                     <th class="text-right">Actions</th>

@@ -16,6 +16,7 @@ export default {
         search: {default: false},
         title: {default: 'upload file'},
         id: {default: ''},
+        button_class: {default: 'btn-default'},
     },
     data() {
         return {

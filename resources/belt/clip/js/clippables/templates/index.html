@@ -10,7 +10,9 @@
                 </div>
             </div>
             <div class="pull-right">
-                <uploader :driver=driver :path=path :multiple=multiple></uploader>
+                <uploader button_class="btn-primary" :driver=driver :path=path :multiple=multiple>
+                    <template slot="button">add attachment</template>
+                </uploader>
             </div>
         </div>
     </div>
