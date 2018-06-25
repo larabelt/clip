@@ -4,6 +4,7 @@ use Mockery as m;
 
 use Belt\Core\Testing\BeltTestCase;
 use Belt\Clip\Behaviors\Clippable;
+use Belt\Clip\Album;
 use Belt\Clip\Attachment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +24,7 @@ class ClippableTest extends BeltTestCase
      * @covers \Belt\Clip\Behaviors\Clippable::getResizePresets
      * @covers \Belt\Clip\Behaviors\Clippable::purgeAttachments
      * @covers \Belt\Clip\Behaviors\Clippable::getImageAttribute
+     * @covers \Belt\Clip\Behaviors\Clippable::getImagesAttribute
      */
     public function test()
     {
@@ -58,15 +60,51 @@ class ClippableTest extends BeltTestCase
 
         # getImageAttribute
         Attachment::unguard();
-        $clippable = new ClippableTestStub2();
+        $clippable = factory(Album::class)->make();
+        $this->assertNull($clippable->getImageAttribute());
         $clippable->attachments = new \Illuminate\Support\Collection();
+        $clippable->attachments->push(factory(Attachment::class)->make(['mimetype' => 'application/pdf']));
+        $this->assertNull($clippable->getImageAttribute());
+        $clippable->attachments->push(factory(Attachment::class)->make(['mimetype' => 'image/png']));
         $this->assertInstanceOf(Attachment::class, $clippable->getImageAttribute());
-        $clippable->attachments->push(new Attachment(['mimetype' => 'application/pdf']));
-        $this->assertNull($clippable->getImageAttribute()->id);
-        $clippable->attachments->push(new Attachment(['mimetype' => 'image/gif', 'id' => 1]));
-        $this->assertEquals(1, $clippable->getImageAttribute()->id);
 
+        # getImagesAttribute
+        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $clippable->getImagesAttribute());
+        $this->assertGreaterThan(0, $clippable->attachments->count());
+    }
 
+    /**
+     * @covers \Belt\Clip\Behaviors\Clippable::attachAttachment
+     */
+    public function testAttachAttachment()
+    {
+        Attachment::unguard();
+
+        # works
+        $attachment = m::mock(Attachment::class . '[touch]', ['id' => 1]);
+        $attachment->shouldReceive('touch')->andReturnSelf();
+
+        $attachmentsRelation = m::mock(\Rutorika\Sortable\BelongsToSortedMany::class);
+        $attachmentsRelation->shouldReceive('attach')->andReturnSelf();
+
+        $album = m::mock(Album::class . '[attachments]');
+        $album->attachments = new \Illuminate\Support\Collection();
+        $album->shouldReceive('attachments')->andReturn($attachmentsRelation);
+
+        $album->attachAttachment($attachment);
+
+        # fails
+        $attachment = m::mock(Attachment::class . '[touch]', ['id' => 1]);
+        $attachment->shouldReceive('touch')->andReturnSelf();
+
+        $attachmentsRelation = m::mock(\Rutorika\Sortable\BelongsToSortedMany::class);
+        $attachmentsRelation->shouldReceive('attach')->andThrow(new \Exception());
+
+        $album = m::mock(Album::class . '[attachments]');
+        $album->attachments = new \Illuminate\Support\Collection();
+        $album->shouldReceive('attachments')->andReturn($attachmentsRelation);
+
+        $album->attachAttachment($attachment);
     }
 
 }
@@ -87,7 +125,7 @@ class ClippableTestStub extends Model
     }
 }
 
-class ClippableTestStub2
+class ClippableTestStub2 extends Model
 {
     use Clippable;
 
