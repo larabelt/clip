@@ -171,6 +171,7 @@ class ResizeServiceTest extends BeltTestCase
 
         $service = new ResizeService();
         $service->resizeRepo = $resizeRepo;
+        $service->manager = $manager;
         $service->resize($attachment, $presets);
     }
 

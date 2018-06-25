@@ -2,6 +2,7 @@
 
 namespace Belt\Clip\Services;
 
+use Belt\Core\Behaviors\TmpFile;
 use Belt\Clip\Adapters;
 use Belt\Clip\Attachment;
 use Belt\Clip\Resize;
@@ -14,6 +15,7 @@ use Intervention\Image\ImageManager;
  */
 class ResizeService
 {
+    use TmpFile;
 
     /**
      * @var array
@@ -171,9 +173,13 @@ class ResizeService
 
             $encoded = $manipulator->encode(null, 100);
 
-            file_put_contents('/tmp/tmp', $encoded);
+            //file_put_contents('/tmp/tmp', $encoded);
 
-            $attachmentInfo = new UploadedFile('/tmp/tmp', $attachment->original_name);
+            //$attachmentInfo = new UploadedFile('/tmp/tmp', $attachment->original_name);
+
+            $this->createTmpFile($encoded);
+
+            $attachmentInfo = new UploadedFile($this->getTmpFileUri(), $attachment->original_name);
 
             $filename = $adapter->randomFilename($attachmentInfo, true);
 

@@ -180,6 +180,37 @@ class BaseAdapterTest extends BeltTestCase
 
     }
 
+    /**
+     * @covers \Belt\Clip\Adapters\BaseAdapter::__construct
+     * @covers \Belt\Clip\Adapters\BaseAdapter::contents
+     */
+    public function testMacroContent()
+    {
+        app()['config']->set('belt.clip.drivers.BaseAdapterTest', [
+            'disk' => 'public',
+            'adapter' => LocalAdapter::class,
+            'prefix' => 'testing',
+            'src' => [
+                'root' => 'http://localhost',
+            ],
+            'secure' => [
+                'root' => 'http://localhost',
+            ],
+            'macros' => [
+                'contents' => function ($adapter, $attachment) {
+                    return $attachment->foo;
+                }
+            ]
+        ]);
+
+        $adapter = new BaseAdapterTestStub('BaseAdapterTest');
+
+        $attachment = factory(Attachment::class)->make();
+        $attachment->foo = 'bar';
+
+        $this->assertEquals('bar', $adapter->contents($attachment));
+
+    }
 }
 
 class BaseAdapterTestStub extends BaseAdapter
