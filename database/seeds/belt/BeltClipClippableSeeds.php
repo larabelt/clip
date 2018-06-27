@@ -20,7 +20,7 @@ class BeltClipClippableSeeds extends Seeder
             $limit = rand(3, 5);
             for ($i = 1; $i <= $limit; $i++) {
                 $attachment = $attachments->random();
-                $album->attachments()->attach($attachment);
+                $album->attachAttachment($attachment);
             }
         }
     }
