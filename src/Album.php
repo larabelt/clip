@@ -48,16 +48,6 @@ class Album extends Model implements
     protected $appends = ['image', 'morph_class'];
 
     /**
-     * @var array
-     */
-    public static $presets = [
-        [100, 100, 'fit'],
-        [222, 222, 'resize'],
-        [333, 333, 'resize'],
-        [500, 500, 'resize'],
-    ];
-
-    /**
      * @param $album
      * @return Model
      */
